@@ -37,7 +37,7 @@ Finally, to ensure that jupyter's version was meeting the requirements, I ran th
 jupyter --version
 ```
 
-This return the following versions and among them `jupyterlab: 3.5.3` which meets the requirements:
+This returned the following versions and among them `jupyterlab: 3.5.3` which meets the requirements:
 
 ```
 IPython          : 8.8.0
