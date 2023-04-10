@@ -1,0 +1,4 @@
+- Windows
+- installing python using instructions from https://www.digitalocean.com/community/tutorials/install-python-windows-10
+- installing git
+- installing miniconda3
