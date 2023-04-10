@@ -22,3 +22,6 @@ conda install -c anaconda jupyterlab
 
 * Create Github access token
 * Git Push
+
+In PyCharm select the Python interpreter from conda environment fmi08icds
+In PyCharm select the Jupyterlab kernel from conda environment fmi08icds
