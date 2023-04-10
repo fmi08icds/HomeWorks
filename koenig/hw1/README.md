@@ -11,9 +11,14 @@
   
 Install jupyterlab in this environment
 
+conda activate fmi08icds
+conda install -c anaconda jupyterlab
+
 * Renew Academic License for PyCharm
 * Create Project in PyCharm from Git repo https://github.com/fmi08icds/HomeWorks.git
 * Create Folder "koenig"
 * Create this README.md file
 * Git Commit File
+
+* Create Github access token
 * Git Push
