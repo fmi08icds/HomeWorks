@@ -23,5 +23,11 @@ conda install -c anaconda jupyterlab
 * Create Github access token
 * Git Push
 
-In PyCharm select the Python interpreter from conda environment fmi08icds
-In PyCharm select the Jupyterlab kernel from conda environment fmi08icds
+# Configuration in PyCharm
+* In PyCharm select the Python interpreter from conda environment fmi08icds
+* In PyCharm select the Jupyterlab kernel from conda environment fmi08icds
+
+# Test JupyterLab notebook
+
+* created notebooks/test1.ipynb
+* simple test cases in this notebook within the PyCharm IDE
