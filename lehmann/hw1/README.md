@@ -1,15 +1,15 @@
 # Setup
-OS: Ubuntu 22.04
-Environment: VScode (already installed)
+- OS: Ubuntu 22.04
+- Environment: VScode (already installed)
 
 ## Python 
--> already installed
-`python3 --version`
-installed Version: 3.10.6
+- already installed
+- `python3 --version`
+- installed Version: 3.10.6
 
 ## Install pip
-(global pip installation even so pip comes with conda)
-`sudo apt install python3-pip`
+- (global pip installation even so pip comes with conda)
+- `sudo apt install python3-pip`
 
 ## Conda
 - download conda installer or use wget
