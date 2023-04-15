@@ -60,52 +60,6 @@ def getLowUpper(n: int):
 
     return minsqrt, maxsqrt
 
-# def mysqrt(n: int, error_threshold=0.000000001) -> float:
-#     """
-#         This function is the main function. It takes an interger n and returns the square root of n.
-#         We will use here the two helper functions we wrote previously.
-
-
-#         INPUT: n as an integer.
-#         OUTPUT: a float rst
-
-#         Examples:
-#         mysqrt(3) = 1.7320508076809347
-#         mysqrt(15) = 3.8729833462275565
-#     """
-
-#     ### BEGIN CODE ###
-#     if n == 0 or n == 1:
-#         return n
-#     ### END CODE ###
-
-
-
-#     ### BEGIN CODE ###
-#     checkup = isperfect(n)
-#     if checkup[0]:
-#         return checkup[1]
-#     ### END CODE ###
-
-#     iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
-
-#     ### BEGING CODE ###
-#     minsqrt, maxsqrt = getLowUpper(n)
-
-#     rst =  (maxsqrt + minsqrt) / 2
-
-#     while abs(rst * rst - n) >= error_threshold :
-
-#             if rst * rst < n:
-#                     minsqrt = rst
-#             else:
-#                     maxsqrt = rst
-#             rst = (maxsqrt + minsqrt) / 2
-#             iteration +=1
-#     ### END CODE ####
-
-#     return rst
-
 def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
         This function is the main function. It takes an interger n and returns the square root of n.
