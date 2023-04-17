@@ -100,9 +100,9 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     while abs(rst*rst - n) >= error_threshold :
 
             if rst*rst < n : # Hint: have a look at the first function.
-                    minsqrt = (minsqrt+maxsqrt)/2.0
+                    minsqrt = rst
             else :
-                    maxsqrt = (minsqrt+maxsqrt)/2.0
+                    maxsqrt = rst
             rst = (minsqrt+maxsqrt)/2.0
             iteration +=1
     ### END CODE ####
