@@ -1,6 +1,6 @@
 # Environment Setup
 ## Environment
-WSL was aready installed. In a terminal I installed the ubuntu environment with the  command `wsl --install` which I also use to log in.
+WSL was aready installed. In a terminal I installed the ubuntu environment with the  command `wsl --install`.
 ## Python and pip 
 * `sudo apt update`
 * `sudo apt install python`
@@ -22,3 +22,8 @@ Then, it said that no browser was installed. So  I installed Firefox. Because `s
 * `sudo apt install firefox-esr`
 
 Jupyter lab could now be started with the command `jupyter lab` which opens a new Firefox tab.
+
+## Anaconda
+* First, I opened the anaconda installation page with firefox with `xdg-open https://docs.conda.io/en/latest/miniconda.html` and downloaded a linux version
+* I changed the rights of the downloaded shell-script to include execution-rights with `chmod +x Miniconda3-latest-Linux-x86_64.sh`
+* After running `./Miniconda3-latest-Linux-x86_64.sh` and restarting the terminal conda was installed.
