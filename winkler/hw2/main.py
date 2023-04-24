@@ -25,10 +25,6 @@ def isperfect(n: int ):
         if i * i == n:
             return True, i
 
-        # all subsequent numbers will be larger than n, so the loop can be aborted
-        if i * i > n:
-            break
-    
     return False, None
     ### END CODE #####
 
@@ -133,7 +129,7 @@ def main() :
     npvalue = sqrt(input_n)
 
 
-    assert round(myvalue, 2) == round(myvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
+    assert round(myvalue, 2) == round(npvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
 
     print("The input is n = {}".format(input_n))
     print("Your square root of {} is {}".format(input_n, myvalue))
