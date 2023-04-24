@@ -1,9 +1,9 @@
-from numpy import random, sqrt, round
+from numpy import random, sqrt, round, floor, ceil, int16
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
 
-def isperfect(n: int ):
+def isperfect(n: int):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
@@ -21,12 +21,10 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
-    for i in range(n) : # Hint: you can use the range, or any sequence type. if you
-        # don't
-        # remember how it works, have a look at the documentation.
-        if i ** 2 == n : # replace None by the appropriate code.
+    for i in range(int16(floor((n+1)/2))+1): # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
+        if i*i == n : 
             return True, i
-    return False, n
+    return (False, n)
     ### END CODE #####
 
 
@@ -46,20 +44,21 @@ def getLowUpper(n: int):
     """
     i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-i)
-    upper = isperfect(n+i)
+    low = isperfect(n-1)
+    upper = isperfect(n+1)
 
-    while low[0] != True: ## Hint: look at the second while loop.
+    ## these loops are executed as long as they do not find a perfect root.
+    ## once they find the perfect root that is closest to n, they stop.
+    while not low[0]:
         i += 1
-        low = n-i
+        low = isperfect(n - i)
 
     i = 1
-    while upper[0] != True :
+    while not upper[0]:
         i += 1
-        upper = n + 1
+        upper = isperfect(n + i)
 
-    minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of
-    # helper 1.
+    minsqrt, maxsqrt = low[1], upper[1] 
     ### END CODE ####
 
     return minsqrt, maxsqrt
@@ -81,14 +80,18 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
 
     ### BEGIN CODE ###
-    if n == 1 or n == 0 : ## Hint: remember to always start by basic case solution. for
-        # the square root problem, we have 0 and 1
+    if None or None : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
         return n
     ### END CODE ###
 
 
 
     ### BEGIN CODE ###
+    
+    ## solve for special cases.
+    if n == 0 or n == 1:
+        return n
+
     checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
     if checkup[0] : # How to access an element of the tuple?
         return checkup[1] #Choose the right index...
@@ -99,21 +102,19 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst =  (minsqrt + maxsqrt)/2
+    rst =  (minsqrt + maxsqrt) / 2.0
 
-    while maxsqrt - minsqrt >= error_threshold and (rst ** 2) != n  :
-
-            if rst ** 2 < n : # Hint: have a look at the first function.
+    while abs(rst**2 - n) > error_threshold:
+    
+            if rst**2 < n : # Hint: have a look at the first function.
                     minsqrt = rst
             else :
                     maxsqrt = rst
-            rst = (minsqrt + maxsqrt)/2
+            rst = (minsqrt + maxsqrt) / 2.0
+
             iteration +=1
     ### END CODE ####
-
     return rst
-
-
 
 def main() :
     doc_ =  """
@@ -127,10 +128,8 @@ def main() :
                 NB: Your performance will not only be evaluated on your capacity to output good results.
                 Please make sure you understand each line you code.
             """
-    parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter,
-                             argument_default=SUPPRESS, description=doc_)
-    parser.add_argument('--n', type=int, help="An integer input for which we compute "
-                                             "the sqrt root.")
+    parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, argument_default=SUPPRESS, description=doc_)
+    parser.add_argument('--n', type=int, help="An integer input for which we compute the sqrt root.")
     args = parser.parse_args()
     input_n = args.n
 
