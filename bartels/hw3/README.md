@@ -5,6 +5,24 @@
   python -m cProfile hw3.py --n 300000 | sort -k4,4nr | head -n 50
   ```
 
+- For a more detailed look inside the profile, I added the cProfile into the script with the following code:
+
+  ```
+    import cProfile
+    from pstats import Stats, SortKey
+
+    ...
+
+    if __name__ == '__main__':
+      profiler = cProfile.Profile()
+      profiler.enable()
+      main()
+      profiler.disable()
+      stats = Stats(profiler).sort_stats(SortKey.CUMULATIVE)
+      stats.print_stats(15)
+
+  ```
+
 - Table:
   <br>
 
