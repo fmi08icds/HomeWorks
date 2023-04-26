@@ -1,29 +1,66 @@
 from numpy import random, sqrt, round
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
-def isperfect(n: int ):
+# def isperfect(n: int):
+#     """
+#         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
+#         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
+
+#         INPUT: n as an integer.
+#         OUTPUT: a tuple (bool, int).
+
+#         Examples:
+#         isperfect(0) = (True, 0)
+#         isperfect(1) = (True, 1)
+#         isperfect(3) = (False, 3)
+#         isperfect(16) = (True, 4)
+#     """
+#     if n == 0 or n == 1: #time complexity O(1)
+#         return (True, n)
+
+#     ### BEGIN CODE #####
+#     for i in range(n):  # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
+#         if i * i == n : # replace None by the appropriate code.
+#             return True, i
+#     return False, n # time complexity O(n)
+#     ### END CODE #####'
+
+def isperfect_improved(num: int):
     """
-        This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
+        This function is the first helper. It takes an integer n and checks if n has a perfect square root or not using binary search.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
 
         INPUT: n as an integer.
         OUTPUT: a tuple (bool, int).
 
         Examples:
-        isperfect(0) = (True, 0)
-        isperfect(1) = (True, 1)
-        isperfect(3) = (False, 3)
-        isperfect(16) = (True, 4)
+        isperfect_improved(0) = (True, 0)
+        isperfect_improved(1) = (True, 1)
+        isperfect_improved(3) = (False, 3)
+        isperfect_improved(16) = (True, 4)
     """
-    if n == 0 or n == 1: #time complexity O(1)
-        return (True, n)
+    lo = 1
+    hi = num
 
-    ### BEGIN CODE #####
-    for i in range(n):  # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
-        if i * i == n : # replace None by the appropriate code.
-            return True, i
-    return False, n # time complexity O(n)
-    ### END CODE #####
+    # Binary Search
+    while (hi - lo > 1) :
+        mid = (int)((hi + lo) / 2)
+        if (num == 0 or num == 1):
+            return True, num
+        elif (mid * mid == num) :
+            return True, mid
+        elif (mid * mid > num) :
+            hi = mid   
+        elif (mid * mid < num) :
+            lo = mid 
+
+    if (lo * lo == num):
+        return True, lo
+    elif (hi * hi == num):
+        return True, hi
+    else:
+        return False, num
+    # time complexity O(log(n))
 
 def getLowUpper(n: int):
     """
@@ -41,20 +78,20 @@ def getLowUpper(n: int):
     """
     i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-i) # time complexity O(n)
-    upper = isperfect(n+i) # time complexity O(n)
+    low = isperfect_improved(n-i) # old time complexity O(n) / new time complexity O(log(n))
+    upper = isperfect_improved(n+i) # old time complexity O(n) / new time complexity O(log(n))
 
     while not low[0]: ## Hint: look at the second while loop.
         i += 1
-        low = isperfect(n-i) # time complexity O(n)
+        low = isperfect_improved(n-i) # old time complexity O(n) / new time complexity O(log(n))
 
     i = 1
     while not upper[0]:
         i += 1
-        upper = isperfect(n+i) # time complexity O(n)
+        upper = isperfect_improved(n+i) # old time complexity O(n) / new time complexity O(log(n))
 
     minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1. 
-    # time complexity O(n)
+    # old time complexity O(n) / new time complexity O(log(n))
     ### END CODE ####
 
     return minsqrt, maxsqrt
@@ -79,17 +116,17 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### END CODE ###
 
     ### BEGIN CODE ###
-    checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
+    checkup = isperfect_improved(n) # Hint: use the one of the helpers you already coded.
     if checkup[0] : # How to access an element of the tuple?
         return checkup[1] #Choose the right index...
-                    # time complexity O(n)
+                    # old time complexity O(n) / new time complexity O(log(n))
     ### END CODE ###
 
     iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
 
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
-    # time complexity O(n)
+    # old time complexity O(n) / new time complexity O(log(n))
 
     rst =  (minsqrt + maxsqrt) / 2  # time complexity O(1)
 
@@ -103,7 +140,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
             iteration +=1 # time complexity O(log(n)
     ### END CODE ####
 
-    return rst # time complexity O(n)
+    return rst # old time complexity O(n) / new time complexity O(log(n))
 
 def main() :
     doc_ =  """

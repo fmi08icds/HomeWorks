@@ -45,7 +45,7 @@ Ordered by: internal time
 
 Based on the profiling results, it is clear that the ```mysqrt``` function is much slower than ```np.sqrt``` when calculating the square root of 100,000.
 
-The ```mysqrt``` function takes almost 10 seconds to execute and makes 682 function calls, whereas ```np.sqrt``` takes only 0.000 seconds and makes only 8 function calls. It appears that the function ```isperfect()``` in ```mysqrt``` is the function that consumes the most time, 9.932 seconds out of a total of 9.935 seconds. This indicates that the function is implemented inefficiently. 
+The ```mysqrt``` function takes almost 10 seconds to execute and makes 682 function calls, whereas ```np.sqrt``` takes only 0.000 seconds and makes only 8 function calls. It appears that the function ```isperfect()``` in ```mysqrt``` is the function that consumes the most time, 9.932 seconds out of a total of 9.935 seconds. This indicates that the function is implemented inefficiently because it iterates over a range of numbers from *0* to *n-1*, checking whether the squared value of each number is equal to n. This approach makes it slow for large numbers, as the number of iterations grows linearly with *n*.
 
 ---
 ## Time complexity:
@@ -76,4 +76,34 @@ The ```mysqrt``` function takes almost 10 seconds to execute and makes 682 funct
 &rArr; Therefore, the overall time complexity of is ***O(n)***.
 
 ---
+## Proposed adjustments:
 
+Using binary search in the ```isperfect()``` function instead of iterating over a range of numbers from *0* to *n-1* would make the function more efficient. This would reduce the time complexity of the function from *O(n)* to *O(log n)*.
+
+Source: https://www.geeksforgeeks.org/check-if-given-number-is-perfect-square-in-cpp/
+
+(Some adjustments were made so that the code works as intended)
+
+### Profiling results after the adjustment:
+
+### **mysqrt(100000)**
+682 function calls in 0.012 seconds
+
+Ordered by: internal time
+
+| ncalls | tottime | percall | cumtime | percall | filename:lineno(function) |
+|--------|---------|---------|---------|---------|--------------------------|
+| 634    | 0.012   | 0.000   | 0.012   | 0.000   | /Users/pierreachkar/Downloads/HomeWorks/achkar/hw3/hw2.py:28(isperfect_improved) |
+| 1      | 0.000   | 0.000   | 0.012   | 0.012   | /Users/pierreachkar/Downloads/HomeWorks/achkar/hw3/hw2.py:64(getLowUpper) |
+| 1      | 0.000   | 0.000   | 0.012   | 0.012   | /Users/pierreachkar/Downloads/HomeWorks/achkar/hw3/hw2.py:98(mysqrt) |
+| 1      | 0.000   | 0.000   | 0.000   | 0.000   | /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pstats.py:108(__init__) |
+| 1      | 0.000   | 0.000   | 0.000   | 0.000   | /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pstats.py:118(init) |
+| 1      | 0.000   | 0.000   | 0.000   | 0.000   | /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/pstats.py:137(load_stats) |
+| 38     | 0.000   | 0.000   | 0.000   | 0.000   | {built-in method builtins.abs} |
+| 1      | 0.000   | 0.000   | 0.000   | 0.000   | /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/cProfile.py:50(create_stats) |
+| 1      | 0.000   | 0.000   | 0.000   | 0.000   | {built-in method builtins.isinstance} |
+| 1      | 0.000   | 0.000   | 0.000   | 0.000   | {built-in method builtins.hasattr} |
+| 1      | 0.000   | 0.000   | 0.000   | 0.000   | {method 'disable' of '_lsprof.Profiler' objects} |
+| 1      | 0.000   | 0.000   | 0.000   | 0.000   | {built-in method builtins.len} |
+
+The new time complexity of ```isperfect_improved()``` is *O(log n)*, so the overall time complexity of ```mysqrt()``` is *O(log n) + O(log n) = O(log n)*.
