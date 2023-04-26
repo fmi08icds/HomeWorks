@@ -1,0 +1,63 @@
+1.) What is the complexity of a recursive implementation of the Fibonacci series?
+
+The time complexity of a recursive implementation of the Fibonacci series is O(2^n), where n is the number you want to calculate.
+This is because the algorithm calculates each Fibonacci number by calling the two previous Fibonacci numbers recursively.
+Each call to the function results in two additional function calls. That means as the size of the input gets bigger, the number of function
+calls increases exponentially, leading to a time complexity of O(2^n).
+The exponential time complexity can make the recursive method inappropriate when dealing with larger input values.
+
+2.) What about our square root algorithm?
+The 'isperfect(n)' function consists of a single loop that iterates over 'n' values.
+Its time complexity is O(n).
+
+The 'getLowUpper(n)' function calls the 'isperfect(n)' function twice with different values of 'n'.
+Its time complexity is also O(n).
+
+The 'mysqrt(n)' function now has three parts.
+1. A constant time check for 'n' == 0 or 1.
+2. A call to the 'isperfect(n)' function which has the time complexity of O(n).
+3. A loop that iterates until an error threshold. Its time complexity depends on the number of iterations.
+The number of iterations required to reach the errorthreshold has the time complexity of O(log(n)).
+
+Overall the time complexity of the square root programm should be O(n) because nevertheless the loop in the 'mysqrt(n)' function has
+a time complexity of O(log(n)), the function and the whole code is dominated by the call to 'isperfect(n)' which has the time complexity of O(n).
+
+
+3.) How to improve the Code in time complexity?
+We could use a more efficient algorithm for finding perfect squares.
+For example binary search has a time complexity of O(log(n)).
+So we change the 'isperfect(n)' function which gets called multiple times by the 'getLowUpper(n)' and 'mysqrt(n)' functions.
+(Lines 24-33)
+
+Results after profiling the code with the 'cProfile' module:
+'''
+cProfile.run('mysqrt(12345)')
+'''
+Results:
+"
+    265 function calls in 0.001 seconds
+
+   Ordered by: standard name
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.001    0.001 <string>:1(<module>)
+        1    0.000    0.000    0.001    0.001 test1234.py:34(getLowUpper)
+      224    0.001    0.000    0.001    0.000 test1234.py:5(isperfect)
+        1    0.000    0.000    0.001    0.001 test1234.py:67(mysqrt)
+       36    0.000    0.000    0.000    0.000 {built-in method builtins.abs}
+        1    0.000    0.000    0.001    0.001 {built-in method builtins.exec}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+"
+
+
+I checked the speed of my Code by using the 'timeit' module.
+'''
+elapsed_time = timeit.timeit(lambda: mysqrt(1234), number=1000)
+print("Elapsed time:", elapsed_time)
+'''
+
+Result of our first version of the code:
+"Elapsed time: 6.782756900007371"
+
+Result of the improved code:
+"Elapsed time: 0.1983786000055261"
