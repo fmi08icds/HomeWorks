@@ -1,0 +1,6 @@
+#
+
+start information: i use a macbook; macOS Ventura
+
+1. Befehl: `ssh-keygen -t rsa` to generate Public-private key pair
+2.  
