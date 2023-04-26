@@ -158,3 +158,27 @@ Calling the **isperfect()** function within the while loop yields a total time c
     
 
 ### The total complexity of the **mysqrt()** function in the *worst case* is thus: $O(n^2)$
+
+
+# Vectorization results 
+
+Running cProfile for the same n=99999 as before
+> `python -m cProfile -s time hw3_vectorization.py --n=99999`
+
+Results in a much faster result: 
+
+      70372 function calls (68617 primitive calls) in 0.227 seconds
+
+       Ordered by: internal time
+
+       ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+           21    0.030    0.001    0.030    0.001 hw3_vectorization.py:6(isperfect)
+        29/27    0.026    0.001    0.030    0.001 {built-in method _imp.create_dynamic}
+          111    0.021    0.000    0.021    0.000 {method 'read' of '_io.BufferedReader' objects}
+          111    0.019    0.000    0.019    0.000 {built-in method marshal.loads}
+      245/242    0.005    0.000    0.009    0.000 {built-in method builtins.__build_class__}
+          618    0.004    0.000    0.004    0.000 {built-in method posix.stat}
+          290    0.004    0.000    0.019    0.000 <frozen importlib._bootstrap_external>:1536(find_spec)
+        29/19    0.004    0.000    0.012    0.001 {built-in method _imp.exec_dynamic}
+          148    0.003    0.000    0.027    0.000 <frozen importlib._bootstrap>:921(_find_spec)
+           13    0.003    0.000    0.003    0.000 {built-in method posix.listdir}
