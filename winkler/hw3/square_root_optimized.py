@@ -1,8 +1,8 @@
-from numpy import random, sqrt, round
+from numpy import random, sqrt, round, arange, where, array
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
-def isperfect(n: int ):
+def isperfect(n: int):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
@@ -20,10 +20,12 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
-    for i in range(n-1):
-        # found matching square root
-        if i * i == n:
-            return True, i
+    squares = arange(n - 1) ** 2
+    # find `n` in the vector of square numbers, returns an empty array if `n` is not found
+    idx, = where(squares == n)
+    # index of `n` in `squares` corresponds with the square root
+    if len(idx) == 1:
+        return True, idx[0]
 
     return False, None
     ### END CODE #####
@@ -43,21 +45,15 @@ def getLowUpper(n: int):
         getLowUpper(3) = (1,2)
         getLowUpper(15) = (3,4)
     """
-    i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-1)
-    upper = isperfect(n+1)
+    squares = arange(n - 1) ** 2
 
-    while not low[0]: ## Hint: look at the second while loop.
-        i += 1
-        low = isperfect(n-i)
-
-    i = 1
-    while not upper[0]:
-        i += 1
-        upper = isperfect(n+i)
-
-    minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1.
+    # minsqrt is the index of the last element of the square numbers smaller than `n`
+    squares_lower = squares[squares < n]
+    minsqrt = len(squares_lower) - 1
+    # maxsqrt is the index of the first element of the square numbers bigger than `n`
+    squares_upper = squares[squares > n]
+    maxsqrt = n - 1 - len(squares_upper)
     ### END CODE ####
 
     return minsqrt, maxsqrt
@@ -127,7 +123,6 @@ def main() :
 
     myvalue = mysqrt(input_n)
     npvalue = sqrt(input_n)
-
 
     assert round(myvalue, 2) == round(npvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
 
