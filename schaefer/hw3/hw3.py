@@ -1,15 +1,16 @@
 from numpy import random, sqrt, round
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
+import cProfile
+import timeit
 
+#This is the improved Code
 
 def isperfect(n: int ):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
-
         INPUT: n as an integer.
         OUTPUT: a tuple (bool, int).
-
         Examples:
         isperfect(0) = (True, 0)
         isperfect(1) = (True, 1)
@@ -19,13 +20,24 @@ def isperfect(n: int ):
     if n == 0 or n == 1:
         return (True, n)
 
+    ### Improved time complexity by using binary search ###
     ### BEGIN CODE #####
-    for i in range(n-1):
-        # found matching square root
-        if i * i == n:
-            return True, i
+    low = 1
+    high = n // 2
 
-    return False, None
+    while low <= high:
+        mid = (low + high) // 2
+
+        if mid * mid == n:
+            return True, mid
+
+        elif mid * mid < n:
+            low = mid + 1
+
+        else:
+            high = mid - 1
+
+    return False, n
     ### END CODE #####
 
 
@@ -35,25 +47,23 @@ def getLowUpper(n: int):
         We will use two "while" loops here, but we could have used "for" loops or whatever.
         The first that will catch the first perfect square root is less than the square root of n.
         The second one will catch the first square root greater than the square root of n.
-
         INPUT: n as an integer.
         OUTPUT: a tuple (minsqrt:int, maxsqrt:int)
-
         Examples:
         getLowUpper(3) = (1,2)
         getLowUpper(15) = (3,4)
     """
     i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-1)
-    upper = isperfect(n+1)
+    low = isperfect(n-i)
+    upper = isperfect(n+i)
 
-    while not low[0]: ## Hint: look at the second while loop.
+    while not low[0] : ## Hint: look at the second while loop.
         i += 1
         low = isperfect(n-i)
 
     i = 1
-    while not upper[0]:
+    while not upper[0] :
         i += 1
         upper = isperfect(n+i)
 
@@ -68,11 +78,8 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
         This function is the main function. It takes an interger n and returns the square root of n.
         We will use here the two helper functions we wrote previously.
-
-
         INPUT: n as an integer.
         OUTPUT: a float rst
-
         Examples:
         mysqrt(3) = 1.7320508076809347
         mysqrt(15) = 3.8729833462275565
@@ -83,25 +90,29 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         return n
     ### END CODE ###
 
+
+
     ### BEGIN CODE ###
     checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
     if checkup[0]: # How to access an element of the tuple?
         return checkup[1] #Choose the right index...
+    ### END CODE ###
 
     iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
 
+    ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst = (maxsqrt + minsqrt) / 2
+    rst = (minsqrt + maxsqrt) / 2
 
-    while maxsqrt - minsqrt >= error_threshold:
-        if rst*rst < n: # Hint: have a look at the first function.
-            minsqrt = rst
-        else:
-            maxsqrt = rst
+    while abs(rst*rst - n) >= error_threshold:
 
-        rst = (maxsqrt + minsqrt) / 2
-        iteration += 1
+            if rst*rst < n: # Hint: have a look at the first function.
+                    minsqrt = rst
+            else:
+                    maxsqrt = rst
+            rst = (minsqrt + maxsqrt) / 2
+            iteration +=1
     ### END CODE ####
 
     return rst
@@ -114,9 +125,7 @@ def main() :
                 You will write your first Python script that computes the square root of a given integer n.
                 The template_hw1 provides you with the basic structure of a Python script. Please do not add anything
                 out of ### BEGIND CODE ### and ### END CODE ###.
-
                 Feel free to use print for debugging but remember to clean them up before your submission.
-
                 NB: Your performance will not only be evaluated on your capacity to output good results.
                 Please make sure you understand each line you code.
             """
@@ -129,7 +138,7 @@ def main() :
     npvalue = sqrt(input_n)
 
 
-    assert round(myvalue, 2) == round(npvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
+    assert round(myvalue, 2) == round(myvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
 
     print("The input is n = {}".format(input_n))
     print("Your square root of {} is {}".format(input_n, myvalue))
@@ -154,4 +163,8 @@ def main() :
 
 
 if __name__ == '__main__':
+    cProfile.run('main()')
+    elapsed_time = timeit.timeit(lambda: mysqrt(1234), number=1000)
+    print("Elapsed time:", elapsed_time)
+
     main()
