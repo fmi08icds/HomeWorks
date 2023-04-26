@@ -51,7 +51,7 @@ sys     0m0,070s
 
 - The `mysqrt` function is always called 21 times independently of `--n`.
   This is due to the fact that the square root is calculated for the input number and also for 20 randomly generated test values.
-  However, the number of calls to the `getLowerUpper` function varies each run because `mysqrt` does not need to call it if the randomly generated test value is already a perfect square.
+  However, the number of calls to the `getLowUpper` function varies each run because `mysqrt` does not need to call it if the randomly generated test value is already a perfect square.
 
 - The function that is executed the most is `isperfect`, which makes up most of the execution time when N = 4 * 10^5. For the smaller input the total time does not contribute much to the runtime of the program.
 
