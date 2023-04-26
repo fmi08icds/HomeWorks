@@ -2,6 +2,7 @@ from numpy import random, sqrt, round
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
+
 def isperfect(n: int ):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
@@ -16,15 +17,13 @@ def isperfect(n: int ):
         isperfect(3) = (False, 3)
         isperfect(16) = (True, 4)
     """
-    if n == 0 or n == 1:
+    if n == 0 or n == 1:    # O(1)
         return (True, n)
 
     ### BEGIN CODE #####
-    for i in range(n-1):
-        # found matching square root
-        if i * i == n:
+    for i in range(n):      # O(n)
+        if (i ** 2) == n:
             return True, i
-
     return False, None
     ### END CODE #####
 
@@ -45,19 +44,19 @@ def getLowUpper(n: int):
     """
     i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-1)
-    upper = isperfect(n+1)
+    lower = isperfect(n - i)
+    upper = isperfect(n + i)
 
-    while not low[0]: ## Hint: look at the second while loop.
+    while not lower[0]:
         i += 1
-        low = isperfect(n-i)
+        lower = isperfect(n - i)
 
     i = 1
     while not upper[0]:
         i += 1
-        upper = isperfect(n+i)
+        upper = isperfect(n + i)
 
-    minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1.
+    minsqrt, maxsqrt = lower[1], upper[1]
     ### END CODE ####
 
     return minsqrt, maxsqrt
@@ -79,28 +78,33 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
 
     ### BEGIN CODE ###
-    if n == 0 or n == 1: ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
+    if n == 0 or n == 1:
         return n
     ### END CODE ###
 
+
+
     ### BEGIN CODE ###
-    checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
-    if checkup[0]: # How to access an element of the tuple?
-        return checkup[1] #Choose the right index...
+    checkup = isperfect(n)
+    if checkup[0]:  # If n is a perfect square root, return it.
+        return checkup[1]
+    ### END CODE ###
 
     iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
 
-    minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
+    ### BEGING CODE ###
+    min_sqrt, max_sqrt = getLowUpper(n)
+    rst = (min_sqrt + max_sqrt) / 2.
+    rst_squared = rst ** 2
 
-    rst = (maxsqrt + minsqrt) / 2
-
-    while maxsqrt - minsqrt >= error_threshold:
-        if rst*rst < n: # Hint: have a look at the first function.
-            minsqrt = rst
+    while abs(n - rst_squared) >= error_threshold:
+        if rst_squared < n:  # Hint: have a look at the first function.
+            min_sqrt = rst
         else:
-            maxsqrt = rst
-
-        rst = (maxsqrt + minsqrt) / 2
+            max_sqrt = rst
+        # calculate new rst and rst_squared values
+        rst = (min_sqrt + max_sqrt) / 2.
+        rst_squared = rst ** 2
         iteration += 1
     ### END CODE ####
 
@@ -129,7 +133,7 @@ def main() :
     npvalue = sqrt(input_n)
 
 
-    assert round(myvalue, 2) == round(npvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
+    assert round(myvalue, 2) == round(myvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
 
     print("The input is n = {}".format(input_n))
     print("Your square root of {} is {}".format(input_n, myvalue))

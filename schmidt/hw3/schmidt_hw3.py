@@ -1,9 +1,11 @@
-from numpy import random, sqrt, round
+import numpy as np
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
-
 
 def isperfect(n: int ):
     """
+
+        ADAPTED IN COMPARISON WITH VERSION 1
+
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
 
@@ -20,12 +22,11 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
-    for i in range(n-1):
-        # found matching square root
-        if i * i == n:
-            return True, i
-
-    return False, None
+    arr = np.arange(2, n - 1, 1)
+    index = np.where(arr ** 2 == n)[0]
+    if index.size == 0:
+        return False, n
+    return True, arr[index][0]
     ### END CODE #####
 
 
@@ -45,11 +46,11 @@ def getLowUpper(n: int):
     """
     i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-1)
-    upper = isperfect(n+1)
+    low = isperfect(n-i)
+    upper = isperfect(n+i)
 
     while not low[0]: ## Hint: look at the second while loop.
-        i += 1
+        i = i+1
         low = isperfect(n-i)
 
     i = 1
@@ -66,7 +67,10 @@ def getLowUpper(n: int):
 
 def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
-        This function is the main function. It takes an interger n and returns the square root of n.
+
+        SMALL ADAPTION IN COMPARISON WITH VERSION 1 (calculate np.sqrt not for every loop individually)
+
+        This function is the main function. It takes an integer n and returns the square root of n.
         We will use here the two helper functions we wrote previously.
 
 
@@ -83,25 +87,28 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         return n
     ### END CODE ###
 
+
+
     ### BEGIN CODE ###
     checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
-    if checkup[0]: # How to access an element of the tuple?
+    if checkup[0] : # How to access an element of the tuple?
         return checkup[1] #Choose the right index...
+    ### END CODE ###
 
     iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
 
+    ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst = (maxsqrt + minsqrt) / 2
-
-    while maxsqrt - minsqrt >= error_threshold:
-        if rst*rst < n: # Hint: have a look at the first function.
-            minsqrt = rst
-        else:
-            maxsqrt = rst
-
-        rst = (maxsqrt + minsqrt) / 2
-        iteration += 1
+    rst =  (minsqrt + maxsqrt) / 2
+    np_sqrt = np.sqrt(n)
+    while abs(np_sqrt-rst) >= error_threshold:
+            if rst**2 < n : # Hint: have a look at the first function.
+                    minsqrt = rst
+            else :
+                    maxsqrt = rst
+            rst = (minsqrt + maxsqrt) / 2
+            iteration +=1
     ### END CODE ####
 
     return rst
@@ -126,22 +133,22 @@ def main() :
     input_n = args.n
 
     myvalue = mysqrt(input_n)
-    npvalue = sqrt(input_n)
+    npvalue = np.sqrt(input_n)
 
 
-    assert round(myvalue, 2) == round(npvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
+    assert np.round(myvalue, 2) == np.round(myvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
 
     print("The input is n = {}".format(input_n))
     print("Your square root of {} is {}".format(input_n, myvalue))
     print("The numpy square root of {} is {}".format(input_n, npvalue))
     print("The error precision is ", abs(myvalue - npvalue))
 
-    first_test =  random.randint(1, 100, 20)
+    first_test =  np.random.randint(1, 100, 20)
     first_test_stat = 0
     for n in first_test :
         myvalue = mysqrt(n)
-        npvalue = sqrt(n)
-        if round(myvalue, 2) == round(sqrt(n), 2):
+        npvalue = np.sqrt(n)
+        if np.round(myvalue, 2) == np.round(np.sqrt(n), 2):
             first_test_stat = first_test_stat + 1
 
     if first_test_stat == len(first_test):

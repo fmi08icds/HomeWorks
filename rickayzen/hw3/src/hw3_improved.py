@@ -2,38 +2,50 @@ from numpy import random, sqrt, round
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
-
-def isperfect(n: int ):
+def getLowerEqualSqrt(n: int):
     """
-        This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
+        This function is the first helper. It takes an integer n and returns the closest perfect square root whose square is smaller or equals to n.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
 
         INPUT: n as an integer.
-        OUTPUT: a tuple (bool, int).
+        OUTPUT: return as an integer with return * return <= n.
 
         Examples:
-        isperfect(0) = (True, 0)
-        isperfect(1) = (True, 1)
-        isperfect(3) = (False, 3)
-        isperfect(16) = (True, 4)
+        getLowerOrEqualSqrt(0) = 0
+        getLowerOrEqualSqrt(1) = 1
+        getLowerOrEqualSqrt(3) = 1
+        getLowerOrEqualSqrt(10) = 3
+        getLowerOrEqualSqrt(16) = 4
     """
+    c = 0
+    c += 2
     if n == 0 or n == 1:
-        return (True, n)
+        c += 1
+        return n, c
+    c += 1
+    if n < 0:
+        c += 1
+        raise ValueException(f"The number must be greater than or equal to 0. Input was: {n}")
 
     ### BEGIN CODE #####
-    for i in range(2, n) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
-        if i*i == n : # replace None by the appropriate code.
-            return True, i
-    return False, n
+    # It checks if the next number squared is still smaller than or equal to n. If not, i is the last number.
+    # As n*n > n, it will always return a value.
+    c += 1
+    for i in range(2,n):
+        c += 1
+        if (i+1)**2 > n:
+            c += 1
+            return i, c
+        c += 1
     ### END CODE #####
 
 
+#getLowUpper not needed anymore because getLowerEqualSqrt already calculates the lower bound and calculating the upper bound is trivial
 def getLowUpper(n: int):
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
-        We will use two "while" loops here, but we could have used "for" loops or whatever.
-        The first that will catch the first perfect square root is less than the square root of n.
-        The second one will catch the first square root greater than the square root of n.
+      	The function get_lower_equal_sqrt(n) already returns the lower bound. As that result + 1 squared will definitely be greater than n, that value is the upper value.
+	If low is equal to n, it has to be reduced by one.
 
         INPUT: n as an integer.
         OUTPUT: a tuple (minsqrt:int, maxsqrt:int)
@@ -41,32 +53,27 @@ def getLowUpper(n: int):
         Examples:
         getLowUpper(3) = (1,2)
         getLowUpper(15) = (3,4)
+	getLowUpper(16) = (3,5)
     """
-    i = 1
-    ### BEGIN CODE ####
-    low = isperfect(n-i)
-    upper = isperfect(n+i)
-
-    while False == low[0] : ## Hint: look at the second while loop.
-        i = i+1
-        low = isperfect(n-i)
-
-    i = 1
-    while not (upper[0] == True) :
-        i += 1
-        upper = isperfect(n+i)
-
-    minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1.
-    ### END CODE ####
-    
-    return minsqrt, maxsqrt
+    c = 0
+    low = getLowerEqualSqrt(n)
+    c += low[1]
+    low = low[0]
+    c += 1
+    upper = low+1
+    c += 1
+    if low == n:
+        c += 1
+        low -= 1
+    c += 1
+    return low, upper, c
 
 
-
-def mysqrt(n: int, error_threshold=0.000000001) -> float:
+def mysqrt(n: int, error_threshold=0.000000001) -> (float, int):
     """
         This function is the main function. It takes an interger n and returns the square root of n.
         We will use here the two helper functions we wrote previously.
+        It returns the result as well as the complexity - so the number of executed operations.
 
 
         INPUT: n as an integer.
@@ -76,38 +83,54 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         mysqrt(3) = 1.7320508076809347
         mysqrt(15) = 3.8729833462275565
     """
-
+    c = 0
+    c += 2
     ### BEGIN CODE ###
-    if n == 0 or n == 1 : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
-        return n
+    if n == 0 or n ==1: ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
+        c += 1
+        return n, c
     ### END CODE ###
 
 
 
     ### BEGIN CODE ###
-    checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
-    if checkup[0] : # How to access an element of the tuple?
-        return checkup[1] #Choose the right index...
+    lowerEqualTuple = getLowerEqualSqrt(n)
+    lowOrEqual = lowerEqualTuple[0]
+    c += lowerEqualTuple[1]
+    c += 1
+    if lowOrEqual **2 == n:
+        c += 1
+        return lowOrEqual, c
     ### END CODE ###
 
     iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
 
     ### BEGING CODE ###
-    minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
+    c += 1
+    minsqrt = lowOrEqual
+    c += 1
+    maxsqrt = minsqrt + 1
 
-    rst =  (minsqrt+maxsqrt)/2.0
+    c += 1
+    result = (minsqrt + maxsqrt) / 2.0
 
-    while abs(rst*rst - n) >= error_threshold :
+    c += 1
+    while abs(n - result ** 2) >= error_threshold :
 
-            if rst*rst < n : # Hint: have a look at the first function.
-                    minsqrt = rst
+            c += 1
+            if result ** 2 < n : # Hint: have a look at the first function.
+                    c += 1
+                    minsqrt = result
             else :
-                    maxsqrt = rst
-            rst = (minsqrt+maxsqrt)/2.0
+                    c += 1
+                    maxsqrt = result
+            c += 1
+            result =  (minsqrt + maxsqrt) / 2.0
             iteration +=1
+            c += 1
     ### END CODE ####
-
-    return rst
+    #print(f"Runtime of improved version - n = {n}: {c}")
+    return result, c
 
 
 
@@ -128,7 +151,7 @@ def main() :
     args = parser.parse_args()
     input_n = args.n
 
-    myvalue = mysqrt(input_n)
+    myvalue = mysqrt(input_n)[0]
     npvalue = sqrt(input_n)
 
 
@@ -138,14 +161,13 @@ def main() :
     print("Your square root of {} is {}".format(input_n, myvalue))
     print("The numpy square root of {} is {}".format(input_n, npvalue))
     print("The error precision is ", abs(myvalue - npvalue))
-    print(getLowUpper(input_n))
 
     first_test =  random.randint(1, 100, 20)
     first_test_stat = 0
     for n in first_test :
-        myvalue = mysqrt(n)
+        myvalue = mysqrt(n)[0]
         npvalue = sqrt(n)
-        if round(myvalue, 2) == round(sqrt(n), 2):
+        if round(myvalue, 2) == round(npvalue, 2):
             first_test_stat = first_test_stat + 1
 
     if first_test_stat == len(first_test):
