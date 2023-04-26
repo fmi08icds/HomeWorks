@@ -1,9 +1,8 @@
-from numpy import random, sqrt, round
+from numpy import random, sqrt, round, arange, where, array
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
-
-def isperfect(n: int ):
+def isperfect(n: int):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
@@ -21,10 +20,14 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
-    for i in range(2, n) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
-        if i*i == n : # replace None by the appropriate code.
-            return True, i
-    return False, n
+    squares = arange(n - 1) ** 2
+    # find `n` in the vector of square numbers, returns an empty array if `n` is not found
+    idx, = where(squares == n)
+    # index of `n` in `squares` corresponds with the square root
+    if len(idx) == 1:
+        return True, idx[0]
+
+    return False, None
     ### END CODE #####
 
 
@@ -42,23 +45,17 @@ def getLowUpper(n: int):
         getLowUpper(3) = (1,2)
         getLowUpper(15) = (3,4)
     """
-    i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-i)
-    upper = isperfect(n+i)
+    squares = arange(n - 1) ** 2
 
-    while False == low[0] : ## Hint: look at the second while loop.
-        i = i+1
-        low = isperfect(n-i)
-
-    i = 1
-    while not (upper[0] == True) :
-        i += 1
-        upper = isperfect(n+i)
-
-    minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1.
+    # minsqrt is the index of the last element of the square numbers smaller than `n`
+    squares_lower = squares[squares < n]
+    minsqrt = len(squares_lower) - 1
+    # maxsqrt is the index of the first element of the square numbers bigger than `n`
+    squares_upper = squares[squares > n]
+    maxsqrt = n - 1 - len(squares_upper)
     ### END CODE ####
-    
+
     return minsqrt, maxsqrt
 
 
@@ -78,33 +75,29 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
 
     ### BEGIN CODE ###
-    if n == 0 or n == 1 : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
+    if n == 0 or n == 1: ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
         return n
     ### END CODE ###
 
-
-
     ### BEGIN CODE ###
     checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
-    if checkup[0] : # How to access an element of the tuple?
+    if checkup[0]: # How to access an element of the tuple?
         return checkup[1] #Choose the right index...
-    ### END CODE ###
 
     iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
 
-    ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst =  (minsqrt+maxsqrt)/2.0
+    rst = (maxsqrt + minsqrt) / 2
 
-    while abs(rst*rst - n) >= error_threshold :
+    while maxsqrt - minsqrt >= error_threshold:
+        if rst*rst < n: # Hint: have a look at the first function.
+            minsqrt = rst
+        else:
+            maxsqrt = rst
 
-            if rst*rst < n : # Hint: have a look at the first function.
-                    minsqrt = rst
-            else :
-                    maxsqrt = rst
-            rst = (minsqrt+maxsqrt)/2.0
-            iteration +=1
+        rst = (maxsqrt + minsqrt) / 2
+        iteration += 1
     ### END CODE ####
 
     return rst
@@ -131,14 +124,12 @@ def main() :
     myvalue = mysqrt(input_n)
     npvalue = sqrt(input_n)
 
-
-    assert round(myvalue, 2) == round(myvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
+    assert round(myvalue, 2) == round(npvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
 
     print("The input is n = {}".format(input_n))
     print("Your square root of {} is {}".format(input_n, myvalue))
     print("The numpy square root of {} is {}".format(input_n, npvalue))
     print("The error precision is ", abs(myvalue - npvalue))
-    print(getLowUpper(input_n))
 
     first_test =  random.randint(1, 100, 20)
     first_test_stat = 0
