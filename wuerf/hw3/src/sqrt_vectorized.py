@@ -27,7 +27,7 @@ def has_perfect_sqrt(n: int) -> Tuple[bool, int]:
     is_matching = arr ** 2 == n
     has_perfect = any(is_matching)
 
-    return (has_perfect, np.extract(is_matching, arr)[0] if has_perfect else n)
+    return (has_perfect, arr[is_matching][0] if has_perfect else n)
 
 def get_low_and_upper_perfect_sqrt(n: int) -> Tuple[float, float]:
     """
@@ -129,7 +129,7 @@ def main():
     npvalue = sqrt(input_n)
 
     assert round(myvalue, 2) == round(
-        myvalue, 2
+        npvalue, 2
     ), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(
         myvalue, npvalue
     )
