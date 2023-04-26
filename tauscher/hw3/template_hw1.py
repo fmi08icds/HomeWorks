@@ -17,9 +17,6 @@ def isperfect(n: int):
         isperfect(3) = (False, 3)
         isperfect(16) = (True, 4)
     """
-    if n == 0 or n == 1:
-        return (True, n)
-
     ### BEGIN CODE #####
     for i in range(int16(floor((n+1)/2))+1): # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i*i == n : 
@@ -45,10 +42,11 @@ def vec_isperfect(n:int):
         isperfect(3) = (False, 3)
         isperfect(16) = (True, 4)
     """
-    vec = arange(0,((n+1)/2)+1)
-    # check if n is in vec in O(log(n)) time.
+    # init vector with possible candidates
+    vec = arange(((n+1)/2)+1)
+    # check if n is in vec**2 in O(log(n)) time with binary search.
     if res:=searchsorted(vec**2, n):
-    # the lookup happens in o(1).
+    # the lookup happens in O(1).
          if vec[res]**2 == n:
             return (True, res)
     return(False, n)
@@ -142,7 +140,8 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
 
     ### BEGIN CODE ###
-    if None or None : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
+    ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
+    if n == 0 or n == 1:
         return n
     ### END CODE ###
 
@@ -151,8 +150,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGIN CODE ###
     
     ## solve for special cases.
-    if n == 0 or n == 1:
-        return n
+
 
     checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
     if checkup[0] : # How to access an element of the tuple?
@@ -193,18 +191,7 @@ def mysqrt_opt(n: int, error_threshold=0.000000001) -> float:
     """
 
     ### BEGIN CODE ###
-    if None or None : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
-        return n
-    ### END CODE ###
-
-
-
-    ### BEGIN CODE ###
     
-    ## solve for special cases.
-    if n == 0 or n == 1:
-        return n
-
     checkup = vec_isperfect(n) # Hint: use the one of the helpers you already coded.
     if checkup[0] : # How to access an element of the tuple?
         return checkup[1] #Choose the right index...
@@ -218,13 +205,11 @@ def mysqrt_opt(n: int, error_threshold=0.000000001) -> float:
     rst =  (minsqrt + maxsqrt) / 2.0
 
     while abs(rst**2 - n) > error_threshold:
-    
             if rst**2 < n : # Hint: have a look at the first function.
                     minsqrt = rst
             else :
                     maxsqrt = rst
             rst = (minsqrt + maxsqrt) / 2.0
-
             iteration +=1
     ### END CODE ####
     return rst
@@ -288,7 +273,7 @@ def main() :
     first_test =  random.randint(1, 100, 20)
     first_test_stat = 0
     for n in first_test :
-        myvalue2 = mysqrt(n)
+        myvalue2 = mysqrt_opt(n)
         npvalue = sqrt(n)
         if round(myvalue2, 2) == round(sqrt(n), 2):
             first_test_stat = first_test_stat + 1
