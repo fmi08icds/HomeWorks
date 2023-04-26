@@ -18,9 +18,9 @@
 - for big ns isperfect takes the longest time
 - I measure cumtime per call, because this does not exclude internal function calls, like tottime does and shows the time for only one call to the function
 - one example output (n=100001) is found in profiler.txt, 
-  - isperfect: 0.010s
-  - getLowUpper: 0.447s
-  - mysqrt: 0.426s
+  - isperfect: 0.009s
+  - getLowUpper: 0.418s
+  - mysqrt: 0.379s
 - for small ns (e.g. n=101) 0.000s are displayed for the functions and the setup and import code dominates
 
 # Optimizations
