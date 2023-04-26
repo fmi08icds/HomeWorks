@@ -1,9 +1,9 @@
 from numpy import random, sqrt, round
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
+import time
 
 
-
-def isperfect(n: int ):  # total complexity: O(n)
+def isperfect(n: int ):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
@@ -21,14 +21,17 @@ def isperfect(n: int ):  # total complexity: O(n)
         return (True, n)
 
     ### BEGIN CODE #####
-    for i in range(2,n) :  # complexity O(n)
-        if i**2 == n : 
+
+    for i in range(2,n) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
+        if i**2 == n : # replace None by the appropriate code.
             return True, i
+
     return False, n
+
     ### END CODE #####
 
 
-def getLowUpper(n: int):  # total complexity: O(n*log(n)
+def getLowUpper(n: int):
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.
@@ -44,19 +47,27 @@ def getLowUpper(n: int):  # total complexity: O(n*log(n)
     """
     i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-i)  # complexity O(n)
-    upper = isperfect(n+i)  # complexity O(n)
+    low = isperfect(n-i)
+    upper = isperfect(n+i)
 
-    while not low[0] :  # complexity O(n*log(n)) because we do the loop log(n) times and call isPerfect()
+    start = time.time()
+    while not low[0] : ## Hint: look at the second while loop.
         i = i + 1
-        low = isperfect(n-i)  #calling isPerfect(), which is O(n)
+        low = isperfect(n-i)
 
+    finish = time.time()
+    print(f"getLowUpper 1. loop: {finish-start}")
+
+    start = time.time()
     i = 1
-    while not upper[0] :  # complexity O(n*log(n)), just like before
+    while not upper[0] :
         i += 1
         upper = isperfect(n+i)
 
-    minsqrt, maxsqrt = low[1], upper[1]  # Here we just return the values.
+    finish = time.time()
+    print(f"getLowUpper 2. loop: {finish-start}")
+
+    minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1.
     ### END CODE ####
 
     return minsqrt, maxsqrt
@@ -76,35 +87,39 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         mysqrt(3) = 1.7320508076809347
         mysqrt(15) = 3.8729833462275565
     """
-
+    
     ### BEGIN CODE ###
-    if n == 0 or n == 1 :
-        return float(isperfect(n)[1])  # complexity O(n)
+    if n==0 or n==1 : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
+        return n
     ### END CODE ###
 
 
 
     ### BEGIN CODE ###
-    checkup = isperfect(n)  # complexity O(n)
-    if checkup[0] :  
-        return float(checkup[1])
+    checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
+    if checkup[0] : # How to access an element of the tuple?
+        return checkup[1] #Choose the right index...
     ### END CODE ###
 
-    iteration = 0
+    iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
 
     ### BEGING CODE ###
-    minsqrt, maxsqrt = getLowUpper(n)  # complexity O(n*log(n))
+    minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst =  0.0
+    start = time.time()
+    rst = (minsqrt+maxsqrt)/2
 
-    while maxsqrt - minsqrt >= error_threshold :  # complexity O(log(n)) (binary search)
+    while maxsqrt-minsqrt >= error_threshold :
 
-            if ((maxsqrt+minsqrt)/2) **2 < n : 
-                    minsqrt = (maxsqrt+minsqrt)/2
-            else :
-                    maxsqrt = (maxsqrt+minsqrt)/2
-            rst = maxsqrt
-            iteration +=1
+        if rst**2 < n : # Hint: have a look at the first function.
+                minsqrt = rst
+        else :
+                maxsqrt = rst
+        rst = (minsqrt+maxsqrt)/2
+        iteration +=1
+
+    finish = time.time()
+    print(f"mysqrt: {finish-start}")
     ### END CODE ####
 
     return rst

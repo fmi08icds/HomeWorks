@@ -1,9 +1,9 @@
-from numpy import random, sqrt, round
+from numpy import random, sqrt, round, arange
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
 
-def isperfect(n: int ):  # total complexity: O(n)
+def isperfect(n: int ):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
@@ -21,14 +21,18 @@ def isperfect(n: int ):  # total complexity: O(n)
         return (True, n)
 
     ### BEGIN CODE #####
-    for i in range(2,n) :  # complexity O(n)
-        if i**2 == n : 
-            return True, i
+
+    # array insted of for loop
+    # range only from 2 to n/2 because the perfect square root is not bigger than this (excluding 1 and 0)
+    arr = arange(2, (n//2)+1)
+    if any(arr**2 == n) :
+        return True, arr[arr**2 == n][0]
     return False, n
+
     ### END CODE #####
 
 
-def getLowUpper(n: int):  # total complexity: O(n*log(n)
+def getLowUpper(n: int):
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.
@@ -44,19 +48,16 @@ def getLowUpper(n: int):  # total complexity: O(n*log(n)
     """
     i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-i)  # complexity O(n)
-    upper = isperfect(n+i)  # complexity O(n)
+    low = isperfect(n-i)
 
-    while not low[0] :  # complexity O(n*log(n)) because we do the loop log(n) times and call isPerfect()
-        i = i + 1
-        low = isperfect(n-i)  #calling isPerfect(), which is O(n)
-
-    i = 1
-    while not upper[0] :  # complexity O(n*log(n)), just like before
+    while not low[0] : ## Hint: look at the second while loop.
         i += 1
-        upper = isperfect(n+i)
+        low = isperfect(n-i)
 
-    minsqrt, maxsqrt = low[1], upper[1]  # Here we just return the values.
+    # minsqrt-maxsqrt is always 1 for integers that are no perfect square roots
+    # instead of computing upper, i use low[1]+1 and do not need to comput isperfect() again
+
+    minsqrt, maxsqrt = low[1], low[1]+1 # Hint: remember what is the output of helper 1.
     ### END CODE ####
 
     return minsqrt, maxsqrt
@@ -78,32 +79,32 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
 
     ### BEGIN CODE ###
-    if n == 0 or n == 1 :
-        return float(isperfect(n)[1])  # complexity O(n)
+    if n == 0 or n == 1 : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
+        return n
     ### END CODE ###
 
 
 
     ### BEGIN CODE ###
-    checkup = isperfect(n)  # complexity O(n)
-    if checkup[0] :  
-        return float(checkup[1])
+    checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
+    if checkup[0] : # How to access an element of the tuple?
+        return checkup[1] #Choose the right index...
     ### END CODE ###
 
-    iteration = 0
+    iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
 
     ### BEGING CODE ###
-    minsqrt, maxsqrt = getLowUpper(n)  # complexity O(n*log(n))
+    minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst =  0.0
+    rst =  (minsqrt+maxsqrt)/2.0
 
-    while maxsqrt - minsqrt >= error_threshold :  # complexity O(log(n)) (binary search)
+    while maxsqrt - minsqrt >= error_threshold :
 
-            if ((maxsqrt+minsqrt)/2) **2 < n : 
-                    minsqrt = (maxsqrt+minsqrt)/2
+            if rst*rst < n : # Hint: have a look at the first function.
+                    minsqrt = rst
             else :
-                    maxsqrt = (maxsqrt+minsqrt)/2
-            rst = maxsqrt
+                    maxsqrt = rst
+            rst = (minsqrt+maxsqrt)/2.0
             iteration +=1
     ### END CODE ####
 
@@ -156,5 +157,7 @@ def main() :
         print("Please, check your code and try it again.")
 
 
+
 if __name__ == '__main__':
     main()
+
