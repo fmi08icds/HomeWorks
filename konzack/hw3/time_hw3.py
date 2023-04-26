@@ -1,25 +1,35 @@
 import time
 import hw2
 import hw3
+from typing import Callable, List
+import polars as pl
 
-N = 10_000_000
+N = 10_712_686_868_678_989_898
+M = 10
+
+def print_speed(fn: Callable[[int], float], m: int, n: int, label: str):
+    """ Executes a function m times with parameter n and prints the time needed """
+    
+    print(f"### Running {label} {m} times with parameter {n} ###")
+    results: List[float] = []
+    durations: List[float] = []
+    for _ in range(m):
+        start_time = time.perf_counter()
+        r = fn(n)
+        end_time = time.perf_counter()
+        ms = 1000*(end_time - start_time)
+
+        results.append(r)
+        durations.append(ms)
+
+    runs = pl.DataFrame({"result": results, "elapsed time (ms)": durations})
+    average_time = runs.select("elapsed time (ms)").mean().item(0,0)
+
+    print(f"Average time needed: {average_time:.3} ms")
+    print("Runs: ", runs)
 
 if __name__ == "__main__":
-    time.sleep(1)
-    tic = time.time()
-    r = hw2.sqrt(N)
-    toc = time.time()
-    hw2_ms = 1000*(toc-tic)
+    print_speed(hw2.sqrt, M, N, "HW2")
+    print_speed(hw3.sqrt, M, N, "HW3")
 
-    print("### HW2 ###")
-    print(f"square root of {N}: {r}")
-    print(f"time needed: {hw2_ms:1.2} ms")
-
-    tic = time.time()
-    r = hw3.sqrt(N)
-    toc = time.time()
-    hw3_ms = 1000*(toc-tic)
-
-    print("### HW3 ###")
-    print(f"square root of {N}: {r}")
-    print(f"time needed: {hw3_ms:1.2} ms")
+    

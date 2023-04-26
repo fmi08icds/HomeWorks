@@ -1,9 +1,8 @@
-from numpy import random, sqrt, round
+from numpy import random, sqrt, round, arange, argwhere
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
-
-def isperfect(n: int ):
+def isperfect(n: int):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
@@ -24,12 +23,23 @@ def isperfect(n: int ):
     if n == 0 or n == 1:
         return (True, n)
 
-    ### BEGIN CODE #####
-    for i in range(n) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
-        if i*i == n : # replace None by the appropriate code.
-            return True, i
-    return False, n
-    ### END CODE #####
+    # # Optimization 1: iterate up to n // 2 instead of n
+    # for i in range(2, (n // 2) + 1):
+    #     square = i*i
+    #     if square == n:
+    #         return True, i
+    #     # Optimization 2: break when the square is bigger than n
+    #     if square > n:
+    #         break
+    # return False, n
+
+    # Optimization 5: replaced loop by numpy functions
+    candidates = arange((n // 2) + 1)
+    squares = candidates*candidates
+    try:
+        return True, argwhere(squares == n)[0][0]
+    except:
+        return False, n
 
 
 def getLowUpper(n: int):
@@ -55,12 +65,12 @@ def getLowUpper(n: int):
     low = isperfect(n-1)
     upper = isperfect(n+1)
 
-    # Push the lower bound upwards until it is too big
+    # Find the perfect lower bound
     while not low[0] : ## Hint: look at the second while loop.
         i = low[1] - 1
         low = isperfect(i)
 
-    # Push the upper bound
+    # Find the perfect upper bound
     i = upper[1]
     while not upper[0] :
         i += 1
@@ -104,7 +114,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         return checkup[1] # Choose the right index...
     ### END CODE ###
 
-    iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
+    # Optimization 4: removed unused iteration variable
 
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) # Hint: use the second helper function.
@@ -113,16 +123,15 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
 
     while abs(rst**2 - n) >= error_threshold :
 
+        # Optimization 3: no longer compute rst again as I did in hw2
         if rst**2 < n : # Hint: have a look at the first function.
-            minsqrt = (minsqrt + maxsqrt) / 2
+            minsqrt = rst
         else :
-            maxsqrt = (minsqrt + maxsqrt) / 2
+            maxsqrt = rst
         rst = (minsqrt + maxsqrt) / 2
-        iteration +=1
     ### END CODE ####
 
     return rst
-
 
 
 def main() :
