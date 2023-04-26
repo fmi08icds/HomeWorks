@@ -1,0 +1,72 @@
+## cProfiling Results:
+
+Test for n=10000 Numbers.
+
+         763660 function calls in 17.054 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+   422540   16.047    0.000   16.047    0.000 /home/jonny/Documents/Uni Leipzig/Intro to Computer Science/HomeWorks/tauscher/hw3/template_hw1.py:6(isperfect)
+    10000    0.839    0.000   17.054    0.002 /home/jonny/Documents/Uni Leipzig/Intro to Computer Science/HomeWorks/tauscher/hw3/template_hw1.py:130(mysqrt)
+     9686    0.146    0.000   15.855    0.002 /home/jonny/Documents/Uni Leipzig/Intro to Computer Science/HomeWorks/tauscher/hw3/template_hw1.py:57(getLowUpper)
+   321433    0.022    0.000    0.022    0.000 {built-in method builtins.abs}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+
+         4143980 function calls in 3.252 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+   422540    1.019    0.000    2.773    0.000 /home/jonny/Documents/Uni Leipzig/Intro to Computer Science/HomeWorks/tauscher/hw3/template_hw1.py:31(vec_isperfect)
+   422540    0.578    0.000    0.578    0.000 {built-in method numpy.arange}
+   422540    0.398    0.000    0.398    0.000 {method 'searchsorted' of 'numpy.ndarray' objects}
+    10000    0.292    0.000    3.252    0.000 /home/jonny/Documents/Uni Leipzig/Intro to Computer Science/HomeWorks/tauscher/hw3/template_hw1.py:181(mysqrt_opt)
+   422540    0.272    0.000    0.981    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+     9686    0.169    0.000    2.865    0.000 /home/jonny/Documents/Uni Leipzig/Intro to Computer Science/HomeWorks/tauscher/hw3/template_hw1.py:93(getLowUpper_opt)
+   422540    0.151    0.000    1.176    0.000 <__array_function__ internals>:2(searchsorted)
+   422540    0.151    0.000    0.710    0.000 /home/jonny/.local/lib/python3.8/site-packages/numpy/core/fromnumeric.py:1281(searchsorted)
+   422540    0.120    0.000    0.559    0.000 /home/jonny/.local/lib/python3.8/site-packages/numpy/core/fromnumeric.py:52(_wrapfunc)
+   422540    0.043    0.000    0.043    0.000 /home/jonny/.local/lib/python3.8/site-packages/numpy/core/fromnumeric.py:1277(_searchsorted_dispatcher)
+   422540    0.041    0.000    0.041    0.000 {built-in method builtins.getattr}
+   321433    0.019    0.000    0.019    0.000 {built-in method builtins.abs}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+
+         10001 function calls in 0.009 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    10000    0.009    0.000    0.009    0.000 /home/jonny/Documents/Uni Leipzig/Intro to Computer Science/HomeWorks/tauscher/hw3/profile_mysqrt.py:32(npsqrt)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+
+
+
+________________________________________________________________________________
+
+## timeit Results:
+
+
+
+25000 runs, timeit mysqrt
+
+43.19598458800101
+
+vs. proposed optimized solution
+
+6.585698725999464
+
+vs. numpy implementation
+
+0.19895551000081468
+
+________________________________________________________________________________
