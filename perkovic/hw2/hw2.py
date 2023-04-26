@@ -76,6 +76,17 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
 
 
 def main() :
+    doc_ =  """
+            Welcome to the first Python assignment!!!\n
+            You will write your first Python script that computes the square root of a given integer n.
+            The template_hw1 provides you with the basic structure of a Python script. Please do not add anything
+            out of ### BEGIND CODE ### and ### END CODE ###.
+
+            Feel free to use print for debugging but remember to clean them up before your submission.
+
+            NB: Your performance will not only be evaluated on your capacity to output good results.
+            Please make sure you understand each line you code.
+        """
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, argument_default=SUPPRESS, description=doc_)
     parser.add_argument('--n', type=int, help="An integer input for which we compute the sqrt root.")
     args = parser.parse_args()
