@@ -2,6 +2,7 @@
 
 Code Profiling Result
 
+
 Input: 1 mysqrt: 34 function calls in 0.000 seconds
 
 Ordered by: internal time
