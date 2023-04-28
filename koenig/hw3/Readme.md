@@ -65,8 +65,7 @@ threshold value. It uses numpy vectorized versions of the calculations.
 
 ### ``sqrt_bin_search.py``
 
-This version uses pure binary search on the whole range from 0 to n/2+1. 
-It does not use any of the helper functions.
+This version uses pure binary search on the whole range from 0 to 2**64. It does not use any of the helper functions.
 
 ## Benchmarking
 

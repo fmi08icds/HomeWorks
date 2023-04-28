@@ -1,9 +1,8 @@
-from numpy import random, sqrt, round
+from numpy import random, sqrt, round, arange, argwhere
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
-
-def isperfect(n: int ):  # total complexity: O(n)
+def isperfect(n: int):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
@@ -12,23 +11,38 @@ def isperfect(n: int ):  # total complexity: O(n)
         OUTPUT: a tuple (bool, int).
 
         Examples:
-        isperfect(0) = (True, 0)
-        isperfect(1) = (True, 1)
-        isperfect(3) = (False, 3)
-        isperfect(16) = (True, 4)
+        >>> isperfect(0)
+        (True, 0)
+        >>> isperfect(1)
+        (True, 1)
+        >>> isperfect(3)
+        (False, 3)
+        >>> isperfect(16)
+        (True, 4)
     """
     if n == 0 or n == 1:
         return (True, n)
 
-    ### BEGIN CODE #####
-    for i in range(2,n) :  # complexity O(n)
-        if i**2 == n : 
-            return True, i
-    return False, n
-    ### END CODE #####
+    # # Optimization 1: iterate up to n // 2 instead of n
+    # for i in range(2, (n // 2) + 1):
+    #     square = i*i
+    #     if square == n:
+    #         return True, i
+    #     # Optimization 2: break when the square is bigger than n
+    #     if square > n:
+    #         break
+    # return False, n
+
+    # Optimization 5: replaced loop by numpy functions
+    candidates = arange((n // 2) + 1)
+    squares = candidates*candidates
+    try:
+        return True, argwhere(squares == n)[0][0]
+    except:
+        return False, n
 
 
-def getLowUpper(n: int):  # total complexity: O(n*log(n)
+def getLowUpper(n: int):
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.
@@ -39,24 +53,30 @@ def getLowUpper(n: int):  # total complexity: O(n*log(n)
         OUTPUT: a tuple (minsqrt:int, maxsqrt:int)
 
         Examples:
-        getLowUpper(3) = (1,2)
-        getLowUpper(15) = (3,4)
+        >>> getLowUpper(3)
+        (1, 2)
+        >>> getLowUpper(5)
+        (2, 3)
+        >>> getLowUpper(15)
+        (3, 4)
     """
     i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-i)  # complexity O(n)
-    upper = isperfect(n+i)  # complexity O(n)
+    low = isperfect(n-1)
+    upper = isperfect(n+1)
 
-    while not low[0] :  # complexity O(n*log(n)) because we do the loop log(n) times and call isPerfect()
-        i = i + 1
-        low = isperfect(n-i)  #calling isPerfect(), which is O(n)
+    # Find the perfect lower bound
+    while not low[0] : ## Hint: look at the second while loop.
+        i = low[1] - 1
+        low = isperfect(i)
 
-    i = 1
-    while not upper[0] :  # complexity O(n*log(n)), just like before
+    # Find the perfect upper bound
+    i = upper[1]
+    while not upper[0] :
         i += 1
-        upper = isperfect(n+i)
+        upper = isperfect(i)
 
-    minsqrt, maxsqrt = low[1], upper[1]  # Here we just return the values.
+    minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1.
     ### END CODE ####
 
     return minsqrt, maxsqrt
@@ -73,42 +93,45 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         OUTPUT: a float rst
 
         Examples:
-        mysqrt(3) = 1.7320508076809347
-        mysqrt(15) = 3.8729833462275565
+        >>> mysqrt(3)
+        1.7320508076809347
+        >>> mysqrt(15)
+        3.8729833462275565
+        >>> mysqrt(4)
+        2
     """
 
     ### BEGIN CODE ###
-    if n == 0 or n == 1 :
-        return float(isperfect(n)[1])  # complexity O(n)
+    if n == 0 or n == 1 : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
+        return n
     ### END CODE ###
 
 
 
     ### BEGIN CODE ###
-    checkup = isperfect(n)  # complexity O(n)
-    if checkup[0] :  
-        return float(checkup[1])
+    checkup = isperfect(n) # Hint: use the one of the helpers you already coded.
+    if checkup[0] : # How to access an element of the tuple?
+        return checkup[1] # Choose the right index...
     ### END CODE ###
 
-    iteration = 0
+    # Optimization 4: removed unused iteration variable
 
     ### BEGING CODE ###
-    minsqrt, maxsqrt = getLowUpper(n)  # complexity O(n*log(n))
+    minsqrt, maxsqrt = getLowUpper(n) # Hint: use the second helper function.
 
-    rst =  0.0
+    rst =  (minsqrt + maxsqrt) / 2
 
-    while maxsqrt - minsqrt >= error_threshold :  # complexity O(log(n)) (binary search)
+    while abs(rst**2 - n) >= error_threshold :
 
-            if ((maxsqrt+minsqrt)/2) **2 < n : 
-                    minsqrt = (maxsqrt+minsqrt)/2
-            else :
-                    maxsqrt = (maxsqrt+minsqrt)/2
-            rst = maxsqrt
-            iteration +=1
+        # Optimization 3: no longer compute rst again as I did in hw2
+        if rst**2 < n : # Hint: have a look at the first function.
+            minsqrt = rst
+        else :
+            maxsqrt = rst
+        rst = (minsqrt + maxsqrt) / 2
     ### END CODE ####
 
     return rst
-
 
 
 def main() :

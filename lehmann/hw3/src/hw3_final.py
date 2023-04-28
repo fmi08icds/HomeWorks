@@ -16,22 +16,35 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         mysqrt(15) = 3.8729833462275565
     """
 
-    iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
+    if n==0 or n==1 : 
+        return n
 
-    ### BEGING CODE ###
-    minsqrt, maxsqrt = 0, 2**64-1
+    ### begin new code ###
+    # If i**2 succeeds n, the number before was the nearest
+    # Maybe it could get even faster, if you use some step-size, 
+    # instead of increasing by 1 everytime
 
-    rst = (minsqrt + maxsqrt) / 2
+    nearest = 0 # could also just use i for the nearest value and count i-1 for lowest val
+    i = 0
+    while i**2 <= n:
+        if i**2 == n: # check if it is already perfect square
+             return i
+        nearest = i
+        i += 1
+    
+    minsqrt = nearest
+    maxsqrt = minsqrt+1
+    ### end new code ### 
 
-    while maxsqrt - minsqrt >= error_threshold :
+    rst = (minsqrt+maxsqrt)/2
 
-            if rst**2 < n : # Hint: have a look at the first function.
-                    minsqrt = rst
-            else :
-                    maxsqrt = rst
-            rst = (minsqrt + maxsqrt) / 2
-            iteration +=1
-    ### END CODE ####
+    while maxsqrt-minsqrt >= error_threshold :
+    
+        if rst**2 < n :
+                minsqrt = rst
+        else :
+                maxsqrt = rst
+        rst = (minsqrt+maxsqrt)/2
 
     return rst
 

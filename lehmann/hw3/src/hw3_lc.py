@@ -2,6 +2,7 @@ from numpy import random, sqrt, round
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
+
 def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
         This function is the main function. It takes an interger n and returns the square root of n.
@@ -16,22 +17,34 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         mysqrt(15) = 3.8729833462275565
     """
 
-    iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
+    if n==0 or n==1 : 
+        return n
 
-    ### BEGING CODE ###
-    minsqrt, maxsqrt = 0, 2**64-1
+    ### begin new code ### 
+    array = [x for x in range(n)]
+    powArray = [x for x in array if x**2 <= n ] 
+    # Problem: loop can't stop if x**2 > n, so it will always calculate till n
 
-    rst = (minsqrt + maxsqrt) / 2
+    # is perfect check
+    if powArray[-1]**2 == n:
+         return powArray[-1]
 
-    while maxsqrt - minsqrt >= error_threshold :
+    minsqrt = powArray[-1]
+    maxsqrt = minsqrt + 1
+    ### end new code ###
 
-            if rst**2 < n : # Hint: have a look at the first function.
-                    minsqrt = rst
-            else :
-                    maxsqrt = rst
-            rst = (minsqrt + maxsqrt) / 2
-            iteration +=1
-    ### END CODE ####
+    iteration = 0 
+
+    rst = (minsqrt+maxsqrt)/2
+
+    while maxsqrt-minsqrt >= error_threshold :
+
+        if rst**2 < n : 
+                minsqrt = rst
+        else :
+                maxsqrt = rst
+        rst = (minsqrt+maxsqrt)/2
+        iteration +=1
 
     return rst
 

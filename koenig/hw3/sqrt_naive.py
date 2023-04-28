@@ -7,8 +7,10 @@ def isperfect(n: int ):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
+
         INPUT: n as an integer.
         OUTPUT: a tuple (bool, int).
+
         Examples:
         isperfect(0) = (True, 0)
         isperfect(1) = (True, 1)
@@ -32,8 +34,10 @@ def getLowUpper(n: int):
         We will use two "while" loops here, but we could have used "for" loops or whatever.
         The first that will catch the first perfect square root is less than the square root of n.
         The second one will catch the first square root greater than the square root of n.
+
         INPUT: n as an integer.
         OUTPUT: a tuple (minsqrt:int, maxsqrt:int)
+
         Examples:
         getLowUpper(3) = (1,2)
         getLowUpper(15) = (3,4)
@@ -63,8 +67,11 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
         This function is the main function. It takes an interger n and returns the square root of n.
         We will use here the two helper functions we wrote previously.
+
+
         INPUT: n as an integer.
         OUTPUT: a float rst
+
         Examples:
         mysqrt(3) = 1.7320508076809347
         mysqrt(15) = 3.8729833462275565
@@ -110,7 +117,9 @@ def main() :
                 You will write your first Python script that computes the square root of a given integer n.
                 The template_hw1 provides you with the basic structure of a Python script. Please do not add anything
                 out of ### BEGIND CODE ### and ### END CODE ###.
+
                 Feel free to use print for debugging but remember to clean them up before your submission.
+
                 NB: Your performance will not only be evaluated on your capacity to output good results.
                 Please make sure you understand each line you code.
             """

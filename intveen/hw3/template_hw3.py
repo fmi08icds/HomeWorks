@@ -1,9 +1,12 @@
+# ALGORITHMUS NAME
+import cProfile
 from numpy import random, sqrt, round
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
+import numpy as np
 
 
-
-def isperfect(n: int ):  # total complexity: O(n)
+def isperfect(n: int ):
+    # best case: O(sqrt(n)), worst case: O(n) -> O(n)
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
@@ -21,14 +24,26 @@ def isperfect(n: int ):  # total complexity: O(n)
         return (True, n)
 
     ### BEGIN CODE #####
-    for i in range(2,n) :  # complexity O(n)
-        if i**2 == n : 
-            return True, i
-    return False, n
+    # O(n)
+    # for i in range(n) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
+    #     if i*i == n : # replace None by the appropriate code.
+    #         return True, i
+    # return False, n
+
+
+    # vector-based implementation 
+    vec = np.arange(n) # [0,1,2,3,4,...,9234]
+    x = np.where(vec*vec == n, True, False)
+    if np.any(x):
+        return True, vec[x][0]
+
+    
+    return False, n 
+    
     ### END CODE #####
 
 
-def getLowUpper(n: int):  # total complexity: O(n*log(n)
+def getLowUpper(n: int):
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.
@@ -44,19 +59,20 @@ def getLowUpper(n: int):  # total complexity: O(n*log(n)
     """
     i = 1
     ### BEGIN CODE ####
-    low = isperfect(n-i)  # complexity O(n)
-    upper = isperfect(n+i)  # complexity O(n)
-
-    while not low[0] :  # complexity O(n*log(n)) because we do the loop log(n) times and call isPerfect()
-        i = i + 1
-        low = isperfect(n-i)  #calling isPerfect(), which is O(n)
+    low = isperfect(n-i) # O(n)
+    upper = isperfect(n+i) # O(n)
+    # O(n²)
+    while not low[0]:  ## Hint: look at the second while loop.
+        i += 1  ## i = i -1
+        low = isperfect(n-i) # O(n)
 
     i = 1
-    while not upper[0] :  # complexity O(n*log(n)), just like before
+    # O(n²)
+    while not upper[0]:
         i += 1
         upper = isperfect(n+i)
 
-    minsqrt, maxsqrt = low[1], upper[1]  # Here we just return the values.
+    minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1.
     ### END CODE ####
 
     return minsqrt, maxsqrt
@@ -64,6 +80,7 @@ def getLowUpper(n: int):  # total complexity: O(n*log(n)
 
 
 def mysqrt(n: int, error_threshold=0.000000001) -> float:
+    # O(n²)
     """
         This function is the main function. It takes an interger n and returns the square root of n.
         We will use here the two helper functions we wrote previously.
@@ -78,34 +95,38 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
 
     ### BEGIN CODE ###
-    if n == 0 or n == 1 :
-        return float(isperfect(n)[1])  # complexity O(n)
+    # Hint: remember to always start by basic case solution.
+    # for the square root problem, we have 0 and 1
+    if n == 0 or n == 1:
+        return n
     ### END CODE ###
 
 
 
     ### BEGIN CODE ###
-    checkup = isperfect(n)  # complexity O(n)
-    if checkup[0] :  
-        return float(checkup[1])
+    # Hint: use the one of the helpers you already coded.
+    checkup = isperfect(n) # O(n)
+    if checkup[0]:  # How to access an element of the tuple?
+        return checkup[1]  # Choose the right index...
     ### END CODE ###
 
-    iteration = 0
+    iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
 
-    ### BEGING CODE ###
-    minsqrt, maxsqrt = getLowUpper(n)  # complexity O(n*log(n))
+    # ## BEGING CODE ###
+    # O(n²)
+    minsqrt, maxsqrt = getLowUpper(n)  # Hint: use the second helper function.
 
-    rst =  0.0
+    rst = (minsqrt + maxsqrt)/2
+    # O(n)
+    while abs(rst**2 - n) >= error_threshold:
 
-    while maxsqrt - minsqrt >= error_threshold :  # complexity O(log(n)) (binary search)
-
-            if ((maxsqrt+minsqrt)/2) **2 < n : 
-                    minsqrt = (maxsqrt+minsqrt)/2
-            else :
-                    maxsqrt = (maxsqrt+minsqrt)/2
-            rst = maxsqrt
-            iteration +=1
-    ### END CODE ####
+        if rst**2 < n:  # Hint: have a look at the first function.
+            minsqrt = rst
+        else:
+            maxsqrt = rst
+        rst = (minsqrt + maxsqrt)/2
+        iteration += 1
+    # ## END CODE ####
 
     return rst
 
@@ -123,11 +144,17 @@ def main() :
                 NB: Your performance will not only be evaluated on your capacity to output good results.
                 Please make sure you understand each line you code.
             """
+    # Argumentparser zum Ausführen per Terminal -> python template_hw1.py --n 49
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, argument_default=SUPPRESS, description=doc_)
+    # welche möglichen Parameter können übergeben werden? 
     parser.add_argument('--n', type=int, help="An integer input for which we compute the sqrt root.")
-    args = parser.parse_args()
-    input_n = args.n
+    # parser.add_argument('--m', ...)
+    args = parser.parse_args() # hinzufügen der Parameter ist abgeschlossen 
+    input_n = args.n # der Parameter args.n wird der Variable input_n zugewiesen
+    # input_m = args.m 
+    # input_n = 490654
 
+    cProfile.runctx('mysqrt(input_n)', {'input_n': input_n, 'mysqrt': mysqrt}, {})
     myvalue = mysqrt(input_n)
     npvalue = sqrt(input_n)
 

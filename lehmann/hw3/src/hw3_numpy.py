@@ -1,5 +1,6 @@
 from numpy import random, sqrt, round
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
+import numpy as np
 
 
 def mysqrt(n: int, error_threshold=0.000000001) -> float:
@@ -16,22 +17,33 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         mysqrt(15) = 3.8729833462275565
     """
 
-    iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
+    if n==0 or n==1 : 
+        return n
 
-    ### BEGING CODE ###
-    minsqrt, maxsqrt = 0, 2**64-1
+    ### begin new code ### 
+    npArray = np.arange(n)
+    powArray = np.where(npArray**2 <= n)
 
-    rst = (minsqrt + maxsqrt) / 2
+    # is perfect check
+    if powArray[0][-1]**2 == n:
+         return powArray[0][-1]
 
-    while maxsqrt - minsqrt >= error_threshold :
+    minsqrt = powArray[0][-1]
+    maxsqrt = minsqrt + 1
+    ### end new code ###
 
-            if rst**2 < n : # Hint: have a look at the first function.
-                    minsqrt = rst
-            else :
-                    maxsqrt = rst
-            rst = (minsqrt + maxsqrt) / 2
-            iteration +=1
-    ### END CODE ####
+    iteration = 0 
+
+    rst = (minsqrt+maxsqrt)/2
+
+    while maxsqrt-minsqrt >= error_threshold :
+
+        if rst**2 < n : 
+                minsqrt = rst
+        else :
+                maxsqrt = rst
+        rst = (minsqrt+maxsqrt)/2
+        iteration +=1
 
     return rst
 
