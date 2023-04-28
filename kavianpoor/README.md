@@ -1,5 +1,14 @@
 # HomeWorks
 
+Based on the profile results, my_sqrt seems to perform well and run very fast. The deadtime for the function is 0.000 seconds for all tested inputs, which means that the function does not take a significant amount of time to execute. This is a good sign and shows that the optimization techniques used in the function are effective.
+
+In addition, the profiling results show that the built-in abs function is often called in the my_sqrt function, but it does not take a significant amount of time to execute. This shows that using the inner function is a good optimization technique.
+
+Comparing the results of the my_sqrt profile with np.sqrt, we see that np.sqrt is not optimized in the same way because it takes the same amount of time to run regardless of the size of the input. This is expected because np.sqrt is a general purpose function and cannot be optimized for specific input sizes like my_sqrt.
+
+Overall, my_sqrt seems to perform well and is an effective optimization of the square root function for certain input sizes.
+
+
 Code Profiling Result
 
 
