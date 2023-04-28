@@ -27,7 +27,7 @@ def isperfect(n: int ):
     return False, n
     ### END CODE #####
     
-    def getLowUpper(n: int):
+def getLowUpper(n: int):
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.
@@ -59,7 +59,7 @@ def isperfect(n: int ):
 
     return minsqrt, maxsqrt
 
-  def mysqrt(n: int, error_threshold=0.000000001) -> float:
+def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
         This function is the main function. It takes an interger n and returns the square root of n.
         We will use here the two helper functions we wrote previously.
@@ -103,7 +103,7 @@ def isperfect(n: int ):
 
     return rst
 
-  def main() :
+def main() :
     doc_ =  """
                 Welcome to the first Python assignment!!!\n
                 You will write your first Python script that computes the square root of a given integer n.
@@ -142,7 +142,7 @@ def isperfect(n: int ):
     if first_test_stat == len(first_test):
         print("All tests past.")
         print("Congratulation on achieving your first assignment.")
-    else :
+    else:
         success_rate = first_test_stat*100./len(first_test)
         print("Only {}% of the tests past".format(str(success_rate)))
         print("Please, check your code and try it again.")
