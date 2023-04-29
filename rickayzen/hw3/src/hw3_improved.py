@@ -31,7 +31,7 @@ def getLowerEqualSqrt(n: int):
     # It checks if the next number squared is still smaller than or equal to n. If not, i is the last number.
     # As n*n > n, it will always return a value.
     c += 1
-    for i in range(2,n):
+    for i in range(1,n):
         c += 1
         if (i+1)**2 > n:
             c += 1
