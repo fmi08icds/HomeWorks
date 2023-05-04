@@ -95,3 +95,5 @@ ________________________________________________________________________________
 
 ### Discussion of Results:
 The test against numpy is not fair because the compiler most likely interprets the loop in which the function is called as an array, hence the native numpy sqrt-function is computed on all elements at once, whereas in our own implementation, most likely, for every for loop iteration a square root procedure is started. Nethertheless, we can see that the proposed optimization saves quite a lot of time. Most of the time is used for computing the isperfect() function, with 236 seconds. This is optimized to just 6 second using the vec_isperfect()-version of the function, that got rid of the for loop. So the proposed solution is nearly x36 faster.
+
+A new version of the squareroot algorithm ignores all the helper functions and just repeatedly guesses towards the right root with even faster convergence.

@@ -31,8 +31,6 @@ def pi_approximation_vec(N) :
     Afterwards N points on a square are generated that are uniformly distributed between 0 and R. 
     Then the function f is used to check if the points are within the boundary of R.
     """
-
-    Ninf = 0
     # this is the radius
     R = 1.0
     # these lists hold the x and y coordinates of the points

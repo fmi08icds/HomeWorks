@@ -11,7 +11,7 @@ def main() :
     #size of simulation
     M = 2000
     # size of simulated points
-    N = 100000
+    N = 2000
     n_numbers= f'Test for m={M} times with n={N} number of simulated points.'
 
     profiler = cProfile.Profile()

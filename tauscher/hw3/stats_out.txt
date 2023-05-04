@@ -1,61 +1,51 @@
 ## cProfiling Results:
 
-Test for m=200 times with n=1000 number of simulated points.
+Test for n=2500 Numbers.
 
-         1757502 function calls in 0.476 seconds
+         254012 function calls in 17.841 seconds
 
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      200    0.134    0.001    0.476    0.002 template_hw2.py:30(pi_approximation)
-   400000    0.087    0.000    0.179    0.000 template_hw2.py:13(uniform)
-   200000    0.131    0.000    0.139    0.000 template_hw2.py:21(f)
-   400000    0.092    0.000    0.092    0.000 {method 'random' of 'numpy.random.mtrand.RandomState' objects}
-   557100    0.023    0.000    0.023    0.000 {method 'append' of 'list' objects}
-   200000    0.008    0.000    0.008    0.000 {built-in method builtins.abs}
-      200    0.000    0.000    0.000    0.000 {built-in method builtins.len}
-        1    0.000    0.000    0.000    0.000 {built-in method numpy.arange}
+     2500    0.285    0.000   17.841    0.007 template_hw1.py:149(mysqrt)
+   165776   17.357    0.000   17.357    0.000 template_hw1.py:6(isperfect)
+     2459    0.191    0.000   17.318    0.007 template_hw1.py:55(getLowUpper)
+    83276    0.008    0.000    0.008    0.000 {built-in method builtins.abs}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
 
 
 
-         6406 function calls (6404 primitive calls) in 0.015 seconds
+         1580220 function calls in 1.742 seconds
 
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-      200    0.004    0.000    0.015    0.000 template_hw2_optimized.py:28(pi_approximation_vec)
-      200    0.003    0.000    0.008    0.000 {numpy.random._generator.default_rng}
-      200    0.000    0.000    0.004    0.000 contextlib.py:72(inner)
-      200    0.003    0.000    0.003    0.000 {method 'uniform' of 'numpy.random._generator.Generator' objects}
-      200    0.002    0.000    0.002    0.000 {function SeedSequence.generate_state at 0x7f203540a820}
-      400    0.001    0.000    0.001    0.000 _ufunc_config.py:32(seterr)
-      200    0.000    0.000    0.001    0.000 _ufunc_config.py:433(__enter__)
-      400    0.001    0.000    0.001    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
-      200    0.000    0.000    0.001    0.000 _ufunc_config.py:438(__exit__)
-      200    0.000    0.000    0.001    0.000 <__array_function__ internals>:2(concatenate)
-      200    0.000    0.000    0.000    0.000 random.py:721(getrandbits)
-      200    0.000    0.000    0.000    0.000 <__array_function__ internals>:2(count_nonzero)
-      400    0.000    0.000    0.000    0.000 _ufunc_config.py:132(geterr)
-      200    0.000    0.000    0.000    0.000 {built-in method posix.urandom}
-      400    0.000    0.000    0.000    0.000 {built-in method numpy.seterrobj}
-      200    0.000    0.000    0.000    0.000 numeric.py:424(count_nonzero)
-      200    0.000    0.000    0.000    0.000 abc.py:96(__instancecheck__)
-      200    0.000    0.000    0.000    0.000 {built-in method numpy.core._multiarray_umath.count_nonzero}
-      800    0.000    0.000    0.000    0.000 {built-in method numpy.geterrobj}
-      200    0.000    0.000    0.000    0.000 {built-in method _abc._abc_instancecheck}
-      200    0.000    0.000    0.000    0.000 {built-in method from_bytes}
-      200    0.000    0.000    0.000    0.000 {built-in method builtins.len}
-      200    0.000    0.000    0.000    0.000 numeric.py:420(_count_nonzero_dispatcher)
-      200    0.000    0.000    0.000    0.000 multiarray.py:143(concatenate)
-      200    0.000    0.000    0.000    0.000 contextlib.py:59(_recreate_cm)
-      2/1    0.000    0.000    0.000    0.000 abc.py:100(__subclasscheck__)
-      2/1    0.000    0.000    0.000    0.000 {built-in method _abc._abc_subclasscheck}
-        1    0.000    0.000    0.000    0.000 {built-in method numpy.arange}
+     2500    0.104    0.000    1.742    0.001 template_hw1.py:200(mysqrt_opt)
+     2459    0.086    0.000    1.597    0.001 template_hw1.py:91(getLowUpper_opt)
+   165776    0.571    0.000    1.546    0.000 template_hw1.py:28(vec_isperfect)
+   165776    0.076    0.000    0.649    0.000 <__array_function__ internals>:2(searchsorted)
+   165776    0.152    0.000    0.551    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+   165776    0.086    0.000    0.399    0.000 fromnumeric.py:1281(searchsorted)
+   165776    0.326    0.000    0.326    0.000 {built-in method numpy.arange}
+   165776    0.059    0.000    0.313    0.000 fromnumeric.py:52(_wrapfunc)
+   165776    0.228    0.000    0.228    0.000 {method 'searchsorted' of 'numpy.ndarray' objects}
+   165776    0.026    0.000    0.026    0.000 {built-in method builtins.getattr}
+   165776    0.022    0.000    0.022    0.000 fromnumeric.py:1277(_searchsorted_dispatcher)
+    83276    0.006    0.000    0.006    0.000 {built-in method builtins.abs}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
 
+
+
+         27687 function calls in 0.057 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+     2500    0.055    0.000    0.057    0.000 template_hw1.py:127(mysqrt_fast)
+    25186    0.002    0.000    0.002    0.000 {built-in method builtins.abs}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
 
 
@@ -68,12 +58,16 @@ ________________________________________________________________________________
 
 
 
-500 runs, timeit mysqrt
+2500 runs, timeit mysqrt
 
-0.0791839510002319
+17.740210440999363
 
 vs. proposed optimized solution
 
-0.0206419639998785
+1.2984156620004796
+
+vs. mysqrt_fast implementation
+
+0.06667223499971442
 
 ________________________________________________________________________________
