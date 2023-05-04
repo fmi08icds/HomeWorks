@@ -1,0 +1,12 @@
+         675 function calls in 3.191 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+      634    3.190    0.005    3.190    0.005 /home/leo/Documents/UNI/ITCDS/HomeWorks/hacker/hw3/src/profiled_main.py:47(isperfect)
+        1    0.000    0.000    3.186    3.186 /home/leo/Documents/UNI/ITCDS/HomeWorks/hacker/hw3/src/profiled_main.py:69(getLowUpper)
+        1    0.000    0.000    3.191    3.191 /home/leo/Documents/UNI/ITCDS/HomeWorks/hacker/hw3/src/profiled_main.py:102(mysqrt)
+       38    0.000    0.000    0.000    0.000 {built-in method builtins.abs}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+

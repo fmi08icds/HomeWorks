@@ -2,7 +2,6 @@ from numpy import random, sqrt, round, floor, ceil, int16, arange, searchsorted
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
-
 def isperfect(n: int):
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
@@ -124,6 +123,28 @@ def getLowUpper_opt(n: int):
     return minsqrt, maxsqrt
 
 
+def mysqrt_fast(n: int, error_threshold=0.000000001):
+    '''
+    takes in a number n and returns the square root of n wihtout using the sqrt function.
+    '''
+    # create a function that takes in a number n and returns the square root of n wihtout using the sqrt function.
+    # create a variable "guess" and set it to n/2
+    guess = n/2.0
+    # create a variable "error" and set it to 1
+    error = abs(guess**2 - n)
+    
+    # create a while loop that runs as long as the error is greater than the error_threshold
+    while error > error_threshold:
+        # create a variable "new_guess" and set it to the average of guess and n/guess
+        new_guess = (guess + n/guess)/2
+        # create a variable "error" and set it to the absolute value of guess minus new_guess
+        error = abs(guess - new_guess)
+        # create a variable "guess" and set it to new_guess
+        guess = new_guess
+    return guess
+
+    
+
 
 def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
@@ -191,10 +212,16 @@ def mysqrt_opt(n: int, error_threshold=0.000000001) -> float:
     """
 
     ### BEGIN CODE ###
+    ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
+    if n == 0 or n == 1:
+        return n
+    ### END CODE ###
+
+    ### BEGIN CODE ###
     
     checkup = vec_isperfect(n) # Hint: use the one of the helpers you already coded.
     if checkup[0] : # How to access an element of the tuple?
-        return checkup[1] #Choose the right index...
+        return checkup[1] # type: ignore #Choose the right index...
     ### END CODE ###
 
     iteration = 0 # The variable is used to count the number of times we repeat the instructions in the while loop
@@ -212,7 +239,7 @@ def mysqrt_opt(n: int, error_threshold=0.000000001) -> float:
             rst = (minsqrt + maxsqrt) / 2.0
             iteration +=1
     ### END CODE ####
-    return rst
+    return rst # type: ignore
 
 
 def main() :
@@ -276,6 +303,32 @@ def main() :
         myvalue2 = mysqrt_opt(n)
         npvalue = sqrt(n)
         if round(myvalue2, 2) == round(sqrt(n), 2):
+            first_test_stat = first_test_stat + 1
+
+    if first_test_stat == len(first_test):
+        print("All tests past.")
+        print("Congratulation on achieving your first assignment.")
+    else :
+        success_rate = first_test_stat*100./len(first_test)
+        print("Only {}% of the tests past".format(str(success_rate)))
+        print("Please, check your code and try it again.")
+
+    ## test the proposed optimized solution.
+    myvalue3 = mysqrt_fast(input_n)
+    npvalue = sqrt(input_n)
+    assert round(myvalue3, 2) == round(npvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue3, npvalue)
+
+    print("The input is n = {}".format(input_n))
+    print("Your square root of {} is {}".format(input_n, myvalue3))
+    print("The numpy square root of {} is {}".format(input_n, npvalue))
+    print("The error precision is ", abs(myvalue3 - npvalue))
+
+    first_test =  random.randint(1, 100, 20)
+    first_test_stat = 0
+    for n in first_test :
+        myvalue3 = mysqrt_fast(n)
+        npvalue = sqrt(n)
+        if round(myvalue3, 2) == round(sqrt(n), 2):
             first_test_stat = first_test_stat + 1
 
     if first_test_stat == len(first_test):
