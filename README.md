@@ -1,5 +1,5 @@
 # Group work repository.
-Students will Six topics will be addressed and : 
+Students will Six topics will be addressed and: 
 ## Group 1: Classification problems
 ## Group 2: Regression problems
 ## Group 3: Clustering problems
