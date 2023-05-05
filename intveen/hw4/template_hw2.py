@@ -20,28 +20,28 @@ def estimate_pi(N) :
     Ninf = 0
     R = 1.0
 
-    list_x = []
-    list_y = []
+    #list_x = []
+    #list_y = []
 
-    for i in range(N): # generates x,y-pairs
-            list_x.append(uniform(0,R)) # list with N values uniformly distributed in the interval between [0,1]
-            list_y.append(uniform(0,R)) # list with N values uniformly distributed in the interval between [0,1]
+    #for i in range(N): # generates x,y-pairs
+    #        list_x.append(uniform(0,R)) # list with N values uniformly distributed in the interval between [0,1]
+    #        list_y.append(uniform(0,R)) # list with N values uniformly distributed in the interval between [0,1]
 
-    # list_x = np.random.random(N)
-    # list_y = np.random.random(N)
+    list_x = np.random.random(N)
+    list_y = np.random.random(N)
 
-    list_accepted_x = []
+    #list_accepted_x = []
 
-    for i in range(N): # filters list_x and accept only values i where f(list_x[i], R) < list_y[i]
-            if (list_y[i]< f(list_x[i],R)) :
-                    list_accepted_x.append(list_x[i])
+    #for i in range(N): # filters list_x and accept only values i where f(list_x[i], R) < list_y[i]
+    #        if (list_y[i]< f(list_x[i],R)) :
+    #                list_accepted_x.append(list_x[i])
 
-    # R_vec = np.array(N*[1.0])
-    # list_accepted_x_vec = list_x[np.where(f(list_x, R_vec) > list_y, True, False)]
+    R_vec = np.array(N*[1.0])
+    list_accepted_x_vec = list_x[np.where(f(list_x, R_vec) > list_y, True, False)]
 
 
-    Ninf = len(list_accepted_x) # get the number of accepted values
-    # Ninf = len(list_accepted_x_vec)
+    # Ninf = len(list_accepted_x) # get the number of accepted values
+    Ninf = len(list_accepted_x_vec)
     fin = Ninf/float(N) # calculates the ratio of accepted values
 
 
