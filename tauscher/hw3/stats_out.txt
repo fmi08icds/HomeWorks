@@ -1,49 +1,50 @@
 ## cProfiling Results:
 
-Test for n=5000 Numbers.
+Test for n=2500 Numbers.
 
-         841886 function calls in 236.748 seconds
+         254012 function calls in 17.841 seconds
 
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-     5000    0.433    0.000  236.748    0.047 template_hw1.py:127(mysqrt)
-   660435  236.064    0.000  236.064    0.000 template_hw1.py:6(isperfect)
-     4928    0.240    0.000  234.757    0.048 template_hw1.py:54(getLowUpper)
-   171522    0.011    0.000    0.011    0.000 {built-in method builtins.abs}
+     2500    0.285    0.000   17.841    0.007 template_hw1.py:149(mysqrt)
+   165776   17.357    0.000   17.357    0.000 template_hw1.py:6(isperfect)
+     2459    0.191    0.000   17.318    0.007 template_hw1.py:55(getLowUpper)
+    83276    0.008    0.000    0.008    0.000 {built-in method builtins.abs}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
 
 
 
-         6125366 function calls in 6.646 seconds
+         1580220 function calls in 1.742 seconds
 
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-     5000    0.167    0.000    6.646    0.001 template_hw1.py:178(mysqrt_opt)
-     4928    0.281    0.000    6.415    0.001 template_hw1.py:90(getLowUpper_opt)
-   660435    2.246    0.000    6.187    0.000 template_hw1.py:28(vec_isperfect)
-   660435    0.268    0.000    2.060    0.000 <__array_function__ internals>:2(searchsorted)
-   660435    1.881    0.000    1.881    0.000 {built-in method numpy.arange}
-   660435    0.490    0.000    1.711    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
-   660435    0.254    0.000    1.221    0.000 fromnumeric.py:1281(searchsorted)
-   660435    0.202    0.000    0.968    0.000 fromnumeric.py:52(_wrapfunc)
-   660435    0.697    0.000    0.697    0.000 {method 'searchsorted' of 'numpy.ndarray' objects}
-   660435    0.081    0.000    0.081    0.000 fromnumeric.py:1277(_searchsorted_dispatcher)
-   660435    0.068    0.000    0.068    0.000 {built-in method builtins.getattr}
-   171522    0.011    0.000    0.011    0.000 {built-in method builtins.abs}
+     2500    0.104    0.000    1.742    0.001 template_hw1.py:200(mysqrt_opt)
+     2459    0.086    0.000    1.597    0.001 template_hw1.py:91(getLowUpper_opt)
+   165776    0.571    0.000    1.546    0.000 template_hw1.py:28(vec_isperfect)
+   165776    0.076    0.000    0.649    0.000 <__array_function__ internals>:2(searchsorted)
+   165776    0.152    0.000    0.551    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+   165776    0.086    0.000    0.399    0.000 fromnumeric.py:1281(searchsorted)
+   165776    0.326    0.000    0.326    0.000 {built-in method numpy.arange}
+   165776    0.059    0.000    0.313    0.000 fromnumeric.py:52(_wrapfunc)
+   165776    0.228    0.000    0.228    0.000 {method 'searchsorted' of 'numpy.ndarray' objects}
+   165776    0.026    0.000    0.026    0.000 {built-in method builtins.getattr}
+   165776    0.022    0.000    0.022    0.000 fromnumeric.py:1277(_searchsorted_dispatcher)
+    83276    0.006    0.000    0.006    0.000 {built-in method builtins.abs}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
 
 
 
-         5001 function calls in 0.004 seconds
+         27687 function calls in 0.057 seconds
 
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-     5000    0.004    0.000    0.004    0.000 profile_mysqrt.py:33(npsqrt)
+     2500    0.055    0.000    0.057    0.000 template_hw1.py:127(mysqrt_fast)
+    25186    0.002    0.000    0.002    0.000 {built-in method builtins.abs}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
 
@@ -57,16 +58,16 @@ ________________________________________________________________________________
 
 
 
-50000 runs, timeit mysqrt
+2500 runs, timeit mysqrt
 
-844.4759574430009
+17.740210440999363
 
 vs. proposed optimized solution
 
-32.29419110199888
+1.2984156620004796
 
-vs. numpy implementation
+vs. mysqrt_fast implementation
 
-0.4124020120016212
+0.06667223499971442
 
 ________________________________________________________________________________

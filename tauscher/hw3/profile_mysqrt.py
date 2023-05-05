@@ -10,7 +10,7 @@ def main() :
     #generate random numbers
     random.seed(123)  # Set the seed for reproducibility
     rng = random.default_rng()
-    random_integers = rng.integers(low=0, high=10000, size=5000)
+    random_integers = rng.integers(low=0, high=2500, size=2500)
 
     n_numbers= f'Test for n={len(random_integers)} Numbers.'
 
@@ -36,15 +36,15 @@ def main() :
     profiler3 = cProfile.Profile()
     profiler3.enable()
     for number in random_integers:
-        npsqrt(number)
+        template_hw1.mysqrt_fast(number)
     profiler3.disable()
-    profiler3.dump_stats("./hw3/numpysqrt.stats")
+    profiler3.dump_stats("./hw3/mysqrt_fast.stats")
  
     ### approach 2, timeit:
-    ntimes = 50000
-    timeit_1=(timeit.timeit(number=ntimes, setup='from numpy import random; import template_hw1; random.seed(123)', stmt='template_hw1.mysqrt(random.randint(0, 5000, 1)[0])'))
-    timeit_2=(timeit.timeit(number=ntimes, setup='from numpy import random; import template_hw1; random.seed(123)', stmt='template_hw1.mysqrt_opt(random.randint(0, 5000, 1)[0])'))
-    timeit_3=(timeit.timeit(number=ntimes, setup='from numpy import random, sqrt; import template_hw1; random.seed(123)', stmt='sqrt(random.randint(0, 5000, 1)[0])'))
+    ntimes = 2500
+    timeit_1=(timeit.timeit(number=ntimes, setup='from numpy import random; import template_hw1; random.seed(123)', stmt='template_hw1.mysqrt(random.randint(0, 2500, 1)[0])'))
+    timeit_2=(timeit.timeit(number=ntimes, setup='from numpy import random; import template_hw1; random.seed(123)', stmt='template_hw1.mysqrt_opt(random.randint(0, 2500, 1)[0])'))
+    timeit_3=(timeit.timeit(number=ntimes, setup='from numpy import random; import template_hw1; random.seed(123)', stmt='template_hw1.mysqrt_fast(random.randint(0, 2500, 1)[0])'))
 
 
     with open("./hw3/stats_out.txt", "w") as f:
@@ -86,7 +86,7 @@ def main() :
         f.write(timeit_2.__str__())
         f.write('\n\n')
 
-        f.write('vs. numpy implementation\n\n')
+        f.write('vs. mysqrt_fast implementation\n\n')
         f.write(timeit_3.__str__())
         f.write('\n\n')
         f.write(f'{formatting_str:_<80}')
