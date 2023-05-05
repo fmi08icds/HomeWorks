@@ -1,3 +1,18 @@
+# Structure
+Project consists of the og script as well as the script that was improved through the vectorisation. Both scripts execute performance tests with the argument --p. The performance tests prints the execution time and also writes it in its according performance files.
+# Performance
+The improved version is roughly twice as fast
+
+| n        | time (s) old | time (s) new | 
+|----------|--------------|--------------|
+| 100      | 0.000179     | 0.000203     |
+| 1000     | 0.001438     | 0.000968     |
+| 10000    | 0.014132     | 0.007782     |
+| 100000   | 0.140603     | 0.086775     |
+| 1000000  | 1.496187     | 0.861669     |
+| 10000000 | 15.37732     | 8.424660     |
+| 50000000 | 76.29096     | 42.74579     |
+# Explanation of function
 ## uniform(a,b)
 It returns a random number between a and b - so [a,b).
 
