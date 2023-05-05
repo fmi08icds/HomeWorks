@@ -1,0 +1,47 @@
+         87878730 function calls in 66.457 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    10000   20.704    0.002   66.121    0.007 hw4.py:24(estimate_pi)
+ 10000000   16.954    0.000   17.973    0.000 hw4.py:18(f)
+ 20000000   12.088    0.000   12.088    0.000 {method 'random' of 'numpy.random.mtrand.RandomState' objects}
+ 20000000   11.884    0.000   23.972    0.000 hw4.py:11(uniform)
+ 27854321    3.466    0.000    3.466    0.000 {method 'append' of 'list' objects}
+ 10000000    1.019    0.000    1.019    0.000 {built-in method builtins.abs}
+      100    0.313    0.003   66.434    0.664 hw4.py:99(<listcomp>)
+      100    0.006    0.000    0.011    0.000 _methods.py:198(_var)
+    10001    0.006    0.000    0.006    0.000 {built-in method builtins.len}
+      300    0.003    0.000    0.003    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+      300    0.002    0.000    0.002    0.000 {built-in method numpy.asanyarray}
+      200    0.002    0.000    0.002    0.000 _methods.py:67(_count_reduce_items)
+      100    0.002    0.000    0.009    0.000 fromnumeric.py:3345(mean)
+      100    0.002    0.000    0.007    0.000 _methods.py:164(_mean)
+      100    0.001    0.000    0.013    0.000 fromnumeric.py:3473(std)
+      100    0.001    0.000    0.012    0.000 _methods.py:267(_std)
+      200    0.001    0.000    0.022    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+      100    0.000    0.000    0.010    0.000 <__array_function__ internals>:177(mean)
+      100    0.000    0.000    0.000    0.000 contextlib.py:104(__init__)
+      401    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+      100    0.000    0.000    0.001    0.000 contextlib.py:287(helper)
+      100    0.000    0.000    0.001    0.000 contextlib.py:141(__exit__)
+      200    0.000    0.000    0.001    0.000 _ufunc_config.py:452(_no_nep50_warning)
+      301    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+      100    0.000    0.000    0.013    0.000 <__array_function__ internals>:177(std)
+      200    0.000    0.000    0.001    0.000 {built-in method builtins.next}
+      400    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+      200    0.000    0.000    0.000    0.000 {built-in method numpy.core._multiarray_umath.normalize_axis_index}
+      100    0.000    0.000    0.001    0.000 contextlib.py:132(__enter__)
+      100    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+      100    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+      100    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+      100    0.000    0.000    0.000    0.000 fromnumeric.py:3340(_mean_dispatcher)
+      100    0.000    0.000    0.000    0.000 fromnumeric.py:3468(_std_dispatcher)
+        1    0.000    0.000    0.000    0.000 pstats.py:118(init)
+        1    0.000    0.000    0.000    0.000 hw4.py:77(write_to_file)
+        1    0.000    0.000    0.000    0.000 pstats.py:108(__init__)
+        1    0.000    0.000    0.000    0.000 cProfile.py:50(create_stats)
+        1    0.000    0.000    0.000    0.000 pstats.py:137(load_stats)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
