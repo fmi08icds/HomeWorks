@@ -1,0 +1,278 @@
+Last login: Thu May  4 17:15:12 on ttys000
+(base) int-veen@MBPvonHarpreet ~ % cd Desktop/SS23/Introductory\ Computing/HomeWorks
+(base) int-veen@MBPvonHarpreet HomeWorks % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+(base) int-veen@MBPvonHarpreet HomeWorks % ls
+README.md	huhle		kuehnel		rickayzen	tauscher
+achkar		intveen		lehmann		sabra		test1
+alshamandy	jaeger		leidhold	schaefer	veryaselle
+bartels		kliarskyi	oncel		schirmer	winkler
+hacker		koenig		perkovic	schmidt		wodtke
+hagen		konzack		popov		schuster	wuerf
+(base) int-veen@MBPvonHarpreet HomeWorks % cd intveen
+(base) int-veen@MBPvonHarpreet intveen % ls
+README.md	hw1		hw2		hw3
+(base) int-veen@MBPvonHarpreet intveen % mkdir hw4
+(base) int-veen@MBPvonHarpreet intveen % cd hw4
+(base) int-veen@MBPvonHarpreet hw4 % mv ../../../Coding/src/template_hw2.py .
+(base) int-veen@MBPvonHarpreet hw4 % mv ~/Downloads/README_HW2.md README.md
+(base) int-veen@MBPvonHarpreet hw4 % pycharme-community .
+zsh: command not found: pycharme-community
+(base) int-veen@MBPvonHarpreet hw4 % ls
+README.md	template_hw2.py
+(base) int-veen@MBPvonHarpreet hw4 % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	./
+
+nothing added to commit but untracked files present (use "git add" to track)
+(base) int-veen@MBPvonHarpreet hw4 % cd ..
+(base) int-veen@MBPvonHarpreet intveen % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	hw4/
+
+nothing added to commit but untracked files present (use "git add" to track)
+(base) int-veen@MBPvonHarpreet intveen % git add --help
+(base) int-veen@MBPvonHarpreet intveen % git pull
+Enter passphrase for key '/Users/int-veen/.ssh/id_rsa':
+remote: Enumerating objects: 260, done.
+remote: Counting objects: 100% (211/211), done.
+remote: Compressing objects: 100% (112/112), done.
+remote: Total 260 (delta 96), reused 203 (delta 94), pack-reused 49
+Receiving objects: 100% (260/260), 203.72 KiB | 407.00 KiB/s, done.
+Resolving deltas: 100% (102/102), completed with 19 local objects.
+From github.com:fmi08icds/HomeWorks
+   be14676..640f3cd  main                -> origin/main
+ * [new branch]      HomeWorks           -> origin/HomeWorks
+ * [new branch]      hacker-hw4          -> origin/hacker-hw4
+ * [new branch]      hagen               -> origin/hagen
+ * [new branch]      homework-03-scharom -> origin/homework-03-scharom
+ * [new branch]      homework-04-scharom -> origin/homework-04-scharom
+ * [new branch]      hw4-tauscher        -> origin/hw4-tauscher
+ * [new branch]      kaviansepideh       -> origin/kaviansepideh
+ * [new branch]      kuehnel             -> origin/kuehnel
+ * [new branch]      lehmann_hw3         -> origin/lehmann_hw3
+ * [new branch]      leidhold            -> origin/leidhold
+ * [new branch]      nono                -> origin/nono
+ * [new branch]      nono1               -> origin/nono1
+ * [new branch]      perkovic            -> origin/perkovic
+ * [new branch]      revert-12-homework-04-scharom -> origin/revert-12-homework-04-scharom
+ * [new branch]      sabra               -> origin/sabra
+ * [new branch]      schmiseb            -> origin/schmiseb
+ * [new branch]      schuster            -> origin/schuster
+ * [new branch]      test_hagen          -> origin/test_hagen
+Updating be14676..640f3cd
+Fast-forward
+ .DS_Store                                   |  Bin 6148 -> 10244 bytes
+ achkar/hw3/README.md                        |  109 +++
+ achkar/hw3/hw2.py                           |  190 +++++
+ achkar/hw3/profiling.py                     |   17 +
+ hacker/hw3/readme.md                        |   70 ++
+ hacker/hw3/src/out_n_99999999999999_new.txt |   11 +
+ hacker/hw3/src/out_n_99999_new.txt          |   11 +
+ hacker/hw3/src/out_n_99999_old.txt          |   12 +
+ hacker/hw3/src/profiled_main.py             |   73 ++
+ hacker/hw3/src/templated.py                 |  150 ++++
+ hagen/HW3/README.md                         |   41 +
+ hagen/HW3/src/sqrt_fast.py                  |  167 ++++
+ hagen/HW3/src/sqrt_slow.py                  |   38 +-
+ perkovic/hw2/hw1.py                         |  113 +++
+ redzepagic/hw3/README.md                    |   49 ++
+ redzepagic/hw3/hw2.py                       |  160 ++++
+ redzepagic/hw3/hw3.py                       |  160 ++++
+ redzepagic/hw3/hw3_vectorization.py         |  158 ++++
+ redzepagic/hw3/out.txt                      | 1181 +++++++++++++++++++++++++++
+ sepideh/hw1/list-sort.py                    |    8 +
+ sepideh/hw2/sqr-root.py                     |   38 +
+ sepideh/hw3/ Profile_mysqrt.py              |   40 +
+ sepideh/hw3/template_hw1.py                 |  156 ++++
+ 23 files changed, 2933 insertions(+), 19 deletions(-)
+ create mode 100644 achkar/hw3/README.md
+ create mode 100644 achkar/hw3/hw2.py
+ create mode 100644 achkar/hw3/profiling.py
+ create mode 100644 hacker/hw3/readme.md
+ create mode 100644 hacker/hw3/src/out_n_99999999999999_new.txt
+ create mode 100644 hacker/hw3/src/out_n_99999_new.txt
+ create mode 100644 hacker/hw3/src/out_n_99999_old.txt
+ create mode 100644 hacker/hw3/src/profiled_main.py
+ create mode 100644 hacker/hw3/src/templated.py
+ create mode 100644 hagen/HW3/src/sqrt_fast.py
+ create mode 100644 perkovic/hw2/hw1.py
+ create mode 100644 redzepagic/hw3/README.md
+ create mode 100644 redzepagic/hw3/hw2.py
+ create mode 100644 redzepagic/hw3/hw3.py
+ create mode 100644 redzepagic/hw3/hw3_vectorization.py
+ create mode 100644 redzepagic/hw3/out.txt
+ create mode 100644 sepideh/hw1/list-sort.py
+ create mode 100644 sepideh/hw2/sqr-root.py
+ create mode 100644 sepideh/hw3/ Profile_mysqrt.py
+ create mode 100644 sepideh/hw3/template_hw1.py
+(base) int-veen@MBPvonHarpreet intveen % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	hw4/
+
+nothing added to commit but untracked files present (use "git add" to track)
+(base) int-veen@MBPvonHarpreet intveen % git add hw4
+(base) int-veen@MBPvonHarpreet intveen % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	new file:   hw4/README.md
+	new file:   hw4/template_hw2.py
+
+(base) int-veen@MBPvonHarpreet intveen % git commit -m "Homework 4"
+[main 9034c17] Homework 4
+ Committer: Harpreet Int-Veen <int-veen@MBPvonHarpreet.fritz.box>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 115 insertions(+)
+ create mode 100644 intveen/hw4/README.md
+ create mode 100644 intveen/hw4/template_hw2.py
+(base) int-veen@MBPvonHarpreet intveen % git log
+commit 9034c17f61b064dab45aad21cb033896cdb41576 (HEAD -> main)
+Author: Harpreet Int-Veen <int-veen@MBPvonHarpreet.fritz.box>
+Date:   Fri May 5 17:32:16 2023 +0200
+
+    Homework 4
+
+commit 640f3cda8d87206e1a77b563edda21d526b496ca (origin/main, origin/HEAD)
+Author: Nono Saha Cyrille Merleau <lemerleau@Nonos-Laptop.local>
+Date:   Fri Apr 28 21:04:41 2023 +0200
+
+    Commit on hw3 resto
+
+commit 6abee4ab274dba00bbcf91de369235913211f37c
+Merge: 9c26e33 4cddb4a
+Author: Nono Saha Cyrille Merleau <lemerleau@Nonos-Laptop.local>
+Date:   Fri Apr 28 20:59:10 2023 +0200
+
+    Merge branch 'HomeWorks'
+
+commit 4cddb4ab5a560d22bc8a5768bbb47e7fd462d5f6
+Author: Nono Saha Cyrille Merleau <lemerleau@Nonos-Laptop.local>
+(base) int-veen@MBPvonHarpreet intveen % git push
+Enter passphrase for key '/Users/int-veen/.ssh/id_rsa':
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 1.78 KiB | 1.78 MiB/s, done.
+Total 6 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+remote: error: GH006: Protected branch update failed for refs/heads/main.
+remote: error: At least 1 approving review is required by reviewers with write access. Cannot change this locked branch
+To github.com:fmi08icds/HomeWorks.git
+ ! [remote rejected] main -> main (protected branch hook declined)
+error: failed to push some refs to 'github.com:fmi08icds/HomeWorks.git'
+(base) int-veen@MBPvonHarpreet intveen % git branch
+  intveen
+* main
+(base) int-veen@MBPvonHarpreet intveen % git checkout intveen
+Switched to branch 'intveen'
+Your branch is up to date with 'origin/intveen'.
+(base) int-veen@MBPvonHarpreet intveen % git status
+On branch intveen
+Your branch is up to date with 'origin/intveen'.
+
+nothing to commit, working tree clean
+(base) int-veen@MBPvonHarpreet intveen % ls
+README.md	hw1		hw2		hw3		hw4
+(base) int-veen@MBPvonHarpreet intveen % ls hw4
+(base) int-veen@MBPvonHarpreet intveen % git checkout main
+Switched to branch 'main'
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+(base) int-veen@MBPvonHarpreet intveen % cp hw4 ~/Desktop
+cp: hw4 is a directory (not copied).
+(base) int-veen@MBPvonHarpreet intveen % cp hw4 ~/Desktop/hw4
+cp: hw4 is a directory (not copied).
+(base) int-veen@MBPvonHarpreet intveen % cp -r hw4 ~/Desktop/hw4
+(base) int-veen@MBPvonHarpreet intveen % git checkout intveen
+Switched to branch 'intveen'
+Your branch is up to date with 'origin/intveen'.
+(base) int-veen@MBPvonHarpreet intveen % mv ~/Desktop/hw4 .
+mv: rename /Users/int-veen/Desktop/hw4 to ./hw4: Directory not empty
+(base) int-veen@MBPvonHarpreet intveen % rm -r hw4
+(base) int-veen@MBPvonHarpreet intveen % mv ~/Desktop/hw4 .
+(base) int-veen@MBPvonHarpreet intveen % ls
+README.md	hw1		hw2		hw3		hw4
+(base) int-veen@MBPvonHarpreet intveen % ls hw4
+README.md	template_hw2.py
+(base) int-veen@MBPvonHarpreet intveen % git status
+On branch intveen
+Your branch is up to date with 'origin/intveen'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	hw4/
+
+nothing added to commit but untracked files present (use "git add" to track)
+(base) int-veen@MBPvonHarpreet intveen % git pull
+Enter passphrase for key '/Users/int-veen/.ssh/id_rsa':
+Already up to date.
+(base) int-veen@MBPvonHarpreet intveen % git commit -m "Homework 4"
+On branch intveen
+Your branch is up to date with 'origin/intveen'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	hw4/
+
+nothing added to commit but untracked files present (use "git add" to track)
+(base) int-veen@MBPvonHarpreet intveen % git add hw4
+(base) int-veen@MBPvonHarpreet intveen % git commit -m "Homework 4"
+[intveen 63a4fd8] Homework 4
+ Committer: Harpreet Int-Veen <int-veen@MBPvonHarpreet.fritz.box>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 2 files changed, 115 insertions(+)
+ create mode 100644 intveen/hw4/README.md
+ create mode 100644 intveen/hw4/template_hw2.py
+(base) int-veen@MBPvonHarpreet intveen % git push
+Enter passphrase for key '/Users/int-veen/.ssh/id_rsa':
+Enumerating objects: 8, done.
+Counting objects: 100% (8/8), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 1.78 KiB | 1.78 MiB/s, done.
+Total 6 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To github.com:fmi08icds/HomeWorks.git
+   be14676..63a4fd8  intveen -> intveen
+(base) int-veen@MBPvonHarpreet intveen %
