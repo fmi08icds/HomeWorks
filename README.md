@@ -9,7 +9,7 @@ Students will Six topics will be addressed and:
 - Group 6: Machine translation 
 
 For each topic, 3-5 students will present a brief literature review of the recent advancements and existing Python libraries and choose one or two applications together. The group will then give a detailed presentation on a more specific topic, followed by a Python implementation with and without vectorization. Finally, an analysis of their performance compared to the existing Python library. 
-
+## Datelines for group projects
 | Dates     | Tasks                                  | Notes                         |
 |-----------------|-----------|----------|
 | 02.06.23  | Presentation on the literature review | The presentation should emphasize the choice of technique to be applied and how it works. List existing Python libraries that implement such ML techniques and comment on them. Finally, on the choice of the data set, the goal to be achieved and the task assignment.|
