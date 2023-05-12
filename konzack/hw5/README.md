@@ -18,7 +18,7 @@ A: b) False
 - however, the quality of the evaluation itself is not affected by modifications on the training set alone
 
 6. Why do you object to adding the data to the test set?
-A: a), b) and c)
+A: d)
 
 7. d)s
 
