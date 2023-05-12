@@ -1,6 +1,6 @@
 #Members: 
-1. Achka Pieer 
-2. Rickayzen Philipp 
-3. Wurf Jerome
-4.  
-5. 
+1. Kouzach Niko 
+2. Jaeger-Kulel Marco
+3. Redzepagic Anes 
+4. Abdulnaser Sabra
+5. Alshehabie	Mohamad
