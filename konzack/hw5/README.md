@@ -9,7 +9,7 @@ A: d)
 A: a) Accuracy is an optimizing metric, running time and memory are satisficing metrics
 
 4. Which train/dev/test split to use?
-A: b) 9.5M/950k/950k
+A: b) 9.5M/250/250
 - the test and evaluation tests are sufficiently large in given the big data set so they do not have to get any larger
 
 5. You should not add training data from a different distribution to your existing data.
