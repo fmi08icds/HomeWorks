@@ -1,6 +1,7 @@
 #Members: 
-1. Koenig Ralf 
-2. Lehmann Marcel  
-3. Leidhold Clara
-4. Schmidt Sebastian  
-5. Winkler Florian
+1. Achka Pieer
+2. Rickayzen Philipp
+3. Wurf Jerome
+4. Tauscher Johannes
+5. Popov Tomislav
+
