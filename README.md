@@ -15,5 +15,4 @@ For each topic, 3-5 students will present a brief literature review of the recen
 | 02.06.23  | Presentation on the litterature review | The presentation should emphasize the choice of technique to be applied and how it works. List existing Python libraries that implement such ML techniques and comment on them. Finally, on the choice of the data set, the goal to be achieved and the task assignment.|
 | 30.06.23  | Code, test and run experiments on your chosen data         | There will be no presentation, but each student's contribution to the repository should be visible to everybody in the repository commits during this phase. The group leaders will be responsible for task assignments for each group member.|
 | 14.07.23  | Final presentation        | Oral presentation of the results obtained. Comment on the partitioning of the dataset. The error analysis carried out,e.g. what was the chosen human-level performance? What problem did you encounter, bias, data mismatching or variance problem? What are the ideas to overcome them? Did you try any ideas? etc...|
-|--------+---------------------------------------+-------------------------------|
 
