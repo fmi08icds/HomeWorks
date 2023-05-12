@@ -20,21 +20,29 @@ A: b) False
 6. Why do you object to adding the data to the test set?
 A: d)
 
-7. d)s
+7. 
+A: d)
 
 8. How to define human level performance?
 A: b)
 
-9. a)
+9. 
+A: a)
 
-10. c)
+10. 
+A: c)
 
-11. d) b)
+11. 
+A: d) b)
 
-12. b) d)
+12. 
+A: b) d)
 
-13. c)
+13. 
+A: c)
 
-14. d)
+14. 
+A: d)
 
-15. a) b) d)
+15. 
+A: a) b) d)
