@@ -7,6 +7,9 @@ from matplotlib.widgets import Slider
 import pandas as pd
 from scipy import stats
 from scipy.linalg import sqrtm
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 # custom kmeans Implementation
@@ -144,8 +147,8 @@ if __name__ == "__main__":
 
     ## 100 data points with 3 dimensions, example data to test kmeans
     dimensions=2
-    points= 1_000_000
-    kcluster=12
+    points= 1000
+    kcluster=5
     data = np.random.randn(points, dimensions)
     cov_shape = (dimensions, dimensions)
     cov_diag = np.diag(np.random.rand(dimensions)**2)
@@ -192,7 +195,7 @@ if __name__ == "__main__":
     print("results are the same: ", np.all(clustering == cluster_assignments))
 
     """
-    """ 
+
     M = 50
     profiler = cProfile.Profile()
     profiler.enable()
@@ -212,7 +215,6 @@ if __name__ == "__main__":
     profiler2.print_stats()
     profiler.print_stats()
 
-    """
     ## plot the results
     plt_data = pd.DataFrame(intermediate_res)
 
