@@ -110,3 +110,7 @@ n+m
 # careful,if 'e' is not in m, then m+o will return NaN
 m+o
 
+d = {"anna": "A+", "bob": "B-", "carol": "C", "dave": "D+"}
+d = pd.Series(d)
+e = pd.Series(d, index=['bob','carol','dave','anna'])
+e.index = ['a','b','c','d']
