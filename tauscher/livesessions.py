@@ -60,5 +60,57 @@ def norm_pdf(x, mu, sigma):
 
 quad(norm_pdf, -np.inf, np.inf, args=(0,1))
 
-from hw6.my_kmeans import my_kmeans
-cluster_assignments, centroids = my_kmeans(pts, 3, max_iter=100, tol=1e-4)
+from hw6.my_kmeans import mykmeans
+cluster_assignments = mykmeans(pts, 3, max_iter=100, tol=1e-4)
+
+cluster_assignments
+## introduction to pandas
+
+
+import pandas as pd
+
+a=pd.Series([1,2,3,4])
+
+b=pd.Series(['A','B','C','D'])
+
+c=pd.Series(['C', 'D', 'E', 'F'])
+
+d=pd.Series(range(5))
+
+e=pd.Series(['A',1,True])
+
+f=pd.Series([4,2,1,3], index=['a','b','c','d'])
+
+for i in [a,b,c,d,e,f]:
+    print(f'dtype:{i.dtype}')
+    print(f':{i}')
+
+
+e.array
+
+# print out each elem in f
+[print(elem) for elem in f.truncate.__dir__()]
+
+
+np.log(f) * 2
+
+
+## f['a','b'] does not work. 
+f[['a','b']]
+
+
+m = pd.Series([1,2,3,4], index=['a','b','c','d'])
+n = pd.Series([4,3,2,1], index=['d','c','b','a'])
+o = pd.Series([1,1,1,1,1], index=['a','b','c','d','e'])
+
+# these work just fine. since characters are ordered by nature, both m+n and n+m will return the same result.
+m+n
+n+m
+
+# careful,if 'e' is not in m, then m+o will return NaN
+m+o
+
+d = {"anna": "A+", "bob": "B-", "carol": "C", "dave": "D+"}
+d = pd.Series(d)
+e = pd.Series(d, index=['bob','carol','dave','anna'])
+e.index = ['a','b','c','d']
