@@ -12,8 +12,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 
-
-def kmeans(data:np.ndarray, k_or_guess, max_iter: int=100, tol:float=1e-4):
+def mykmeans(data: np.ndarray, k_or_guess, max_iter: int =100, tol: float=1e-4):
     '''
     Given a set of observations (x1, x2, ..., xn),
     where each observation is a d-dimensional real vector,
@@ -62,10 +61,10 @@ def kmeans(data:np.ndarray, k_or_guess, max_iter: int=100, tol:float=1e-4):
         intermediate_res.append({'iteration':i,'cluster_assignments':clustering,'centroids':centroids})
         ## update centroids
         ## check if there are empty clusters
-        ## if so, reduce the number of clusters by one and run kmeans again
+        ## if so, reduce the number of clusters by one and run mykmeans again
         if (np.unique(clustering).shape[0] < centroids.shape[0]):
             logging.info("empty cluster detected, reducing number of clusters by one")
-            return kmeans(data=data, k_or_guess=centroids.__len__()-1, max_iter=100, tol=1e-4)
+            return mykmeans(data=data, k_or_guess=centroids.__len__()-1, max_iter=100, tol=1e-4)
 
         ## check if there are empty clusters
         ## if so, 
@@ -96,7 +95,7 @@ def distance_fun(data, centroids):
 ## main to test the functions
 if __name__ == "__main__":
 
-    ## 100 data points with 3 dimensions, example data to test kmeans
+    ## 100 data points with 3 dimensions, example data to test mykmeans
     dimensions=5
     points= 10_000
     kcluster= 15
@@ -126,9 +125,10 @@ if __name__ == "__main__":
     tol=1e-4
     max_iter=100
 
-    ## test kmeans2
-    centroids, clustering, tol, i, intermediate_res, res_clusters = kmeans(data, k_or_guess, max_iter, tol)
-    print("kmeans2:")
+    ## test mykmeans2
+    centroids, clustering, tol, i, intermediate_res, res_clusters = mykmeans(
+        data, k_or_guess, max_iter, tol)
+    print("mykmeans2:")
     print("centroids: ", centroids)
     print("clustering: ", clustering)
     print("tol: ", tol)
@@ -139,18 +139,18 @@ if __name__ == "__main__":
     profiler = cProfile.Profile()
     profiler.enable()
     for i in np.arange(M):
-        kmeans(np.random.randn(100, 5), np.random.randn(3, 5), 100, 0.001)
+        mykmeans(np.random.randn(100, 5), np.random.randn(3, 5), 100, 0.001)
     profiler.disable()
-    profiler.dump_stats("./kmeans.stats")
+    profiler.dump_stats("./mykmeans.stats")
 
     profiler.print_stats()
 
     ## plot the results
     plt_data = pd.DataFrame(intermediate_res)
 
-    ## plot the intermediate results of kmeans2 where a slider can be used to change the iteration and update the plot
+    ## plot the intermediate results of mykmeans2 where a slider can be used to change the iteration and update the plot
     fig, ax = plt.subplots(1, 1, figsize=(10, 5))
-    ax.set_title("kmeans results")
+    ax.set_title("mykmeans results")
     ax.set_xlabel("x")
     ax.set_ylabel("y")
     plt.subplots_adjust(bottom=0.5) 
