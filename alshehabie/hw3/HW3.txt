@@ -1,0 +1,15 @@
+Algorithmen zu optimieren, um ihre Laufzeit zu verbessern.
+Hier vergleichen wir die Einführungszeit von zwei Funktionen, die die Quadratwurzel einer Zahl berechnen: "isperfect" und "is_perfect_binary_search".
+
+Die Funktion "isperfect" verwendet eine einfache Methode, um die Quadratwurzel von n zu berechnen,
+indem sie eine Schleife von 1 bis n durchläuft und prüft, ob das Quadrat von i gleich n ist.
+Dies ist eine lineare Suche und hat eine Laufzeit von O(n).
+Die Durchführung bei n = 10000 dauert (16,53 Minut)
+
+Die Funktion "is_perfect_binary_search" verwendet eine binäre Suche, um die Quadratwurzel von n zu finden.
+Dabei wird das Intervall von 1 bis n in der Mitte geteilt, und dann wird geprüft, ob die Mitte das Quadrat von n ist.
+Wenn das Quadrat der Mitte kleiner als n ist, wird die Suche im rechten Teil des Intervalls fortgesetzt,
+ansonsten im linken Teil. Dies ist eine logarithmische Suche und hat eine Laufzeit von O(log n).
+Die Durchführung bei n = 10000 dauert (1,67 Minut)
+
+
