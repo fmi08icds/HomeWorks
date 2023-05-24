@@ -43,9 +43,7 @@ def calc_centroids(cl1, cl2, cl3):
 def main () :
     count = 0
     centroids = init()
-    print(centroids)
     old_centroids = np.empty((3, 2))
-    print(old_centroids)
 
     while True:
         count += 1       
