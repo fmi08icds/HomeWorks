@@ -37,7 +37,8 @@ def k_means_build(data, k):
 if __name__ == "__main__":
     #data = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
     #data, target = data1, data1_y_true
-    k = int(input())
+    #k = int(input())
+    k = 3
     #k_means_build(data, k)
     data1, data1_y_true = define_data()
     centroids, data1_y_pred = k_means_build(data1, k)
