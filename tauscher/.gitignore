@@ -1,0 +1,8 @@
+# git ignore
+## ignore files that are not needed to be tracked by git
+
+tauscher/livesessions.py
+tauscher/*.stats
+
+**/livesessions.py
+**/*.stats
