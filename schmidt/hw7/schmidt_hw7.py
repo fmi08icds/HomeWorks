@@ -2,7 +2,7 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 import numpy as np
 from matplotlib import pyplot as plt
 from numpy.typing import NDArray
-from typing import Callable, Dict, Tuple
+from typing import Callable, Tuple
 
 
 def initialise(N: int, n: int, x_l: float, x_u: float) -> Tuple[NDArray, NDArray]:
@@ -18,9 +18,9 @@ def initialise(N: int, n: int, x_l: float, x_u: float) -> Tuple[NDArray, NDArray
                     One for the populations x values, and the other their eta values
     """
     # Create a random population within bounds x_l and x_u and initialize the eta values (strategy parameters)
-    # for all individuals
+    # for all individuals; Eta parameters are chosen on individual and dimension basis
     all_x = np.random.uniform(x_l, x_u, size=(N, n))
-    all_eta = np.random.uniform(x_l, x_u, size=(N, 1))
+    all_eta = np.random.uniform(x_l, x_u, size=(N, n))
     return all_x, all_eta
 
 
@@ -39,7 +39,7 @@ def evaluate(pop: Tuple[NDArray, NDArray], f: Callable) -> NDArray:
 
 def mutate(pop: Tuple[NDArray, NDArray]) -> Tuple[NDArray, NDArray]:
     """
-    Mutate the individuals of a population using their strategy parameters eta
+    Mutate the individuals of a population using their etas (strategy parameters)
     :param pop:     The population's individuals as a tuple of numpy arrays (objective variables, strategy parameters)
     :return:        A mutated population as a tuple of two arrays:
                     One for the populations x values, and the other their eta values
@@ -55,9 +55,11 @@ def mutate(pop: Tuple[NDArray, NDArray]) -> Tuple[NDArray, NDArray]:
     tau_prime = 1 / (np.sqrt(2 * n))
 
     # Get the new population by random mutations using the eta values and standard normal distribution
+    # The new eta values are chosen based on a normal distribution on individual and another
+    # on individual-dimension level (Combined through broadcasting)
     new_x = old_x + old_eta * np.random.normal(loc=0.0, scale=1.0, size=(N, n))
     new_eta = old_eta * np.exp(tau_prime * np.random.normal(loc=0.0, scale=1.0, size=(N, 1)) +
-                               tau * np.random.normal(loc=0.0, scale=1.0, size=(N, 1)))
+                               tau * np.random.normal(loc=0.0, scale=1.0, size=(N, n)))
 
     return new_x, new_eta
 
@@ -85,32 +87,42 @@ def select(pop: Tuple[NDArray, NDArray], fitness_values: NDArray, N: int, q=10):
     return (pop[0][selection_idx], pop[1][selection_idx])
 
 
-def dea(params: Dict):
+def dea(T: int, q: int, N: int, f: Callable, verbose: bool, init_pop: Tuple[NDArray, NDArray],
+        n: int, xU: float, xL: float, ):
     """
-    Perform differential evolutionary algorithm given a dictionary of parameters
-    :param params:
-    :return:
+    Perform differential evolutionary algorithm based on the provided population, function, and additional parameters
+    :param T:           Number of generations of the DEA
+    :param q:
+    :param N:           Population size
+    :param f:           Function to minimize using DEA
+    :param verbose:     True: Print the mean fitness value for each generation
+    :param init_pop:    A tuple for the initial population containing two numpy arrays.
+                        One for the populations x values, and the other their eta values
+    :param n:           Included for compatability with main(); The dimension of the solution space
+    :param xU:          Included for compatability with main(); Upper bound of the solution space
+    :param xL:          Included for compatability with main(); Upper bound of the solution space
+    :return:            A tuple for the population after T generations containing two numpy arrays:
+                        One for the populations x values, and the other their eta values
     """
-    T = params['T']
-    prev_pop = params["init_pop"]
+    prev_pop = init_pop
     t = 0
 
-    mean_fit = [np.mean(evaluate(prev_pop, params['f']))]
+    mean_fit = [np.mean(evaluate(prev_pop, f))]
     while t < T:
         # 1. Get the mutations and create a larger population for selection (new and previous pop)
         new_pop = mutate(prev_pop)
         evaluation_pop = (np.concatenate((prev_pop[0], new_pop[0]), axis=0),
                           np.concatenate((prev_pop[1], new_pop[1]), axis=0))
         # 2. Calculate fitness values
-        fitness_values = evaluate(pop=evaluation_pop, f=params['f'])
+        fitness_values = evaluate(pop=evaluation_pop, f=f)
 
         # 3. Select the new population out of new and previous population
-        prev_pop = select(pop=evaluation_pop, fitness_values=fitness_values, N=params['N'], q=params['q'])
+        prev_pop = select(pop=evaluation_pop, fitness_values=fitness_values, N=N, q=q)
 
         # 4. Print the mean fitness if verbose
-        m = np.mean(evaluate(prev_pop, params['f']))
+        m = np.mean(evaluate(prev_pop, f))
         mean_fit += [m]
-        if params['verbose']:
+        if verbose:
             print(f"Mean fitness {t} : ", m)
 
         t += 1
@@ -123,6 +135,7 @@ def parseArguments():
     parser.add_argument("-n", '--length', type=int, default=1, help="The dimension of the solution space")
     parser.add_argument('-T', type=int, default=50, help='Number of generation of the DEA')
     parser.add_argument('-N', type=int, default=100, help='Population size')
+    parser.add_argument('-f', type=str, default='lambda x: sum(x**2)', help='Lambda function to minimize. Provided as string')
     parser.add_argument('-xL', type=float, default=-3., help='Lower bound of the the solution space')
     parser.add_argument('-xU', type=float, default=3., help='Upper bound of the the solution space')
     parser.add_argument('-q', type=int, default=10, help='number of mutants for parwise comparison')
@@ -133,21 +146,29 @@ def parseArguments():
 
 
 def main():
+    # Parse the arguments and try to turn the string of a function into a Callable
     args = parseArguments()
-    f = lambda x: sum(x**2)  # Here you will define your objective function
+    try:
+        f = eval(args.f)
+    except:
+        print(f'Please provide a valid lambda function. "{args.f}" could not be parsed')
 
+    # Initialize the seed
+    np.random.seed(args.seed)
+
+    # Prepare the params dictionary and unroll it into the dea function to get the best population and mean fitness values
     params = {'n': args.length, 'T': args.T, 'q': args.q, 'N': args.N, 'f': f, 'verbose': args.verbose, 'xU': args.xU,
               'xL': args.xL, 'init_pop': initialise(args.N, args.length, args.xL, args.xU)}
+    best_pop, mean_fitnesses = dea(**params)
+    print("Best population : ", best_pop[0])
+    print("\nMean fitness value: ", mean_fitnesses[-1])
 
-    best_pop, mean_fitnesses = dea(params)
-    print("Best population : ", best_pop)
+    # Plot the convergence over the generations
     plt.plot(mean_fitnesses, "o-")
-    # Todo: Fix function printing
-    plt.title(f"Optimization of the function {f.__doc__}")
+    plt.title(f"Optimization of the function {args.f.replace('lambda ', '')}")
     plt.xlabel("Generation(t)")
     plt.ylabel("Population mean fitness")
     plt.show()
-
 
 if __name__ == "__main__":
     main()
