@@ -37,3 +37,11 @@ As the function always uses the jth and (j+1)th element of a vector, the lamda f
 python schmidt_hw7.py -f "lambda x: np.sum(100.0 * (x[1:] - x[:-1]**2.0)**2.0 + (1 - x[:-1])**2.0)" -n 30 -xL -30 -xU 30 -T 600
 ```
 <img src="./img/function_3.png" width="1000">
+
+
+## Function 3b
+As there were some uncertainties about whether the number of dimensions is `n=30` or `n=2`, here is the Rosenbrock function for `n=2`
+```
+python schmidt_hw7.py -f "lambda x: np.sum(100.0 * (x[1:] - x[:-1]**2.0)**2.0 + (1 - x[:-1])**2.0)" -n 2 -xL -30 -xU 30 -T 10
+```
+<img src="./img/function_3b.png" width="1000">
