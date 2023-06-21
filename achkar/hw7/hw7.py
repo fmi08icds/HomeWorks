@@ -3,7 +3,6 @@ import numpy as np
 from matplotlib import pyplot as plt
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
-
 def initialise(N, n, x_l, x_u):
     """
     Initialise the population with N individuals,
@@ -16,9 +15,7 @@ def initialise(N, n, x_l, x_u):
 
     :return: a list of tuples (x, eta) where x is the solution and eta is the direction vector
     """
-    all_x = random.uniform(
-        low=x_l, high=x_u, size=(N, n)
-    )  # generates an N x n array of values drawn from a uniform distribution over the interval [x_l, x_u),
+    all_x = random.uniform(low=x_l, high=x_u, size=(N, n))
     all_eta = random.uniform(low=x_l, high=x_u, size=(N, n))
     return list(zip(all_x, all_eta))
 
@@ -32,7 +29,10 @@ def evaluate(pop, f):
 
     :return: a list of fitness values
     """
-    return [f(xi) for xi, _ in pop]
+
+    fitness_value = [f(x[0]) for x in pop]
+    return fitness_value
+    #return [f(xi) for xi, _ in pop]
 
 
 def mutate(pop):
@@ -45,6 +45,7 @@ def mutate(pop):
     """
     n = len(pop[0][0])  # get the dimension of the solution space
     N = len(pop)  # the population size
+    
     new_pop = []
     tau = 1 / np.sqrt(2 * n)
     tau_prime = 1 / np.sqrt(2 * np.sqrt(n))
@@ -71,16 +72,20 @@ def select(pop, fitnesses, N, q=10):
 
     :return: a list of tuples (x, eta) where x is the solution and eta is the direction vector
     """
-    selected_pop = []
-    combined = list(zip(pop, fitnesses))
+    num_individuals = len(pop)
+    victories = [[i, 0] for i in range(num_individuals)]
 
-    # Rank individuals by their wins
-    ranked = sorted(combined, key=lambda x: sum(np.random.choice([1, -1], q) > 0))
+    for idx, _ in enumerate(pop):
+        opponents = np.random.choice(range(num_individuals), size=q, replace=False)
+        victories[idx][1] = sum(fitnesses[idx] < fitnesses[opp] for opp in opponents)
 
-    # Select the top N individuals
-    selected_pop = [x[0] for x in ranked[:N]]
+    # Sort by victories in descending order and take the indices
+    selected_indices = [idx for idx, _ in sorted(victories, key=lambda x: x[1], reverse=True)[:N]]
+    
+    # Select the best individuals based on their indices
+    selected_population = [pop[i] for i in selected_indices]
 
-    return selected_pop
+    return selected_population
 
 
 def dea(params):
@@ -155,9 +160,12 @@ def main():
 
     # Define the three functions to be optimized
     f1 = lambda x: x[0] ** 4 + x[0] ** 3 - x[0] ** 2 - x[0]
-    f2 = lambda x: np.sum(x)
+    f2 = lambda x: np.sum(x**2) 
     f3 = lambda x: np.sum(
-        [100 * (x[j + 1] - x[j] ** 2) ** 2 + (x[j] - 1) ** 2 for j in range(len(x) - 1)]
+        [
+            100 * (x[j + 1] - x[j] ** 2) ** 2 + (x[j] - 1) ** 2
+            for j in range(len(x - 1) - 1)
+        ]
     )
 
     # Define the parameters for each function
@@ -182,7 +190,7 @@ def main():
         "xL": -100,
     }
     params3 = {
-        "n": 30,
+        "n": 2,
         "T": args.T,
         "q": args.q,
         "N": args.N,
