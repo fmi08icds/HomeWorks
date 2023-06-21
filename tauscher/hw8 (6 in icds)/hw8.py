@@ -339,7 +339,7 @@ def main():
 
     plt.tight_layout()
     plt.show()
-    plt.savefig("results.png")
+    plt.savefig("./results.png")
 
 
 if __name__ == "__main__":
