@@ -36,9 +36,18 @@ def mykmeans(data: np.ndarray, k_or_guess, max_iter: int =100, tol: float=1e-4):
     # centroids.
     if isinstance(k_or_guess, int):
         centroids = data[np.random.choice(data.shape[0], k_or_guess, replace=False)]
+        logging.info(f"using {k_or_guess} random points from the data as centroids: {centroids}")
     else:
     # here, the user specified the centroids as a parameter.
+    # check if centroids are valid
+        if k_or_guess.shape[1] != data.shape[1]:
+            raise ValueError("The centroids must have the same number of dimensions as the data.")
+    # check if all centroids are not nan
+        if np.isnan(k_or_guess).any():
+            raise ValueError("The centroids must not contain nan values.")
         centroids = k_or_guess
+        logging.info(f"using user specified centroids {centroids}")
+
 
 
     # check for each data point which centroid is closest with a
@@ -49,29 +58,32 @@ def mykmeans(data: np.ndarray, k_or_guess, max_iter: int =100, tol: float=1e-4):
 
     i=0
     while(True):
-
+        
         i+=1
         old = centroids
-        
 
         ## assign each data point to a cluster
-        clustering = distance_fun(data, centroids)
+        distances = np.sqrt(((data - centroids[:, np.newaxis])**2).sum(axis=2))
+        clustering = np.argmin(distances, axis=0)
 
-        ## save for plotting
+        ## for plotting
         intermediate_res.append({'iteration':i,'cluster_assignments':clustering,'centroids':centroids})
+        
         ## update centroids
-        ## check if there are empty clusters
-        ## if so, reduce the number of clusters by one and run mykmeans again
-        if (np.unique(clustering).shape[0] < centroids.shape[0]):
-            logging.info("empty cluster detected, reducing number of clusters by one")
-            return mykmeans(data=data, k_or_guess=centroids.__len__()-1, max_iter=100, tol=1e-4)
-
-        ## check if there are empty clusters
-        ## if so, 
-        centroids = np.array([np.mean(data[clustering == i], axis=0) for i in range(len(centroids))])
-    
+        centroids = np.array([np.nanmean(data[clustering == i], axis=0) for i in range(len(centroids))])
+        
+        ## check for empty clusters
+        empty_clusters = np.where(np.bincount(clustering, minlength=centroids.shape[0]) == 0)[0]
+        if empty_clusters.size > 0:
+            logging.info("empty cluster detected, reassigning centroids")
+            for empty_cluster in empty_clusters:
+                new_centroid = data[np.random.choice(data.shape[0], 1)]
+                while np.isin(new_centroid, centroids).any():
+                    new_centroid = data[np.random.choice(data.shape[0], 1)]
+                centroids[empty_cluster] = new_centroid
+        
         ## check if the centroids have changed more than the tolerance or if max_iter is reached
-        if (np.all((old - centroids < np.full(fill_value=tol,shape= centroids.shape)))==True or i>max_iter):
+        if (np.all((old - centroids < np.full(fill_value=tol,shape= centroids.shape)))==True or i>=max_iter):
             break
     return centroids, clustering, tol, i, intermediate_res, centroids.shape[0]
 ## 3 test centroids
@@ -83,22 +95,60 @@ def distance_fun(data, centroids):
     and each centroid. The output is an array of length data.shape[0] with
     the index of the closest centroid for each point.
     '''
-    distances = np.zeros(data.shape[0])
-    for i in range(data.shape[0]):
-        distances[i] = np.argmin([np.linalg.norm(data[i] - centroids[j]) for j in range(centroids.shape[0])])
-    return distances
+    distances =  np.linalg.norm(data[:, np.newaxis, :] - centroids, axis=2)
+    clusters = np.argmin(distances, axis=1)
+    return clusters, distances
 
+def test_mykmeans():
+    # Test case 1: 2 clusters, 100 data points, 2 dimensions
+    data = np.random.rand(100, 2)
+    k = 2
+    centroids, clustering, tol, i, intermediate_res, num_clusters = mykmeans(data, k)
+    assert centroids.shape == (k, 2)
+    assert clustering.shape == (100,)
+    assert tol == 1e-4
+    assert i <= 100
+    assert num_clusters == k
 
+    # Test case 2: 3 clusters, 1000 data points, 5 dimensions
+    data = np.random.rand(1000, 5)
+    k = 3
+    centroids, clustering, tol, i, intermediate_res, num_clusters = mykmeans(data, k)
+    assert centroids.shape == (k, 5)
+    assert clustering.shape == (1000,)
+    assert tol == 1e-4
+    assert i <= 100
+    assert num_clusters == k
+
+    # Test case 3: 1 cluster, 10 data points, 1 dimension
+    data = np.random.rand(10, 1)
+    k = 1
+    centroids, clustering, tol, i, intermediate_res, num_clusters = mykmeans(data, k)
+    assert centroids.shape == (k, 1)
+    assert clustering.shape == (10,)
+    assert tol == 1e-4
+    assert i <= 100
+    assert num_clusters == k
+
+    # Test case 4: 4 clusters, 10000 data points, 10 dimensions
+    data = np.random.rand(10000, 10)
+    k = 4
+    centroids, clustering, tol, i, intermediate_res, num_clusters = mykmeans(data, k)
+    assert centroids.shape == (k, 10)
+    assert clustering.shape == (10000,)
+    assert tol == 1e-4
+    assert i <= 100
+    assert num_clusters == k
 
 
     
 ## main to test the functions
 if __name__ == "__main__":
-
+    test_mykmeans()
     ## 100 data points with 3 dimensions, example data to test mykmeans
-    dimensions=5
+    dimensions=10
     points= 10_000
-    kcluster= 15
+    kcluster= 3
     data = np.random.randn(points, dimensions)
     cov_shape = (dimensions, dimensions)
     cov_diag = np.diag(np.random.rand(dimensions)**2)
@@ -192,5 +242,4 @@ if __name__ == "__main__":
 
     plt.show()
 
-    
 
