@@ -3,6 +3,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
+
 def initialise(N, n, x_l, x_u):
     """
     Initialise the population with N individuals,
@@ -32,7 +33,7 @@ def evaluate(pop, f):
 
     fitness_value = [f(x[0]) for x in pop]
     return fitness_value
-    #return [f(xi) for xi, _ in pop]
+    # return [f(xi) for xi, _ in pop]
 
 
 def mutate(pop):
@@ -45,7 +46,7 @@ def mutate(pop):
     """
     n = len(pop[0][0])  # get the dimension of the solution space
     N = len(pop)  # the population size
-    
+
     new_pop = []
     tau = 1 / np.sqrt(2 * n)
     tau_prime = 1 / np.sqrt(2 * np.sqrt(n))
@@ -80,8 +81,10 @@ def select(pop, fitnesses, N, q=10):
         victories[idx][1] = sum(fitnesses[idx] < fitnesses[opp] for opp in opponents)
 
     # Sort by victories in descending order and take the indices
-    selected_indices = [idx for idx, _ in sorted(victories, key=lambda x: x[1], reverse=True)[:N]]
-    
+    selected_indices = [
+        idx for idx, _ in sorted(victories, key=lambda x: x[1], reverse=True)[:N]
+    ]
+
     # Select the best individuals based on their indices
     selected_population = [pop[i] for i in selected_indices]
 
@@ -159,13 +162,10 @@ def main():
     args = parseArguments()
 
     # Define the three functions to be optimized
-    f1 = lambda x: x[0] ** 4 + x[0] ** 3 - x[0] ** 2 - x[0]
-    f2 = lambda x: np.sum(x**2) 
+    f1 = lambda x: x**4 + x**3 - x**2 - x
+    f2 = lambda x: np.sum(x**2)
     f3 = lambda x: np.sum(
-        [
-            100 * (x[j + 1] - x[j] ** 2) ** 2 + (x[j] - 1) ** 2
-            for j in range(len(x - 1) - 1)
-        ]
+        [100 * (x[j + 1] - x[j] ** 2) ** 2 + (x[j] - 1) ** 2 for j in range(len(x) - 1)]
     )
 
     # Define the parameters for each function
@@ -215,7 +215,6 @@ def main():
         plt.xlabel("Generation(t)")
         plt.ylabel("Population mean fitness")
         plt.show()
-
 
 if __name__ == "__main__":
     main()
