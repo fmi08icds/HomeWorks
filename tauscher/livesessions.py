@@ -114,3 +114,14 @@ d = {"anna": "A+", "bob": "B-", "carol": "C", "dave": "D+"}
 d = pd.Series(d)
 e = pd.Series(d, index=['bob','carol','dave','anna'])
 e.index = ['a','b','c','d']
+
+
+
+cereal = pd.read_csv('Coding/data/cereal.csv')
+
+gb = cereal.groupby('type')['calories']
+
+gb.mean()
+
+pd.__version__
+
