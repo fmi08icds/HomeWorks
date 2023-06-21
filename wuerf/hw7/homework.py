@@ -41,7 +41,7 @@ def evaluate(pop, f):
         A list of evaluations
     """
 
-    return [f(x[0])[0] for x in pop]
+    return [f(x[0]) for x in pop]
 
 
 def mutate(pop):
@@ -197,9 +197,9 @@ def parseArguments():
 
 def main():
     args = parseArguments()
-    f = lambda x: x**4 + x**3 - x**2 - x
-    # f = lambda x: sum([x**2 for _ in range(30)])
-    # f = lambda x: sum([ 100*(x - x**2)**2 + (x-1)**2 for _ in range(2)])
+    # f = lambda x: x**4 + x**3 - x**2 - x
+    f = lambda x: sum([x_j**2 for x_j in x])
+    # f = lambda x: sum([ 100*(x[j+1] - x[j]**2)**2 + (x[j]-1)**2 for j in range(len(x)-1)])
 
     params = {
         "n": args.length,
