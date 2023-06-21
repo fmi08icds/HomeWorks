@@ -82,13 +82,7 @@ def evaluate(pop: Population, f):
 
 def mutate(pop: Population) -> None:
     """
-        DE generates new parameter
-        vectors by adding the weighted difference between two population vectors to a
-        third vector. Let this operation be called mutation. 
-        If the
-        trial vector yields a lower cost function value than the target vector, the trial vector
-        replaces the target vector in the following generation. The last step is called selection.
-
+    2003_Book_AdvancesInEvolutionaryComputin p.48-49 for implementation details
     """
 
     # increment the generation number / times the population has been mutated
@@ -111,24 +105,21 @@ def mutate(pop: Population) -> None:
 
 def select(pop: Population, q=10):
     """
-        Conduct pairwis e comparison over the union of parents (Xi,17i) and off-
-        spring (X/ ,17/), Vi E {1, .. . ,p, } . For each individual, q opponents are
-        chosen uniformly at random from all the parents and offsprin g. For each
-        comparison, if the individual's fitness is no sma ller than the opponent's ,
-        it receives a "win."
-
+     Conduct pairwise comparison over the union of parents and offspring.
+     For each individual, q opponents are chosen at random from all the parents and offspring.
+     For each comparison, if the individual's fitness is not smaller than the opponent's, it receives a "win."
+     The individual with the most wins is selected for the next generation.
     """
 
-    # select the best N agents from the union of the parents and offsprings
-
-    # conduct pairwise comparison against q opponents
-    # if the individual's fitness is no smaller than the opponent's, it receives a "win"
     all_agents = pop.agents + pop.offsprings
     wins = [0]*len(all_agents)
     for pos, agent in enumerate(all_agents):
+        
+        # choose all but the current agent as opponents
         pos_mask = [True]*len(all_agents)
         pos_mask[pos] = False
         opponents = random.choice(list(compress(all_agents,pos_mask)), q)
+        
         ## crucial step!!! => or <= depends on the objective function
         ## and if one wants to minimize or maximize it.
         ## now this is a minimization problem, so we want to select the
@@ -136,25 +127,66 @@ def select(pop: Population, q=10):
         wins[pos] = np.sum([agent.fitness <= opponent.fitness for opponent in opponents])
 
     # select the best N agents from the union of the parents and offsprings
+    # argsort returns the indices that would sort an array
+    # [::-1] reverses the array, so the highest win-count is first
+    # [:pop.N] selects the first N agents, so the best N agents are selected
     pop.agents = [all_agents[i] for i in np.argsort(wins)[::-1][:pop.N]]
-    pop.offsprings = [] # reset offsprings to empty list
+    
+    # finally, reset offsprings to empty list
+    pop.offsprings = [] 
     pass
 
 
+
 def dea(params):
+
     """
-        Your docstr here
+    Evolutionary Algorithm implementation.
+
+    Parameters:
+    -----------
+    params : dict
+        A dictionary containing the following parameters:
+        - T : int
+            Number of generations of the EA.
+        - N : int
+            Population size.
+        - n : int
+            Dimension of the solution space.
+        - xL : float
+            Lower bound of the solution space.
+        - xU : float
+            Upper bound of the solution space.
+        - q : int
+            Number of mutants for pairwise comparison.
+        - verbose : bool
+            Whether to print the mean fitness evolution on a standard output.
+        - seed : int
+            Seed for the initial population.
+        - f : function
+            Polynom to evaluate. Should be vectorized since input x is a vector.
+
+    Returns:
+    --------
+    init_pop : Population
+        The final population after T generations.
+    mean_fit : list of float
+        The mean fitness of the population at each generation.
+    best_agent : float
+        The best agent found by the EA after T steps.
+    best_walk : list of float
+        The fitness of the best agent at each generation.
     """
 
-    T = params['T']  # get the coresponding parameter from the params dict.
     # initialise the population
     init_pop = initialise(params['N'], params['n'], params['xL'], params['xU'])
-
+    
+    # start the process
+    T = params['T']  
     t = 0
     mean_fit = []
     best_walk = []
     while t < T:
-        # write your code here to implement the DEA. The steps should be 1. mutate, 2. evaluate, 3. select
 
         # 1. mutate
         mutate(init_pop)
@@ -167,14 +199,14 @@ def dea(params):
         mean_fit += [m]
         print(f"Mean fitness {t} : ", m)
         
-        # plotting purposes
-        best_walk.append(init_pop.agents[0].fitness)
+        # for plotting purposes
+        best_walk.append(min(init_pop.agents, key=lambda agent: agent.fitness).fitness)
+
         if params['verbose']:
-            print(f"Generation {t}: mean fitness = {mean_fit[-1]}")
+            print(f"Generation {init_pop.generation}: mean fitness = {mean_fit[-1]}, best fitness = {best_walk[-1]}")
     
     # since they are ordered by fitness, the best solution is the first one
-    best_agent = init_pop.agents[0].x
-#    best_agent = min(pop.offsprings + pop.agents, key=lambda agent: agent.fitness)
+    best_agent = min(init_pop.agents, key=lambda agent: agent.fitness)
 
     return init_pop, mean_fit, best_agent, best_walk
 
@@ -210,7 +242,7 @@ def target_function1(x):
     return (x**4 + x**3 - x**2 - x)
 
 
-@np.vectorize
+# autmatically vectorized because of np.sum...
 def target_function2(x):
     """ 
     function 2
@@ -231,11 +263,11 @@ def target_function3(x):
 def test_dea_with_target_function1():
     params = {
         'n': 1,
-        'T': 50,
-        'q': 10,
-        'N': 100,
+        'T': 250,
+        'q': 25,
+        'N': 200,
         'f': target_function1,
-        'verbose': False,
+        'verbose': True,
         'xU': 3.,
         'xL': -3.
     }
@@ -245,9 +277,9 @@ def test_dea_with_target_function1():
 def test_dea_with_target_function2():
     params = {
         'n': 30,
-        'T': 150,
-        'q': 25,
-        'N': 100,
+        'T': 750,
+        'q': 10,
+        'N': 150,
         'f': target_function2,
         'verbose': True,
         'xU': 50.,
@@ -258,9 +290,9 @@ def test_dea_with_target_function2():
 def test_dea_with_target_function3():
     params = {
         'n': 30,
-        'T': 150,
+        'T': 1000,
         'q': 25,
-        'N': 100,
+        'N': 150,
         'f': target_function3,
         'verbose': True,
         'xU': 1.5,
@@ -271,33 +303,43 @@ def test_dea_with_target_function3():
 
 
 def main():
-    best_pop, mean_fitnesses1, best_agent, best_walk = test_dea_with_target_function1()
-    best_pop, mean_fitnesses2, best_agent, best_walk = test_dea_with_target_function2()
+    best_pop, mean_fitnesses1, best_agent1, best_walk1 = test_dea_with_target_function1()
+    best_pop, mean_fitnesses2, best_agent2, best_walk2 = test_dea_with_target_function2()
 
-    best_pop, mean_fitnesses3, best_agent, best_walk = test_dea_with_target_function3()
+    best_pop, mean_fitnesses3, best_agent3, best_walk3 = test_dea_with_target_function3()
 
     args = parseArguments()
     
+    print(f'f1 Solution: {best_agent1.x} with fitness {best_agent1.fitness}')
+    print(f'f2 Solution: {best_agent2.x} with fitness {best_agent2.fitness}')
+    print(f'f3 Solution: {best_agent3.x} with fitness {best_agent3.fitness}')
 
-    
+
     fig, axs = plt.subplots(3, 1, figsize=(8, 12))
-    axs[0].plot(mean_fitnesses1, "o-")
-    axs[0].set_title("Optimization of the function "+target_function1.__doc__)
+    axs[0].plot(mean_fitnesses1, label="mean fitness", color ='black')
+    axs[0].plot(best_walk1, label="best agent", color="red")
+    axs[0].set_title(f"Optimization of {target_function1.__doc__}")
     axs[0].set_xlabel("Generation(t)")
-    axs[0].set_ylabel("Population mean fitness")
+    axs[0].set_ylabel("fitness")
+    axs[0].legend()
 
-    axs[1].plot(mean_fitnesses2, "o-")
-    axs[1].set_title("Optimization of the function "+target_function2.__doc__)
+    axs[1].plot(mean_fitnesses2, label="mean fitness", color ='black')
+    axs[1].plot(best_walk2, label="best agent", color="red")
+    axs[1].set_title(f"Optimization of {target_function2.__doc__}")
     axs[1].set_xlabel("Generation(t)")
-    axs[1].set_ylabel("Population mean fitness")
+    axs[1].set_ylabel("fitness")
+    axs[1].legend()
 
-    axs[2].plot(mean_fitnesses3, "o-")
-    axs[2].set_title("Optimization of the function "+target_function3.__doc__)
+    axs[2].plot(mean_fitnesses3, label="mean fitness", color ='black')
+    axs[2].plot(best_walk3, label="best agent", color="red")
+    axs[2].set_title(f"Optimization of {target_function3.__doc__}")
     axs[2].set_xlabel("Generation(t)")
-    axs[2].set_ylabel("Population mean fitness")
+    axs[2].set_ylabel("fitness")
+    axs[2].legend()
 
     plt.tight_layout()
     plt.show()
+    plt.savefig("./results.png")
 
 
 if __name__ == "__main__":
