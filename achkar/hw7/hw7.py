@@ -33,7 +33,6 @@ def evaluate(pop, f):
 
     fitness_value = [f(x[0]) for x in pop]
     return fitness_value
-    # return [f(xi) for xi, _ in pop]
 
 
 def mutate(pop):
@@ -215,6 +214,7 @@ def main():
         plt.xlabel("Generation(t)")
         plt.ylabel("Population mean fitness")
         plt.show()
+
 
 if __name__ == "__main__":
     main()
