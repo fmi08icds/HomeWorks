@@ -38,7 +38,6 @@ def mutate(pop):
     tau_prime = (sqrt(2*n))**-1
 
     for i in range(N):
-        # ?? correct?
         individual = pop[i][0]
         eta = pop[i][1]
         m_individual = individual + eta * random.random()
@@ -69,7 +68,9 @@ def select(pop, fitnesses, N, q=10):
 
 def dea(params):
     """
-        Your docstr here
+        Runs the Differential Evolution Algorithm for T generations.
+        Contains the processing steps of mutation, evaluation and selection.
+        Returning the final population and its mean fitness.
     """
 
     T = params['T']  # get the coresponding parameter from the params dict.
