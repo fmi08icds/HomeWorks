@@ -10,6 +10,11 @@ isperfect_binary_search_run_time_dict = {}
 getLowUpper_run_time_dict = {}
 mysqrt_run_time_dict = {}
 
+### COMMENTS: very good results presentation. But you should notice that the improvement of isperfect does not affect that much the time of getLowUpper function.
+## See you own plots in improvement 1 and 2.
+
+### COMMENTS so if you try python hw3.py --n 2247002 it takes ages which normally improving getLowUpper will overcome that.
+### Good job :)
 
 def isperfect(n: int ):
     """
@@ -286,13 +291,3 @@ def main() :
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-
-
-

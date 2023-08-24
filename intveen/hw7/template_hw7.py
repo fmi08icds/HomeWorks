@@ -16,12 +16,12 @@ def initialise(N, n, x_l, x_u):
 
     Returns:
         vector [np.ndarray] pair of real valued vectors (x, eta)
-    
+
     """
     all_x = [0] * N
     for i in range(N):
         all_x[i] = random.uniform(low=0.0, high=1.0, size=n) * (x_u - x_l) + x_l
-   
+
     uniform_eta = random.uniform(low=0.0, high=1.0, size=N)
     all_eta = uniform_eta*((x_u - x_l) + x_l)
 
@@ -35,7 +35,7 @@ def evaluate(pop, f):
     Args:
         pop [List] the population list (x, eta)
         f [callable function] the function used for evaluation
-    
+
     Returns:
         result [List] the result of f(pop)
     """
@@ -47,7 +47,7 @@ def mutate(pop):
     mutate the current population from x, eta to x_prime, eta_prime
     Args:
         pop: [List[Tuple(x, eta)]] individuals x and step-sizes eta
-    
+
     Returns:
         result [List[Tuple[(x', eta')]]] mutated x' and adapted eta'
     """
@@ -57,11 +57,11 @@ def mutate(pop):
 
     mutated_pop = []
     for j in range(N):
-        mutated_pop.append(pop[j][0] + pop[j][1] * random.normal(size=n))
+        mutated_pop.append(pop[j][0] + pop[j][1] * random.normal(size=n)) ## COMMENTS: very good
 
     tau = (math.sqrt(2*math.sqrt(n)))**-1
     tau_prime = (math.sqrt(2*n))**-1
-    vals = tau*random.normal(size=N) + tau_prime*random.normal(size=N)
+    vals = tau*random.normal(size=N) + tau_prime*random.normal(size=N) ##COMMENTS: one of the normal dist should varry with j=1..n
     eta_prime = []
     for j in range(N):
         eta_prime.append(pop[j][1] * math.exp(vals[j]))
@@ -72,7 +72,7 @@ def mutate(pop):
 def select(pop, fitnesses, N, q=10) :
     """
     count wins of an individual i for q opponents by min of their fitness
-    select the top N wins based on their indices 
+    select the top N wins based on their indices
 
     Args:
         pop [List]: the population
@@ -81,13 +81,13 @@ def select(pop, fitnesses, N, q=10) :
         q [int]: the samples to randomly draw
 
     Returns:
-        selected_pop [List]: the newly selected population 
+        selected_pop [List]: the newly selected population
     """
     selected_pop = []
     population_size = len(pop)
     wins = [[i, 0] for i in range(population_size)]  # List of victories with indices
     for i in range(population_size):
-        opponents = random.randint(0, population_size, size=q)
+        opponents = random.randint(0, population_size, size=q) ##COMMENTS: replace=False should be set up
         for o in opponents:
             if fitnesses[i] < fitnesses[o]:
                 wins[i][1] += 1
@@ -104,7 +104,7 @@ def select(pop, fitnesses, N, q=10) :
 
 def dea(params):
     """
-    Calculates the differential evolutionary algorithm based on the 
+    Calculates the differential evolutionary algorithm based on the
     input parameters
 
     Args:

@@ -19,7 +19,7 @@ def initialise(N,n,x_l, x_u) :
 
         x = r_x * (x_u - x_l) + x_l
         all_x.append(x)
-        
+
         eta = r_eta * (x_u - x_l) + x_l
         all_eta.append(eta)
 
@@ -49,7 +49,7 @@ def mutate(pop) :
     N = len(pop) # the population size
     new_pop = []
     tau = 1/(math.sqrt(2 * math.sqrt(n)))
-    tau_prime = 1/(math.sqrt(2*n)) 
+    tau_prime = 1/(math.sqrt(2*n))
 
     for i in range(N):
         x = pop[i][0]
@@ -61,9 +61,9 @@ def mutate(pop) :
         gaus3 = random.normal()
 
         for j in range(n):
-            x_new.append(x[j] + eta[j]*gaus1)
-            eta_new.append(eta[j]*math.exp(tau_prime*gaus2 + tau*gaus3))
-        
+            x_new.append(x[j] + eta[j]*gaus1) ## COMMENTS: gaus1 should change for each j
+            eta_new.append(eta[j]*math.exp(tau_prime*gaus2 + tau*gaus3)) ##COMMENTS: the same as in the previous comment for gaus3
+
         new_pop.append((np.array(x_new), np.array(eta_new)))
 
     return new_pop
@@ -85,14 +85,14 @@ def select(pop, fitnesses, N, q=10) :
             if fit <= fit_op:
                 wins += 1
         win_arr.append(wins)
-    
+
     biggest_indexes = heapq.nlargest(N, range(len(win_arr)), key=lambda i: win_arr[i])
 
     selected_pop = []
 
     for i in biggest_indexes:
         selected_pop.append(pop[i])
-               
+
     return selected_pop
 
 
@@ -120,7 +120,7 @@ def dea(params: dict):
         fitnesses = evaluate(pop_all, params["f"])
 
         prev_pop = select(pop_all, fitnesses, params["N"])
-        
+
         m = mean(evaluate(prev_pop, params["f"]))
         mean_fit += [m]
         print(f"Mean fitness {t} : " ,m)
@@ -145,12 +145,12 @@ def parseArguments():
 
 def main() :
     args = parseArguments()
-    f = lambda x: x**4 + x**3 - x**2 - x # Here you will define your obejective function
-    f.__doc__ = "x**4 + x**3 - x**2 - x"
-    #f = lambda x: sum(x**2)
-    #f.__doc__ = "sum(x**2)"
-    #f = lambda x: sum(100*((x[i+1] - x[i]**2)**2)+(x[i]-1)**2 for i in range(len(x)-1))
-    #f.__doc__ = "sum(100*(x[i+1] - x[i]**2)+(x[i]-1)**2 for i in range(len(x)-1))"
+    #f = lambda x: x**4 + x**3 - x**2 - x # Here you will define your obejective function
+    #f.__doc__ = "x**4 + x**3 - x**2 - x"
+    # f = lambda x: sum(x**2)
+    # f.__doc__ = "sum(x**2)"
+    f = lambda x: sum(100*((x[i+1] - x[i]**2)**2)+(x[i]-1)**2 for i in range(len(x)-1))
+    f.__doc__ = "sum(100*(x[i+1] - x[i]**2)+(x[i]-1)**2 for i in range(len(x)-1))"
 
     params = {
         'n' : args.length,

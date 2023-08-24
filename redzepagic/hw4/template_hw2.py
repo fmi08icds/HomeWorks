@@ -1,6 +1,6 @@
 
 '''
-Welcome to your fourth homework!	 
+Welcome to your fourth homework!
 This exercise aims to teach you how to analyse a given code and explain in detail what it does.
 '''
 
@@ -16,6 +16,8 @@ def f(x,R) :
 
 # this function generates points in a square with a = R and returns the portion of points which are in a circle with radius r, so it gives the integral of a quarter circle
 # so it approximates the area of a quarter of a circle and returns the approximated area of the whole circle
+
+##COMMENTS: very import to mention the technique used to approximate that area. Monte Carlos simulation.
 def approximate_circle_area(N) :
     """
      This is a no name function. after figuring out what it does you're allowed to rename

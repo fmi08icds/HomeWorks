@@ -5,7 +5,7 @@ This exercise aims to teach you how to analyse a given code and explain in detai
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+## COMMENTS: WEll done!
 
 def approximate_pi_with_monte_carlo_np(N,M):
 
@@ -44,4 +44,3 @@ def main_np () :
 
 if __name__ =="__main__" :
         main_np()
-

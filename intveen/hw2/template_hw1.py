@@ -21,6 +21,7 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
+    ## COOMENTS: wrong this will only work for n*n < 10^4
     for i in range(0,100) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i*i == n : # replace None by the appropriate code.
             return True, i
@@ -49,7 +50,7 @@ def getLowUpper(n: int):
 
     while not low[0]:  ## Hint: look at the second while loop.
         i += 1  ## i = i -1
-        low = isperfect(n-i)
+        low = isperfect(n-i) ## COMMENTS: Good
 
     i = 1
     while not upper[0]:
@@ -99,12 +100,12 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
 
     rst = (minsqrt + maxsqrt)/2
 
-    while abs(rst**2 - n) >= error_threshold:
+    while abs(rst**2 - n) >= error_threshold: ## COMMENTS: good but simply to use maxsqrt-minsqrt >=error_threshold as condition
 
         if rst**2 < n:  # Hint: have a look at the first function.
             minsqrt = rst
         else:
-            maxsqrt = rst
+            maxsqrt = rst ## COMMENTS: Very good
         rst = (minsqrt + maxsqrt)/2
         iteration += 1
     # ## END CODE ####

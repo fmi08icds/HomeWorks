@@ -85,8 +85,8 @@ def mutate(pop) :
         for j in range(n):
             xi_j = xi[j]
             eta_i_j = eta_i[j]
-            xi_prime_j = xi_j + (eta_i_j * np.random.normal(0,1))
-            eta_prime_i_j = eta_i_j * np.exp( tau_prime * np.random.normal(0,1) + tau * np.random.normal(0,1))
+            xi_prime_j = xi_j + (eta_i_j * np.random.normal(0,1)) ## COMMENTS: very goood.
+            eta_prime_i_j = eta_i_j * np.exp( tau_prime * np.random.normal(0,1) + tau * np.random.normal(0,1))##COMMENTS: one of the random variable stays id for all j
             xi_prime.append(xi_prime_j)
             eta_prime_i.append(eta_prime_i_j)
 
@@ -118,7 +118,7 @@ def select(pop, fitnesses, N, q=10) :
         wins = 0 # counter for the number of wins
 
         # Randomly select opponents for comparison
-        opponents = random.choice(num_individuals, size= q, replace= False)
+        opponents = random.choice(num_individuals, size= q, replace= False)## COMMENTS: very good
 
         # compare the fitness of the individual with each opponent
         for opponent_idx in opponents:
@@ -216,7 +216,7 @@ def main() :
     f2 = lambda x: sum(x**2)
     f3 = lambda x: sum([100 * (x[(j+1)] - x[j]**2)**2 + (x[j] - 1)**2 for j in range(len(x)-1)])
 
-    chosen_function = 'f1'
+    chosen_function = 'f3'
 
     if chosen_function == 'f1':
         args.xL = -2

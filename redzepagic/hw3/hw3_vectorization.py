@@ -3,7 +3,7 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 import numpy as np
 
 
-def isperfect(n: int ):
+def isperfect(n: int ):## COMMENTS: great job
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
@@ -28,7 +28,7 @@ def isperfect(n: int ):
         return (False, n)
 
 
-def getLowUpper(n: int):
+def getLowUpper(n: int): ## COMMENTS: this function should also be improved of vectorised. otherwise it will still be too slow. e.g. try --n 22470020
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.

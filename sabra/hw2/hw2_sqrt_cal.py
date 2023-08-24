@@ -19,6 +19,7 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
+    ##COMMENTS: good but in the best case range should start from 2 i.e. range(2,n)
     for i in range(n) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i * i == n : # replace None by the appropriate code.
             return (True, i)
@@ -47,7 +48,7 @@ def getLowUpper(n: int):
 
     while not low[0] : ## Hint: look at the second while loop.
         i = i + 1
-        low = isperfect(n-i)
+        low = isperfect(n-i) ##COMMENTS: very good
 
     i = 1
     while not upper[0] :
@@ -91,9 +92,9 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst =  (minsqrt + maxsqrt)/2
+    rst =  (minsqrt + maxsqrt)/2 ## COMMENTS: good
 
-    while abs( (rst * rst) - n) >= error_threshold :
+    while abs( (rst * rst) - n) >= error_threshold : ## COMMENTS: simplier to use maxsqrt-minsqrt >=error_threshold condition
             if (rst * rst) < n : # Hint: have a look at the first function.
                     minsqrt = rst
             else :
@@ -152,11 +153,3 @@ def main() :
 
 if __name__ == '__main__':
     main()
-
-
-
-
-
-
-
-

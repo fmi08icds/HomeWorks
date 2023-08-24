@@ -1,6 +1,6 @@
 
 '''
-Welcome to your fourth homework!	 
+Welcome to your fourth homework!
 This exercise aims to teach you how to analyse a given code and explain in detail what it does.
 '''
 import cProfile
@@ -49,6 +49,7 @@ def estimate_pi(N) :
 
 
 def main () :
+    ## COMMENTS: give customised names to your aasignment files.
 
     M = 100
     N = 1000

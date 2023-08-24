@@ -4,7 +4,7 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 ## COMMENTS: Very good optimization Florian but please, check your complexity analysis getLowUpper can not be of complexity O(n^3).
 ## You can always validate the theoritical complexity by fitting the emp cputime for different n on your theoritical function e.g. O(a*n^3)
-## COMMENTS: The while loop in the getLowUpper methods will never run n-times. 
+## COMMENTS: The while loop in the getLowUpper methods will never run n-times apart from the case when n.
 
 def isperfect(n: int):
     """

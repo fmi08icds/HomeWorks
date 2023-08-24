@@ -21,6 +21,7 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
+    ## COMMENTS: very good and optimum but n=0,1 have been handled so range(2,2//2) works better.
     for i in range(0, n//2) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i**2 == n : # replace None by the appropriate code.
             return (True, i)
@@ -28,7 +29,7 @@ def isperfect(n: int ):
     ### END CODE #####
 
 
-def getLowUpper(n: int):
+def getLowUpper(n: int): ##COMMENTS: very good
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.
@@ -63,7 +64,7 @@ def getLowUpper(n: int):
 
 
 
-def mysqrt(n: int, error_threshold=0.000000001) -> float:
+def mysqrt(n: int, error_threshold=0.000000001) -> float: ##COMMENTS: Perfect
     """
         This function is the main function. It takes an interger n and returns the square root of n.
         We will use here the two helper functions we wrote previously.

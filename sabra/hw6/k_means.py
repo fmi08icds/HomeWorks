@@ -92,27 +92,9 @@ if __name__ == "__main__":
     for i, assignment in enumerate(unique_assignments):
         subset = df[df['cluster'] == assignment]
         plt.scatter(subset['x'], subset['y'], color=colors[assignment], label=f'Cluster {i + 1}')
-
+        ## COMMENTS: plot also the centroids values for verification
     plt.xlabel('x')
     plt.ylabel('y')
     plt.title('Data points by Assignment')
     plt.legend()
     plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

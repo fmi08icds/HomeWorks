@@ -31,19 +31,19 @@ def isperfect(n: int ):
     # return False, n
 
 
-    # vector-based implementation 
+    # vector-based implementation
     vec = np.arange(n) # [0,1,2,3,4,...,9234]
     x = np.where(vec*vec == n, True, False)
     if np.any(x):
         return True, vec[x][0]
 
-    
-    return False, n 
-    
+
+    return False, n
+
     ### END CODE #####
 
 
-def getLowUpper(n: int):
+def getLowUpper(n: int):##COMMENTS: this method can also be vectorized as well
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.
@@ -146,12 +146,12 @@ def main() :
             """
     # Argumentparser zum Ausführen per Terminal -> python template_hw1.py --n 49
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, argument_default=SUPPRESS, description=doc_)
-    # welche möglichen Parameter können übergeben werden? 
+    # welche möglichen Parameter können übergeben werden?
     parser.add_argument('--n', type=int, help="An integer input for which we compute the sqrt root.")
     # parser.add_argument('--m', ...)
-    args = parser.parse_args() # hinzufügen der Parameter ist abgeschlossen 
+    args = parser.parse_args() # hinzufügen der Parameter ist abgeschlossen
     input_n = args.n # der Parameter args.n wird der Variable input_n zugewiesen
-    # input_m = args.m 
+    # input_m = args.m
     # input_n = 490654
 
     cProfile.runctx('mysqrt(input_n)', {'input_n': input_n, 'mysqrt': mysqrt}, {})

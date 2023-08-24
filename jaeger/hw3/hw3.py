@@ -9,6 +9,7 @@ sum_time_complexity = {"isperfect": 0,
                        "main": 0
                        }
 
+##COMMENTS: well presented. Something is wrong in your implementation since you can't computer the square root of 22470020 faster than 10000000
 def time_complexity(func):
     def wrapper(*args, **kwargs):
         start_time = time.perf_counter()

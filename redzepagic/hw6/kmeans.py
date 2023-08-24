@@ -46,31 +46,31 @@ def main () :
     old_centroids = np.empty((3, 2))
 
     while True:
-        count += 1       
+        count += 1
         old_centroids = centroids
         cl1, cl2, cl3 = calc_clusters(centroids)
         centroids = calc_centroids(cl1, cl2, cl3)
         if np.array_equal(centroids, old_centroids) or count >= 500:
              break
-        
+
     print(centroids)
 
     # Remove the comments to see the plot
+    ## COMMENTS: it does not show data point on the plot at the second run.
+    colors = ['r', 'g', 'b']
+    symbols = ['o', 's', 'D']
 
-    # colors = ['r', 'g', 'b']
-    # symbols = ['o', 's', 'D']
+    for i, cluster in enumerate([cl1, cl2, cl3]):
+        plt.scatter(cluster[:, 0], cluster[:, 1], c=colors[i], marker=symbols[i])
 
-    # for i, cluster in enumerate([cl1, cl2, cl3]):
-    #     plt.scatter(cluster[:, 0], cluster[:, 1], c=colors[i], marker=symbols[i])
+    plt.xlabel('X')
+    plt.ylabel('Y')
+    plt.title('Cluster Plot')
+    plt.legend(['Cluster 1', 'Cluster 2', 'Cluster 3'])
+    plt.grid(True)
+    plt.show()
 
-    # plt.xlabel('X')
-    # plt.ylabel('Y')
-    # plt.title('Cluster Plot')
-    # plt.legend(['Cluster 1', 'Cluster 2', 'Cluster 3'])
-    # plt.grid(True)
-    # plt.show()
 
-    
 
 if __name__ =="__main__" :
         main()

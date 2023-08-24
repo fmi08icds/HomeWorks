@@ -30,8 +30,11 @@ def centroid(cluster):
 # O(N*I*k) N = datapoints, I = iterations, k = number of cluster
 def k_means(datapoints, max_iteration = 5, k = 3):
 
-    centroids = sample(datapoints,k)
+    centroids = sample(datapoints, k) ## COMMENTS: sample works only on sequences data. So, use the indexes instead.
+    ## COMMENTS: replace this by datapoints[sample(range(datapoints.shape[0]), k)]
     # centroids = [(3,4), (2,2), (5,2)]
+
+
     iter = 0
     while iter < max_iteration:
         cluster = [[] for _ in range(k)]
@@ -57,7 +60,7 @@ def k_means(datapoints, max_iteration = 5, k = 3):
             break
 
 
-    return cluster
+    return cluster, centroids ##COMMENTS: important to return the optiomum centroids
 
 # rng=np.random.default_rng(seed=1234)
 # cl1=rng.multivariate_normal([-2,-2],[[1,-0.5],[-0.5,1]],size =100)
@@ -68,4 +71,3 @@ def k_means(datapoints, max_iteration = 5, k = 3):
 
 print(k_means([(4,10),(7,10),(4,8),(6,8),(3,4),(2,2),(5,2),(10,5),(12,6),(11,4),(9,3),(12,3)], 3))
 # print(k_means(pts, 3))
-

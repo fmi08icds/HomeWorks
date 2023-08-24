@@ -67,6 +67,7 @@ def main():
     # Apply k-means clustering with k=3
     ctr, dist = k_means(pts, k=3)
 
+    ## COMMENTS: a plot would have illustrated your results better
     # Print mean distance and centroids
     print("Ctr:", ctr)
     print("Dist:", dist)

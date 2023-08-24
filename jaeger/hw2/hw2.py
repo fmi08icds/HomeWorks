@@ -19,6 +19,7 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
+    ##COMMENTS: The cases n=0,1 have already been handled. So, range(2,n) is more optimum
     for i in range(n) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i * i == n : # replace None by the appropriate code.
             return True, i
@@ -50,7 +51,7 @@ def getLowUpper(n: int):
     i = 1
     while not upper[0]:
         i += 1
-        upper = isperfect(n + i)
+        upper = isperfect(n + i) ##COMMENTS: GOOD.
 
     minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1.
     ### END CODE ####
@@ -74,7 +75,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     if n == 0 or n == 1 : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
         return n
 
-    if n < 0:
+    if n < 0: ##COMMENTS: no added code allowed
         raise Exception("No numbers below zero - you can't compute square route with negative numbers!")
     ### END CODE ###
 
@@ -91,14 +92,14 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst = (minsqrt + maxsqrt) / 2
+    rst = (minsqrt + maxsqrt) / 2 ##COMMENTS: good!
 
     while abs(rst * rst - n) >= error_threshold:
 
             if rst * rst < n: # Hint: have a look at the first function.
                     minsqrt = rst
             else :
-                    maxsqrt = rst
+                    maxsqrt = rst ##COMMENTS: good! 
             rst = (minsqrt + maxsqrt) / 2
             iteration += 1
     ### END CODE ####

@@ -3,7 +3,7 @@
 Welcome to your fourth homework!
 This exercise aims to teach you how to analyse a given code and explain in detail what it does.
 '''
-
+## COMMENTS: well done.
 import numpy as np
 import matplotlib.pyplot as plt
 import time

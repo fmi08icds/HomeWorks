@@ -75,8 +75,8 @@ def mutate(pop):
 
     for agent in pop["agents"]:
         agent_dict = {
-            "x": agent["x"] + agent["eta"] * random.normal(0, 1, pop["n"]),
-            "eta": agent["eta"] * exp(tau_prime * random.normal(0, 1, 1) + tau * random.normal(0, 1, pop["n"])),
+            "x": agent["x"] + agent["eta"] * random.normal(0, 1, pop["n"]), ## COMMENTS: very good
+            "eta": agent["eta"] * exp(tau_prime * random.normal(0, 1, 1) + tau * random.normal(0, 1, pop["n"])), ## COMMENTS: very good
             "fitness": None
         }
 
@@ -101,7 +101,7 @@ def select(pop, q=10):
     for pos, agent in enumerate(all_agents):
         pos_mask = [True] * len(all_agents)
         pos_mask[pos] = False
-        opponents = random.choice(list(compress(all_agents, pos_mask)), q)
+        opponents = random.choice(list(compress(all_agents, pos_mask)), q) ## COMMENTS: careful here replace=False needed
         wins[pos] = sum([agent["fitness"] <= opponent["fitness"] for opponent in opponents])
 
     pop["agents"] = [all_agents[i] for i in argsort(wins)[::-1][:pop["N"]]]
@@ -211,6 +211,8 @@ def test_target_function1():
     Returns:
         tuple: Tuple containing the final population, mean fitness values, best agent, and best fitness values.
     """
+
+    ## COMMENTS: why fixed parameters?
     params = {
         'n': 1,
         'T': 50,
