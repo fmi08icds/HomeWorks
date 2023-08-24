@@ -1,6 +1,6 @@
 
 '''
-Welcome to your fourth homework!	 
+Welcome to your fourth homework!
 This exercise aims to teach you how to analyse a given code and explain in detail what it does.
 '''
 
@@ -25,7 +25,7 @@ def simulatePI(N) :
 
     list_x = np.random.uniform(0,R,size=N)
     list_y = np.random.uniform(0,R,size=N)
-    
+
 
     is_inside = list_y < f(list_x,R)
 
@@ -43,21 +43,21 @@ def main () :
     M = 1000
     N = 10000
 
-    lst_rst = np.array([simulatePI(N) for _ in range(M)])
+    lst_rst = np.array([simulatePI(N) for _ in range(M)]) # COMMENTS you're simulating M-time
 
-    list_mu = np.mean(lst_rst)
+    list_mu = np.mean(lst_rst) # COMMENTS then list_mu is of length 1 here. repeat it M times, please, check the template. 
     list_sigma = np.std(lst_rst)
 
     et = time.time()
     elapsed_time = et - start
     print('Execution time: ', elapsed_time, 'seconds')
-    
+
     plt.hist(list_mu, bins=np.linspace(3.12, 3.17, 100))
     plt.show()
 
 
 if __name__ =="__main__" :
-        
+
         main()
 
         # cProfiling

@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+### COMMENTS: looking at your implementation does the time complexity is O(max_iterations * num_data_points * num_clusters * num_dimensions)?
+
 def kmeans(data, num_clusters, max_iterations=10000): # k-means algorithm to find cluster centers
 
     # first initialize clusters randomly
@@ -42,7 +44,7 @@ num_clusters = 3
 centers, labels = kmeans(data, num_clusters)
 
 plt.scatter(data[:, 0], data[:, 1], c=labels)
-plt.scatter(centers[:, 0], centers[:, 1], c='red', marker='x', s=100)
+plt.scatter(centers[:, 0], centers[:, 1], c='red', marker='x', s=100) ## COMMENTS: Good!
 
 #plt.scatter(cl1[:,0], cl1[:,1], marker="*", label="cl1")
 #plt.scatter(cl2[:,0], cl2[:,1], marker="+", label="cl2")

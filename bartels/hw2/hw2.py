@@ -21,7 +21,7 @@ def isperfect(n: int):
 
     ### BEGIN CODE #####
     # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
-    for i in range(n):
+    for i in range(n): # COMMENTS: you already handled the cases when n=0 and n=1 the optimal range should start from 2.
         if i**2 == n:  # replace None by the appropriate code.
             return (True, i)
     return (False, n)

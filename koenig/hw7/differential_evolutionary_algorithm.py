@@ -24,6 +24,7 @@ class Population:
         rng = np.random.default_rng(seed)
         N_j = rng.uniform(0, 1, self.n)
 
+        ## COMMENTS: Please check the description... N_j is not the the same for all x and eta.
         mutated_pop = Population(self.n, self.N,
                                  x=np.clip(self.x + self.eta * N_j, xL, xU),
                                  eta=self.eta * np.exp(self.tau_prime * N_j + self.tau * N_j)
@@ -48,7 +49,7 @@ class Population:
             opponent_indexes = rng.integers(0, 2 * N, q)
             for opponent_index in opponent_indexes:
                 if all_fitness[candidate_index] <= all_fitness[opponent_index]:
-                    wins[candidate_index] += 1
+                    wins[candidate_index] += 1 ## GOOD but think of vectorizing it.
 
         # get best N samples from self and mutated combined and build new population
         x, eta = np.empty((N, n)), np.empty((N, n))
@@ -119,7 +120,7 @@ def parseArguments():
 def f(x):
     # First function: Polynomial from ICDS lecture slides
     # """x^4 + x^3 - x^2 - x"""  # n = 1, True global minimum is at x = 0.64039, f(x) = -0.61968
-    # return x**4 + x**3 - x**2 - x
+    #return x**4 + x**3 - x**2 - x
     # Second function: Sphere Model
     # """x[0]² + x[1]²"""  # n = 2, True global minimum is at (0, 0), f(x) = 0
     # return x[0]**2 + x[1]**2
@@ -132,6 +133,9 @@ def f(x):
 
 def main():
     args = parseArguments()
+    ### COMMENTS ###
+    # How do we test the two other functions?
+    # In your readme, you only repported the function f5 what about the two first ones?
 
     params = {'n': args.length, 'T': args.T, 'q': args.q, 'N': args.N, 'f': f, 'verbose': args.verbose, 'xU': args.xU,
               'xL': args.xL, 'seed': args.seed}

@@ -9,7 +9,7 @@ def myplot(data, cluster_list):
     n = len(cluster_list)
     cmap = plt.get_cmap('tab10')
     colors = [cmap(i) for i in range(n)]
-    
+
     for i, cluster in enumerate(set(cluster_list)):
         x = data[:, 0][cluster_list == cluster]
         y = data[:, 1][cluster_list == cluster]
@@ -44,13 +44,13 @@ def init_data_centroide(k_cluster):
 
 def assigntoCluster(data, centroids):
     """
-    Here for each datapoint the Euclidean distance is calculated for each centroid and stored in the dist_matrix. 
+    Here for each datapoint the Euclidean distance is calculated for each centroid and stored in the dist_matrix.
     Then the minimal distance for each datapoint is calculated and its indexes stored in the cluster_list.
     Time Complexity: O (n*k) - n datapoints, k cluster
     """
     dist_matrix = np.linalg.norm(data[:, np.newaxis] - centroids, axis=2)
     cluster_list = np.argmin(dist_matrix, axis=1)
-    
+
     return cluster_list
 
 
@@ -72,19 +72,20 @@ def kmeans(data, centroide, k_clusters):
         if np.array_equal(old_centroide,new_centroide):
             break
 
-        old_centroide = new_centroide
+        old_centroide = new_centroide # COMMENTS: recommanded to use a copy instead of a view.
 
     return cluster_list
 
 
 def main():
+    ### COMMENTS: Good code organization ###
     
     k_cluster = 3  # Select k amount of clusters
     data, centroids = init_data_centroide(k_cluster)
     result = kmeans(data,centroids,k_cluster)
 
     return result
-    
+
 
 if __name__== '__main__':
     main()

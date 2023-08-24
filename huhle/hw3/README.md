@@ -1,5 +1,5 @@
 ## 1. Time consumed by each of the three functions used to calculate the squareroot of n
-Typing "Python -m profile -s cumtime main.py --n 1000000" in cmd. 
+Typing "Python -m profile -s cumtime main.py --n 1000000" in cmd.
 Cumtime for n = 1000000 in seconds:
 * Function isperfect(n): 0.000
 * Function getLowUpper(n): 0.000
@@ -40,7 +40,7 @@ this loop there is the time complexity O(1), since there is
 simply just an if-clause and no other loop.
 
 * Function getLowUpper(n):
-The time complexity for the function getLowUpper(n) is O(n**2), 
+The time complexity for the function getLowUpper(n) is O(n**2),
 since the while-loop calls another loop by calling a for-loop
 in the function "isperfect(n)". In the worst case, both
 loops iterate n times each.
@@ -49,17 +49,17 @@ loops iterate n times each.
 is O(log(n)), as long as the termination condition (threshold)
 can be neglected. Since "mysqrt(n)" calls the function
 "getLowUpper(n)" which has a bigger time complexity, it also
-has the time complexity O(n**2).
+has the time complexity O(n**2)(## comment: in the worst case is that true? dont forget the for loop in isperfect varies with i ##). 
 
 ## 3. Changing the functions to reach a better time complexity
 * Function isperfect(n): We do not need to iterate i from 0
 to n-1 to check, if i*i equals n. When i gets bigger than the
 square root of n, the square of i will not equal n by increasing
-i anyway. Therefore, we can stop the function after max. 
+i anyway. Therefore, we can stop the function after max.
 sqrt(n) iterations, which is implemented in the code. -> The time
 complexity of this function is now O(sqrt(n)).
 
-* Function getLowUpper(n): Since this function calls 
+* Function getLowUpper(n): Since this function calls
 "isperfect(n)" within its while-loop, the time complexity
 is now O(n*sqrt(n)).
 

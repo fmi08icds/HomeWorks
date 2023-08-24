@@ -1,9 +1,9 @@
-from numpy import random, sqrt, round, array, arange 
+from numpy import random, sqrt, round, array, arange
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
 
-def isperfect(n: int ): 
+def isperfect(n: int ): ## COMMENTS: This function could be optimized as well. 
     """
         This function is the first helper. It takes an integer n and checks if n has a perfect square root or not.
         If n has a perfect square root, then it returns True and its perfect square root. If not, it returns False and n.
@@ -42,12 +42,12 @@ def getLowUpper(n: int):
         getLowUpper(3) = (1,2)
         getLowUpper(15) = (3,4)
     """
-    
-    ### BEGIN VECTORIZED ### 
-    minsqrt, maxsqrt = 0,0 
+
+    ### BEGIN VECTORIZED ###
+    minsqrt, maxsqrt = 0,0
     perfect_square_roots = arange(n+1)
-    perfect_squares = perfect_square_roots ** 2 #create an array of all perfect squares of length above (since sqrt(n) <= 0.5n+1) 
-    
+    perfect_squares = perfect_square_roots ** 2 #create an array of all perfect squares of length above (since sqrt(n) <= 0.5n+1)
+
     for i in range(n):
         if n <= perfect_squares[i]:
             lower_index = i-1
@@ -55,7 +55,7 @@ def getLowUpper(n: int):
             break
     minsqrt = perfect_square_roots[lower_index]
     maxsqrt = perfect_square_roots[upper_index]
-    
+
     ### END VECTORIZED ###
 
     return minsqrt, maxsqrt
@@ -93,7 +93,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGIN CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst =  (maxsqrt + minsqrt) / 2 
+    rst =  (maxsqrt + minsqrt) / 2
 
     while maxsqrt - minsqrt >= error_threshold :
 

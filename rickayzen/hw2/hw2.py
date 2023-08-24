@@ -21,6 +21,7 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
+    ## COMMENTS: GOOD :)
     for i in range(2,n) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i**2 == n : # replace None by the appropriate code.
             return True, i
@@ -95,14 +96,14 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    result = (minsqrt + maxsqrt) / 2.0
+    result = (minsqrt + maxsqrt) / 2.0 # Very good
 
     while abs(n - result ** 2) >= error_threshold :
 
             if result ** 2 < n : # Hint: have a look at the first function.
                     minsqrt = result
             else :
-                    maxsqrt = result
+                    maxsqrt = result # GOOD
             result =  (minsqrt + maxsqrt) / 2.0
             iteration +=1
     ### END CODE ####

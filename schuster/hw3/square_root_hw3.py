@@ -24,7 +24,7 @@ def isperfect(n: int ):
 
     # array insted of for loop
     # range only from 2 to n/2 because the perfect square root is not bigger than this (excluding 1 and 0)
-    arr = arange(2, (n//2)+1)
+    arr = arange(2, (n//2)+1) ## COMMENTS: very good
     if any(arr**2 == n) :
         return True, arr[arr**2 == n][0]
     return False, n
@@ -56,7 +56,7 @@ def getLowUpper(n: int):
 
     # minsqrt-maxsqrt is always 1 for integers that are no perfect square roots
     # instead of computing upper, i use low[1]+1 and do not need to comput isperfect() again
-
+    ## COMMENTS: very good
     minsqrt, maxsqrt = low[1], low[1]+1 # Hint: remember what is the output of helper 1.
     ### END CODE ####
 
@@ -160,4 +160,3 @@ def main() :
 
 if __name__ == '__main__':
     main()
-

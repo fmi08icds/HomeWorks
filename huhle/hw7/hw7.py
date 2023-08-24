@@ -33,12 +33,12 @@ def mutate(pop: np.ndarray) -> np.ndarray:
     new_pop = np.zeros(pop.shape)
 
     for i in range(N):
-        x = pop[i, :, 0]
+        x = pop[i, :, 0] # Good
         eta = pop[i, :, 1]
-        
-        x_prime = x + eta * np.random.normal()
+
+        x_prime = x + eta * np.random.normal() # the random normal number should be drawn for each xj in x. the same applies to the next operation for the last random normal number.
         eta_prime = eta * np.exp(tau_prime * np.random.normal() + tau * np.random.normal())
-        
+
         new_pop[i] = np.array([[*x_prime, *eta_prime]])
 
     return new_pop
@@ -50,16 +50,16 @@ def select(pop: np.ndarray, fitnesses: np.ndarray, q: int = 10) -> np.ndarray:
     Select new individuals from the population based on their fitness values. Set up tournaments where
     each individual competes against a number of opponents, and the individuals with the most wins are selected.
     """
-    N = int(pop.shape[0] / 2)
+    N = int(pop.shape[0] / 2) # this could have been an input parameter as well with default value N.
     wins = np.zeros(len(fitnesses))
 
     for i, fitness in enumerate(fitnesses):
-        random_indices = np.random.choice(pop.shape[0], size=q, replace=False)
+        random_indices = np.random.choice(pop.shape[0], size=q, replace=False)# Good
         opponents = pop[random_indices]
         wins[i] = np.sum(opponents < fitness)
 
-    sorted_indices = np.argsort(wins)
-    selected_pop = pop[sorted_indices][N:]
+    sorted_indices = np.argsort(wins) #Good but in the three test cases we wre minimising...
+    selected_pop = pop[sorted_indices][N:] # Good
 
     return selected_pop
 
@@ -115,11 +115,11 @@ def main():
     # f1:
     f = lambda x: np.sum(x)
     f.__doc__ = "sum(x)"
-    
+
     # f2:
     # f = lambda x: sum(x**2)
-    # f.__doc__ = "sum(x**2)" 
-    
+    # f.__doc__ = "sum(x**2)"
+
     # f3:
     # f = lambda x: x**4 + x**3 - x**2 - x
     # f.__doc__ = "x**4 + x**3 - x**2 - x"

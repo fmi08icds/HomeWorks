@@ -1,7 +1,9 @@
 from numpy import random, sqrt, round
-from typing import Tuple
+from typing import Tuple ## COMMENTS: why? you were not supposed to add any other library to this template
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
+
+## COMMENTS: good work but please, follow tha instructions given in class, no renaming of the function or comments etc...
 
 def has_perfect_sqrt(n: int) -> Tuple[bool, int]:
     """
@@ -22,7 +24,7 @@ def has_perfect_sqrt(n: int) -> Tuple[bool, int]:
     if n == 0 or n == 1:
         return (True, n)
 
-    for i in range(2, n):
+    for i in range(2, n): ## COMENTS: very good
         if i**2 == n:
             return (True, i)
     return (False, n)
@@ -87,13 +89,13 @@ def approximate_sqrt(n: int, error_threshold=0.000000001) -> float:
 
     minsqrt, maxsqrt = get_low_and_upper_perfect_sqrt(n)
 
-    rst = (minsqrt + maxsqrt) / 2
+    rst = (minsqrt + maxsqrt) / 2 ## COMMENTS: very good
 
     while abs(rst**2 - n) >= error_threshold:
         if rst**2 < n:
             minsqrt = rst
         else:
-            maxsqrt = rst
+            maxsqrt = rst ## COMMENTS: GOOD :)
 
         rst = (minsqrt + maxsqrt) / 2
         iteration += 1
@@ -119,11 +121,12 @@ def main():
         argument_default=SUPPRESS,
         description=doc_,
     )
+    ## COMMENTS: you were not supposed to change any code in the main. Please, follow the instructions given in class.
     parser.add_argument(
         "-n", type=int, help="An integer input for which we compute the sqrt root."
     )
     args = parser.parse_args()
-    input_n = 16
+    input_n = 16 ## COMMENTS: wrong, you are supposed to get the value of args.n here
 
     myvalue = approximate_sqrt(input_n)
     npvalue = sqrt(input_n)

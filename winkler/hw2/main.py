@@ -20,7 +20,7 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
-    for i in range(n-1):
+    for i in range(n-1): ## COMMENTS don't forget you already handled the cases n=0 and n=2 so range(2,n-1) fits better here.
         # found matching square root
         if i * i == n:
             return True, i
@@ -50,7 +50,7 @@ def getLowUpper(n: int):
 
     while not low[0]: ## Hint: look at the second while loop.
         i += 1
-        low = isperfect(n-i)
+        low = isperfect(n-i) ## COMMENTS: good
 
     i = 1
     while not upper[0]:
@@ -94,11 +94,11 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
 
     rst = (maxsqrt + minsqrt) / 2
 
-    while maxsqrt - minsqrt >= error_threshold:
+    while maxsqrt - minsqrt >= error_threshold: ## COMMENTS: very goof
         if rst*rst < n: # Hint: have a look at the first function.
             minsqrt = rst
         else:
-            maxsqrt = rst
+            maxsqrt = rst ## COMMENTS: Good :)
 
         rst = (maxsqrt + minsqrt) / 2
         iteration += 1

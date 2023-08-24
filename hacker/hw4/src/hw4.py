@@ -1,6 +1,6 @@
 
 '''
-Welcome to your fourth homework!	 
+Welcome to your fourth homework!
 This exercise aims to teach you how to analyze a given code and explain in detail what it does.
 '''
 
@@ -37,15 +37,15 @@ def estimate_pi(N) :
         list_y.append(uniform(0,R))
 
     list_accepted_x = []
-    
+
     # append each element of the x list to a new list if f(x,R) is smaller than
-    # the corresponding y value 
+    # the corresponding y value
     for i in range(N) :
         if (list_y[i]< f(list_x[i],R)) :
-            list_accepted_x.append(list_x[i])   
+            list_accepted_x.append(list_x[i])
 
-        
-    
+
+
     Ninf = len(list_accepted_x)
     fin = Ninf/float(N)
 
@@ -59,15 +59,15 @@ def estimate_pi_vectorized(N) :
     Ninf = 0
     R = 1.0
 
-    list_x = np.random.uniform(0,R, N)
-    list_y = np.random.uniform(0,R, N)
+    list_x = np.random.uniform(0,R, N) # well done.
+    list_y = np.random.uniform(0,R, N) # well done.
 
     list_accepted_x = []
 
     # apply the filter function vectorized resulting in an array of
-    # bools 
+    # bools
     list_accepted_x = list_y < np.vectorize(f)(list_x,R)
-        
+
     # count the 'true' values in resulting list
     Ninf = np.count_nonzero(list_accepted_x)
     fin = Ninf/float(N)
@@ -107,13 +107,14 @@ def main () :
     pr2.enable()
     for i in range(M) :
         list_rst = [estimate_pi_vectorized(N) for _ in range(M)]
-        list_mu.append(np.mean(list_rst))
+        list_mu.append(np.mean(list_rst)) # why do you append it to the same list and the first implementation?
         list_sigma.append(np.std(list_rst))
     pr2.disable
 
     write_to_file(pr2, "v")
 
-    plt.hist(list_mu, bins=np.linspace(3.12, 3.17, 100))
+    plt.hist(list_mu, bins=np.linspace(3.12, 3.17, 100)) # just remember here that list_mu contains pie estimates computed twice.
+    
     plt.show()
 
 

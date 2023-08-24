@@ -1,4 +1,4 @@
-from numpy import random, sqrt, round, floor, ceil, int16
+from numpy import random, sqrt, round, floor, ceil, int16 ## COMMENTS: no extra function needed
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
@@ -21,8 +21,9 @@ def isperfect(n: int):
         return (True, n)
 
     ### BEGIN CODE #####
+    ## COMMENTS: very good
     for i in range(int16(floor((n+1)/2))+1): # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
-        if i*i == n : 
+        if i*i == n :
             return True, i
     return (False, n)
     ### END CODE #####
@@ -51,14 +52,14 @@ def getLowUpper(n: int):
     ## once they find the perfect root that is closest to n, they stop.
     while not low[0]:
         i += 1
-        low = isperfect(n - i)
+        low = isperfect(n - i) ##COMMENTS: good
 
     i = 1
     while not upper[0]:
         i += 1
         upper = isperfect(n + i)
 
-    minsqrt, maxsqrt = low[1], upper[1] 
+    minsqrt, maxsqrt = low[1], upper[1]
     ### END CODE ####
 
     return minsqrt, maxsqrt
@@ -80,6 +81,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
 
     ### BEGIN CODE ###
+    ### COMMENTS: What is this piece of code doing here?
     if None or None : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
         return n
     ### END CODE ###
@@ -87,7 +89,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
 
 
     ### BEGIN CODE ###
-    
+
     ## solve for special cases.
     if n == 0 or n == 1:
         return n
@@ -102,14 +104,14 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst =  (minsqrt + maxsqrt) / 2.0
+    rst =  (minsqrt + maxsqrt) / 2.0 ## COMMENTS: Very good
 
     while abs(rst**2 - n) > error_threshold:
-    
+
             if rst**2 < n : # Hint: have a look at the first function.
                     minsqrt = rst
             else :
-                    maxsqrt = rst
+                    maxsqrt = rst #COMMENTS:  GOOD
             rst = (minsqrt + maxsqrt) / 2.0
 
             iteration +=1

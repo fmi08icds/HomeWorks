@@ -34,9 +34,9 @@ def mutate(pop: ndarray) :
     for i in range(N):
         x = pop[i, :, 0]
         eta = pop[i, :, 1]
-        x_prime = x + eta * random.normal(size=d)
-        eta_prime = eta * exp(tau_prime * random.normal() + tau * random.normal())
-        # eta_prime = eta * exp(tau_prime * random.normal() + tau * random.normal(size=d)) 
+        x_prime = x + eta * random.normal(size=d) ##COMMENTS: good
+        eta_prime = eta * exp(tau_prime * random.normal() + tau * random.normal()) ##COMMENTS be carefull here, check the algo for the secon normal random variable
+        # eta_prime = eta * exp(tau_prime * random.normal() + tau * random.normal(size=d))
         new_pop[i] = column_stack([x_prime, eta_prime])
 
     return new_pop
@@ -44,15 +44,15 @@ def mutate(pop: ndarray) :
 
 def select(pop: ndarray, fitnesses: ndarray, q = 10) :
     """
-    Select N new agents proportinate to their fitness values. 
-    Every agent competes with q enemies. Agents with most wins are selected. 
+    Select N new agents proportinate to their fitness values.
+    Every agent competes with q enemies. Agents with most wins are selected.
     """
     N = int(pop.shape[0] / 2)
-    
+
     # Count wins for every agent in tournaments
     wins = zeros(len(fitnesses))
     for i, fitness in enumerate(fitnesses):
-        row_sample = random.choice(pop.shape[0], q)
+        row_sample = random.choice(pop.shape[0], q) ## COMMENTS, wrong replace should be False here.
         opponents = pop[row_sample]
         opponent_fitnesses = evaluate(opponents, f)
         wins[i] = sum(opponent_fitnesses < fitness)
@@ -66,7 +66,7 @@ def select(pop: ndarray, fitnesses: ndarray, q = 10) :
 
 def dea(params: dict):
     """
-    Run a differentiable evolutionary algorithm for T iterations. 
+    Run a differentiable evolutionary algorithm for T iterations.
     Returns the last generation and its mean fitnesses.
     """
 
@@ -98,7 +98,7 @@ def dea(params: dict):
         if m > best_fitness:
             best_fitness = m
         best_pop = pop
-    
+
     return best_pop, mean_fitnesses
 
 
@@ -133,12 +133,12 @@ def f3(x: ndarray):
 
 if __name__ =="__main__":
     args = parseArguments()
-    MODE = 2
+    MODE = 3
 
     match MODE:
         case 0:
-            f = f0 
-        case 1: 
+            f = f0
+        case 1:
             args.xL = -2
             args.xU = 2
             f = f1
@@ -147,7 +147,7 @@ if __name__ =="__main__":
             args.xL = -100
             args.xU = 100
             f = f2
-        case 3: 
+        case 3:
             args.length = 2
             args.xL = 30
             args.xU = -30

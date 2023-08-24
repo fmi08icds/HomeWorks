@@ -54,7 +54,7 @@ def mutate(pop):
         x, _ = pop[i]
         tau = 1.0 / np.sqrt(2 * n)
         tau_prime = 1.0 / np.sqrt(2 * np.sqrt(n))
-        x_mutated = x + tau * np.random.normal(size=n) + tau_prime * np.random.normal(size=n)
+        x_mutated = x + tau * np.random.normal(size=n) + tau_prime * np.random.normal(size=n) ## Wrong check the equations again
         new_pop.append((x_mutated, None))
 
     return new_pop
@@ -74,6 +74,8 @@ def select(pop, fitnesses, N, q=10):
     - Selected population
     """
     selected_pop = []
+
+    ## Comments: it does not seem to be what is described in the reference book, and the slides.
 
     for i in range(N):
         idx = np.random.choice(N, q, replace=False)  # Select q distinct indices
@@ -132,8 +134,12 @@ def main():
     f3 = lambda x: np.asarray([100*(x[i+1]-x[i]**2)**2 + (x[i]-1)**2 for i in range(len(x)-1)]).sum()
 
     # Choose the desired objective function
-    f = f1  # Change this to f2 or f3 to use a different function
+    f = f2  # Change this to f2 or f3 to use a different function
 
+
+    ### COMMENTS :
+    # We intended to minimize all the three functions, and looking at your mean fitness we are maximizing here.
+    
     params = {
         'n': args.length,
         'T': args.T,

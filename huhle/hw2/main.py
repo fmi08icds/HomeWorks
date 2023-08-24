@@ -1,13 +1,13 @@
 from numpy import random, sqrt, round
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
-
+""" Why did you remove the comments?"""
 def isperfect(n: int ):
     if n == 0 or n == 1:
         return (True, n)
 
     ### BEGIN CODE #####
-    for i in range(n):
+    for i in range(n): # But you already check 0 and 1
         if i*i == n:
             return True, i
     return False, n
@@ -22,7 +22,7 @@ def getLowUpper(n: int):
 
     while not low[0]:
         i += 1
-        low = isperfect(n-i)
+        low = isperfect(n-i) ## good!
 
     i = 1
     while not upper[0]:
@@ -48,17 +48,17 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         return checkup[1]
     ### END CODE ###
 
-    iteration = 0 
+    iteration = 0
 
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n)
 
-    rst =  (minsqrt + maxsqrt) / 2
+    rst =  (minsqrt + maxsqrt) / 2 # It works but better to use 2. to make sure the div is in ID even for Python versions <3.0
 
     while abs(rst*rst - n) >= error_threshold:
 
             if rst*rst < n:
-                    minsqrt = rst
+                    minsqrt = rst # Good!
             else :
                     maxsqrt = rst
             rst = (minsqrt + maxsqrt) / 2

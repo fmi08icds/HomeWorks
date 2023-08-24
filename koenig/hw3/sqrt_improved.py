@@ -48,9 +48,14 @@ def getLowUpper(n: int):
         getLowUpper(15) = (3,4)
     """
     ### BEGIN CODE ####
+    # GOOD to cite the ref.
     # Source: of this line: https://www.geeksforgeeks.org/python-get-the-index-of-first-element-greater-than-k/
     first_index_greater = next(x for x, val in enumerate(precomputed_squares) if val > n)
-
+    ## COMMENTS ###
+    # Be careful here, this program will only work for n<1499*1499.
+    # when trying this python sqrt_improved.py --n 2247002 you obviously will get an error
+    # Similar comments for the python script sqrt_improved_vec
+    ##
     minsqrt, maxsqrt = first_index_greater-1, first_index_greater  # Hint: remember what is the output of helper 1.
     ### END CODE ####
 
@@ -112,9 +117,9 @@ def main() :
                 You will write your first Python script that computes the square root of a given integer n.
                 The template_hw1 provides you with the basic structure of a Python script. Please do not add anything
                 out of ### BEGIND CODE ### and ### END CODE ###.
-                
+
                 Feel free to use print for debugging but remember to clean them up before your submission.
-                
+
                 NB: Your performance will not only be evaluated on your capacity to output good results.
                 Please make sure you understand each line you code.
             """

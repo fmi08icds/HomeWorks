@@ -25,6 +25,7 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
+    ## COMMENTS: the cases n=0 and n=1 have been treated already. So, range should optimally start at 2 i.e. range(2,n)
     for i in range(n) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i*i == n : # replace None by the appropriate code.
             return True, i
@@ -32,7 +33,7 @@ def isperfect(n: int ):
     ### END CODE #####
 
 
-def getLowUpper(n: int):
+def getLowUpper(n: int):## COMMENTS: this function can still be optimized. 
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.
@@ -109,14 +110,14 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) # Hint: use the second helper function.
 
-    rst =  (minsqrt + maxsqrt) / 2
+    rst =  (minsqrt + maxsqrt) / 2 ## COMMENTS: good
 
     while abs(rst**2 - n) >= error_threshold :
 
         if rst**2 < n : # Hint: have a look at the first function.
-            minsqrt = (minsqrt + maxsqrt) / 2
+            minsqrt = (minsqrt + maxsqrt) / 2 ## COMMENTS one useless operation, you could simply use rst variable here. i.e. minsqrt = rst
         else :
-            maxsqrt = (minsqrt + maxsqrt) / 2
+            maxsqrt = (minsqrt + maxsqrt) / 2 ## COMMENTS: see previous comment.
         rst = (minsqrt + maxsqrt) / 2
         iteration +=1
     ### END CODE ####

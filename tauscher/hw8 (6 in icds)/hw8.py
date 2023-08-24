@@ -68,7 +68,7 @@ def evaluate(pop: Population, f):
     Returns:
     - None
     """
-    
+
     logging = None
     try:
         for agent in pop.agents+pop.offsprings:
@@ -94,7 +94,7 @@ def mutate(pop: Population) -> None:
 
     for agent in pop.agents:
         # the update step is described in 2003_Book_AdvancesInEvolutionaryComputin @ page 48
-        pop.offsprings.append(Agent(agent.x + agent.eta*np.random.normal(0, 1, pop.n),
+        pop.offsprings.append(Agent(agent.x + agent.eta*np.random.normal(0, 1, pop.n), ## COMMENTS: GOOD
                                     agent.eta *
                                     np.exp(tau_prime*np.random.normal(0, 1,
                                            1) + tau*np.random.normal(0, 1, pop.n)),
@@ -114,26 +114,26 @@ def select(pop: Population, q=10):
     all_agents = pop.agents + pop.offsprings
     wins = [0]*len(all_agents)
     for pos, agent in enumerate(all_agents):
-        
+
         # choose all but the current agent as opponents
         pos_mask = [True]*len(all_agents)
         pos_mask[pos] = False
         opponents = random.choice(list(compress(all_agents,pos_mask)), q)
-        
+
         ## crucial step!!! => or <= depends on the objective function
         ## and if one wants to minimize or maximize it.
         ## now this is a minimization problem, so we want to select the
         ## agents with the lowest fitness
-        wins[pos] = np.sum([agent.fitness <= opponent.fitness for opponent in opponents])
+        wins[pos] = np.sum([agent.fitness <= opponent.fitness for opponent in opponents]) ## COMENTS: GOOD
 
     # select the best N agents from the union of the parents and offsprings
     # argsort returns the indices that would sort an array
     # [::-1] reverses the array, so the highest win-count is first
     # [:pop.N] selects the first N agents, so the best N agents are selected
     pop.agents = [all_agents[i] for i in np.argsort(wins)[::-1][:pop.N]]
-    
+
     # finally, reset offsprings to empty list
-    pop.offsprings = [] 
+    pop.offsprings = []
     pass
 
 
@@ -180,9 +180,9 @@ def dea(params):
 
     # initialise the population
     init_pop = initialise(params['N'], params['n'], params['xL'], params['xU'])
-    
+
     # start the process
-    T = params['T']  
+    T = params['T']
     t = 0
     mean_fit = []
     best_walk = []
@@ -195,16 +195,16 @@ def dea(params):
         # 3. select
         select(init_pop, params['q'])
         t += 1
-        
+
         mean_fit += [m]
         print(f"Mean fitness {t} : ", m)
-        
+
         # for plotting purposes
         best_walk.append(min(init_pop.agents, key=lambda agent: agent.fitness).fitness)
 
         if params['verbose']:
             print(f"Generation {init_pop.generation}: mean fitness = {mean_fit[-1]}, best fitness = {best_walk[-1]}")
-    
+
     # since they are ordered by fitness, the best solution is the first one
     best_agent = min(init_pop.agents, key=lambda agent: agent.fitness)
 
@@ -235,7 +235,7 @@ def parseArguments():
 
 @np.vectorize
 def target_function1(x):
-    """ 
+    """
     function 1
     """
     ## theoretical global minimum is 0.6404
@@ -244,14 +244,14 @@ def target_function1(x):
 
 # autmatically vectorized because of np.sum...
 def target_function2(x):
-    """ 
+    """
     function 2
     """
     # theoretical minimum is n*x_l = 30*-100 = -3000
     return np.abs(np.sum(x))
 
 def target_function3(x):
-    """ 
+    """
     function 3
     """
     # theoretical minimum is 0
@@ -309,7 +309,7 @@ def main():
     best_pop, mean_fitnesses3, best_agent3, best_walk3 = test_dea_with_target_function3()
 
     args = parseArguments()
-    
+
     print(f'f1 Solution: {best_agent1.x} with fitness {best_agent1.fitness}')
     print(f'f2 Solution: {best_agent2.x} with fitness {best_agent2.fitness}')
     print(f'f3 Solution: {best_agent3.x} with fitness {best_agent3.fitness}')

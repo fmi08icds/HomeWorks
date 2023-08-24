@@ -16,14 +16,17 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
         mysqrt(15) = 3.8729833462275565
     """
 
-    if n==0 or n==1 : 
+    if n==0 or n==1 :
         return n
 
     ### begin new code ###
     # If i**2 succeeds n, the number before was the nearest
-    # Maybe it could get even faster, if you use some step-size, 
+    # Maybe it could get even faster, if you use some step-size,
     # instead of increasing by 1 everytime
 
+    ### COMMENTS ###
+    # This part of the code could have been let in a helper function as in the template> this will be more readable.
+    
     nearest = 0 # could also just use i for the nearest value and count i-1 for lowest val
     i = 0
     while i**2 <= n:
@@ -31,15 +34,15 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
              return i
         nearest = i
         i += 1
-    
+
     minsqrt = nearest
-    maxsqrt = minsqrt+1
-    ### end new code ### 
+    maxsqrt = minsqrt+1 # very good.
+    ### end new code ###
 
     rst = (minsqrt+maxsqrt)/2
 
     while maxsqrt-minsqrt >= error_threshold :
-    
+
         if rst**2 < n :
                 minsqrt = rst
         else :

@@ -55,8 +55,8 @@ def mutate(pop):
     for i in range(N):
         x_i, eta_i = pop[i]
         normal_sample = random.normal()
-        x_i_prime = [x_ij + eta_i[index] * random.normal() for index, x_ij in enumerate(x_i)]
-        eta_i_prime = [eta_ij * math.exp(tau_prime * normal_sample + tau + random.normal()) for eta_ij in pop[i][1]]
+        x_i_prime = [x_ij + eta_i[index] * random.normal() for index, x_ij in enumerate(x_i)] # Very good
+        eta_i_prime = [eta_ij * math.exp(tau_prime * normal_sample + tau + random.normal()) for eta_ij in pop[i][1]] # Very good
         new_pop.append((x_i_prime, eta_i_prime))
     return new_pop
 
@@ -87,7 +87,7 @@ def select(pop, fitnesses, N, q=10):
                 if k >= len(indices):
                     break
                 if fitness < fitnesses[indices[k][0]][indices[k][1]]:
-                    wins += 1
+                    wins += 1 # Very good
             wins_pop.append((wins, pop[i][j]))
     selected_pop = sorted(wins_pop, reverse=True)[:N]
     # only select the second column (throw out wins)
@@ -142,6 +142,7 @@ def parseArguments():
 
 def main():
     args = parseArguments()
+    ### COMMENTS : Very good
     if args.f == 1:
         f = lambda x: x**4 + x**3 - x**2 - x  # Here you will define your objective function
         f.__doc__ = "x**4 + x**3 - x**2 -x"

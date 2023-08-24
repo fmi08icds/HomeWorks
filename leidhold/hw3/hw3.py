@@ -64,8 +64,8 @@ def getLowUpper(n: int):
      i = np.arange(n + 1)
      squares = i * i
 
-     minsqrt = np.argmax(squares > n) - 1
-     maxsqrt = np.argmax(squares >= n)
+     minsqrt = np.argmax(squares > n) - 1 # GOOD
+     maxsqrt = np.argmax(squares >= n) # GOOD
 
      ### END CODE ####
 
@@ -110,6 +110,9 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
              # following vectorization isn't improving runtime or time complexity
              minsqrt = np.where(rst ** 2 < n, rst, minsqrt)
              maxsqrt = np.where(rst ** 2 >= n, rst, maxsqrt)
+
+             ##COMMENTS ##
+             Remember we vectorise by replacing the loops by vectors (or Numpy arrays).
              """
              if rst**2 < n:  # Hint: have a look at the first function.
                      minsqrt = rst
@@ -127,9 +130,9 @@ def main() :
                  You will write your first Python script that computes the square root of a given integer n.
                  The template_hw1 provides you with the basic structure of a Python script. Please do not add anything
                  out of ### BEGIND CODE ### and ### END CODE ###.
- 
+
                  Feel free to use print for debugging but remember to clean them up before your submission.
- 
+
                  NB: Your performance will not only be evaluated on your capacity to output good results.
                  Please make sure you understand each line you code.
              """

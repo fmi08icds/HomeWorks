@@ -4,6 +4,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
+### COMENTS: think of a better code presentation, and it does not run.
 # %%
 # Generate data
 rng = np.random.default_rng(seed=1234)
@@ -21,12 +23,12 @@ def kmeans(points: np.array, amount_of_centroids: int, max_iterations=1000) -> t
     on the specified amount. The algorithm initializes the centroids and
     iteratively refines. The iterative refinement also includes an update of the
     assignment of each input point to its current cluster. In general the
-    refinement loop contains two steps. First there is a assignment step 
+    refinement loop contains two steps. First there is a assignment step
     generating the current best clusters depending of the euclidean distance
     from each point to each centroid. The second step computes the new
     centroids by generating the means from the cluster assignments of the previous
     step.
-    
+
     Args:
         points: The points that should be clustered
         amount_of_centroids: The amount of centroids that should be generated

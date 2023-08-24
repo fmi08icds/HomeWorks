@@ -59,7 +59,7 @@ def mutate(pop: Tuple[NDArray, NDArray]) -> Tuple[NDArray, NDArray]:
     # on individual-dimension level (Combined through broadcasting)
     new_x = old_x + old_eta * np.random.normal(loc=0.0, scale=1.0, size=(N, n))
     new_eta = old_eta * np.exp(tau_prime * np.random.normal(loc=0.0, scale=1.0, size=(N, 1)) +
-                               tau * np.random.normal(loc=0.0, scale=1.0, size=(N, n)))
+                               tau * np.random.normal(loc=0.0, scale=1.0, size=(N, n))) ## COMENTS: very good :)
 
     return new_x, new_eta
 
@@ -78,7 +78,7 @@ def select(pop: Tuple[NDArray, NDArray], fitness_values: NDArray, N: int, q=10):
         # Choose q opponents uniformly at random;
         # Count wins by summing over opponents for which the individuals fitness is lower
         opponents_idx = np.random.choice(len(fitness_values), size=q, replace=False)
-        wins[i] = np.sum(fitness < fitness_values[j] for j in opponents_idx)
+        wins[i] = np.sum(fitness < fitness_values[j] for j in opponents_idx) ## COMMENTS: very good
 
     # Get the indices of N individuals having the most wins; [::-1] to get descending order
     selection_idx = np.argsort(wins)[::-1][:N]
@@ -146,6 +146,7 @@ def parseArguments():
 
 
 def main():
+    ## COMMENTS: very good presentation of your results.
     # Parse the arguments and try to turn the string of a function into a Callable
     args = parseArguments()
     try:

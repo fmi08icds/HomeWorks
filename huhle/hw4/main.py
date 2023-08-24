@@ -21,7 +21,7 @@ def estimPI(N):
     list_x = np.random.uniform(0, R, size=N)
     list_y = np.random.uniform(0, R, size=N)
 
-    list_accepted_x = list_x[list_y < f(list_x, R)]
+    list_accepted_x = list_x[list_y < f(list_x, R)]# GOOD!
     Ninf = len(list_accepted_x)
 
     fin = Ninf / N

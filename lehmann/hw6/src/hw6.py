@@ -4,10 +4,10 @@ import time
 
 def kmeans(pts,k=3,max_iter=1000):
     '''
-    This Function calculates a simple intuitve kmeans 
-    
+    This Function calculates a simple intuitve kmeans
+
     # Parameters:
-        pts: numpy array like  
+        pts: numpy array like
 
         k (int): Number of centroids
 
@@ -51,7 +51,7 @@ def kmeans(pts,k=3,max_iter=1000):
             centroids[i] = np.average(clusters[i], axis=0)
 
         # avoid unnecessary calculation by checking if all cluster are already in the perfect spot
-        if np.array_equal(centroids,last_centroids):
+        if np.array_equal(centroids,last_centroids): # GOOD
             break
         else:
            last_centroids = np.copy(centroids)
@@ -76,7 +76,10 @@ def main():
     # calculate distortion as simple quality measure (sum of squared distances)
     distortion = 0
     for i in range(len(centroids)):
-        distortion += np.sum((clusters[i] - centroids[i] )**2)
+        distortion += np.sum((clusters[i] - centroids[i] )**2) # Very good
+
+    ## COMMENTS ###
+    # a plot would have been an added value to illustrate your results.
 
     print(f"distortion: {distortion}\ntime: {end -start}\nnumber of cluster: {k}")
 

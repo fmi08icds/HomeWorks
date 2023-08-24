@@ -50,13 +50,13 @@ The ```mysqrt``` function takes almost 10 seconds to execute and makes 682 funct
 ---
 ## Time complexity:
 
-```isperfect()``` 
+```isperfect()```
 - The if statement at the beginning takes constant time, *O(1)*.
 - The for loop has n iterations, so it takes *O(n)* time.
 
 &rarr; *The total time complexity of this function is O(n).*
 
-``` getLowUpper()``` 
+``` getLowUpper()```
 
 - The while loop that iterates until low[0] is True has at most n iterations, so it takes *O(n)* time.
 - The same applies to the while loop that iterates until upper[0] is True.
@@ -64,7 +64,7 @@ The ```mysqrt``` function takes almost 10 seconds to execute and makes 682 funct
 
 &rarr; *The total time complexity of this function is O(n).*
 
-``` mysqrt()``` 
+``` mysqrt()```
 
 - The first if statement takes constant time, *O(1)*.
 - The second if statement calls the ```isperfect()``` function, which takes *O(n)* time.
@@ -81,7 +81,7 @@ The ```mysqrt``` function takes almost 10 seconds to execute and makes 682 funct
 Using binary search in the ```isperfect()``` function instead of iterating over a range of numbers from *0* to *n-1* would make the function more efficient. This would reduce the time complexity of the function from *O(n)* to *O(log n)*.
 
 Source: https://www.geeksforgeeks.org/check-if-given-number-is-perfect-square-in-cpp/
-
+*Looking at this reference, I noticed they made use of math.sqrt() lib. which in your code not. So, how did this ref help?*
 (Some adjustments were made so that the code works as intended)
 
 ### Profiling results after the adjustment:

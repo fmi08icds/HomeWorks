@@ -2,7 +2,7 @@ from numpy import random, array, mean, exp, zeros, column_stack, argsort, concat
 from matplotlib import pyplot as plt
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
-def initialise(N, n, x_l, x_u): 
+def initialise(N, n, x_l, x_u):
     """
     generate initial population of individuals with N individuals with values (x_i,eta_i)
 
@@ -21,7 +21,7 @@ def initialise(N, n, x_l, x_u):
 
 def evaluate(pop, f):
     """
-    - evaluates fitness for each individual in population 
+    - evaluates fitness for each individual in population
     - applies objective function to  xi values
     - fitness values stored in array
 
@@ -59,6 +59,8 @@ def mutate(pop): # for mutation operation on the population
 
     for i in range(N):
         parent = pop[i]
+
+        ## COMMENTS: wrong here, random.normal() should be called for each n. please check the algo description here is N_j
         offspring_x = parent[0] + parent[1] * random.normal() # x + eta * random.normal()
         offspring_eta = parent[1] * exp(tau_prime * random.normal() + tau * random.normal())
         offspring = (offspring_x, offspring_eta)
@@ -70,14 +72,14 @@ def mutate(pop): # for mutation operation on the population
 def select(pop, fitnesses, N, q=10): # selection step
     """
     - pairwise comparisons between parent (xi, ηi) and offspring (x′i, η′i) to find winners based on fitness
-    - For each individual i, q opponents are randomly chosen, and if the individual's fitness is smaller than the opponent's fitness, it receives a "win." -> smaller because we want to minimize 
+    - For each individual i, q opponents are randomly chosen, and if the individual's fitness is smaller than the opponent's fitness, it receives a "win." -> smaller because we want to minimize
     - selection of N individuals from the combined population of parents and offspring who have the most wins
     - selected individuals form the next generation returned as array
-    
+
     Parameters:
     pop (np.array): Array with shape (N,2,n), here two populations concatenated
     fitnesses (np.array): fitnessess of all individuums
-    N (int): length of one of the poulations 
+    N (int): length of one of the poulations
     q (int): number of opponents (default = 10)
 
     Returns: array with selected individuums for next generation
@@ -86,14 +88,14 @@ def select(pop, fitnesses, N, q=10): # selection step
     best_wins = zeros(len(fitnesses))
 
     for i in range(N*2):
-        opponents = random.choice(N*2, size=q, replace=False)
-        
+        opponents = random.choice(N*2, size=q, replace=False) ## COMMENTS: good
+
         wins = 0
         for opponent in opponents:
             if fitnesses[opponent] >= fitnesses[i]:
                 wins += 1
-        best_wins[i] = wins
-    
+        best_wins[i] = wins ## COMMENTS: Good
+
     selected_pop = pop[argsort(best_wins)][N:]
 
 
@@ -125,11 +127,11 @@ def dea(params): # differential evolutionary algorithm
         #selected_pop = select(both_pops, evaluate(both_pops, params['f']), len(prev_pop))
         selected_pop = select(both_pops, fitnesses, len(prev_pop))
         prev_pop = selected_pop # update population with the selected individuals
-        
+
         m = mean(evaluate(prev_pop, params['f']))
 
         mean_fit += [m] # mean fitness of population
-        
+
         print(f"Mean fitness {t} : ", m)
 
         t += 1
@@ -147,7 +149,7 @@ def parseArguments():
     parser.add_argument('-q', type=int, default=10, help='Number of mutants for pairwise comparison')
     parser.add_argument('--verbose', action="store_true", default=False, help="Print the mean fitness evolution on standard output")
     parser.add_argument('-seed', type=int, default=None, help="Seed for the initial population")
-    
+
     args = parser.parse_args()
     args.verbose = True  # Enable verbose mode
 
@@ -156,16 +158,16 @@ def parseArguments():
 def main():
     args = parseArguments()
 
-    f = lambda x: sum(x**2)  # Define your objective
-    f.__doc__ = "sum(x**2)"
+    # f = lambda x: sum(x**2)  # Define your objective
+    # f.__doc__ = "sum(x**2)"
     # python hw7_dea.py -n 30 -xL -100 -xU 100
 
-    #f = lambda x: x**4 + x**3 - x**2 - x
-    #f.__doc__ = "x**4 + x**3 - x**2 - x"
+    # f = lambda x: x**4 + x**3 - x**2 - x
+    # f.__doc__ = "x**4 + x**3 - x**2 - x"
     #python hw7_dea.py -n 1 -xL -2 -xU 2
 
-    #f = lambda x: sum(100 * (x[j+1] - x[j]**2)**2 + (x[j] - 1)**2 for j in range(len(x)-1))
-    #f.__doc__ = "Rosenbrock Function"
+    f = lambda x: sum(100 * (x[j+1] - x[j]**2)**2 + (x[j] - 1)**2 for j in range(len(x)-1))
+    f.__doc__ = "Rosenbrock Function"
     #python hw7_dea.py -n 2 -xL -30 -xU 30
 
 

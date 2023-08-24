@@ -4,11 +4,12 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
 def isperfect(n: int ):
- 
+
     if n == 0 or n == 1:
         return (True, n)
 
     ### BEGIN CODE #####
+    ### COMMENTS: you already handled the case 0 and 1 up there. So, the range should start from 2 to n.
     for i in range (1, n+1) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i * i == n : # replace None by the appropriate code.
             return (True, i)
@@ -40,12 +41,12 @@ def getLowUpper(n: int):
 
 
 def mysqrt(n: int, error_threshold=0.000000001) -> float:
- 
+
     ### BEGIN CODE ###
     if n == 0 or n == 1 : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
         return n
     ### END CODE ###
- 
+
 
 
     ### BEGIN CODE ###
@@ -59,12 +60,12 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst = (minsqrt + maxsqrt) / 2
+    rst = (minsqrt + maxsqrt) / 2 #COMMENTS: Good
 
     while abs(rst * rst - n)  >= error_threshold :
 
             if rst * rst < n : # Hint: have a look at the first function.
-                    minsqrt = rst
+                    minsqrt = rst # GOOD :)
             else :
                     maxsqrt = rst
             rst = (minsqrt + maxsqrt) / 2

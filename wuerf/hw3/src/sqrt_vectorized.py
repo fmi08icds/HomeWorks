@@ -29,7 +29,7 @@ def has_perfect_sqrt(n: int) -> Tuple[bool, int]:
 
     return (has_perfect, arr[is_matching][0] if has_perfect else n)
 
-def get_low_and_upper_perfect_sqrt(n: int) -> Tuple[float, float]:
+def get_low_and_upper_perfect_sqrt(n: int) -> Tuple[float, float]: ## COMMENTS: Obviously this function could be optimized too
     """
     This function is the second helper. It takes an integer n and returns
     the lower and upper perfect square root to n. We will use two "while"
@@ -62,7 +62,7 @@ def get_low_and_upper_perfect_sqrt(n: int) -> Tuple[float, float]:
 
     return minsqrt, maxsqrt
 
-def approximate_sqrt(n: int, error_threshold=0.000000001) -> float:
+def approximate_sqrt(n: int, error_threshold=0.000000001) -> float: ## the time comp is O(sqrt(n)*n) in the worst case here not n^2
     """
     This function is the main function. It takes an integer n and returns the
     square root of n. We will use here the two helper functions we wrote

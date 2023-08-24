@@ -53,7 +53,7 @@ def mutate(pop):
     n = len(pop[0][0])  # get the dimension of the solution space here.
     N = len(pop)  # the population size
 
-    mutated_pop = [pop[j][0] + pop[j][1] * random.normal(size=n) for j in range(N)]
+    mutated_pop = [pop[j][0] + pop[j][1] * random.normal(size=n) for j in range(N)] ## COMENTS: very good
     tau = 1. / math.sqrt(2*math.sqrt(n))
     tau_prime = 1. / math.sqrt(2*n)
     vals = tau*random.normal(size=N) + tau_prime*random.normal(size=N)
@@ -154,7 +154,7 @@ def main():
         'T' : args.T ,
         'q' : args.q,
         'N' : args.N,
-        'f' : f,
+        'f' : f_2,
         'verbose': args.verbose,
         'xU': args.xU,
         'xL': args.xL
@@ -165,7 +165,7 @@ def main():
     best_pop, mean_fitnesses = dea(params)
     print("Best population : ", best_pop)
     plt.plot(mean_fitnesses, "o-")
-    plt.title("Optimization of the function "+f.__doc__)
+    plt.title("Optimization of the function "+f_2.__doc__)
     plt.xlabel("Generation(t)")
     plt.ylabel("Population mean fitness")
     plt.show()

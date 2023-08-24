@@ -43,16 +43,16 @@ def isperfect_improved(num: int):
     hi = num
 
     # Binary Search
-    while (hi - lo > 1) :
+    while (hi - lo > 1) :    #### <------ the worst case complexity still remains you could eliminate this while loop. 
         mid = (int)((hi + lo) / 2)
         if (num == 0 or num == 1):
             return True, num
         elif (mid * mid == num) :
             return True, mid
         elif (mid * mid > num) :
-            hi = mid   
+            hi = mid
         elif (mid * mid < num) :
-            lo = mid 
+            lo = mid
 
     if (lo * lo == num):
         return True, lo
@@ -90,7 +90,7 @@ def getLowUpper(n: int):
         i += 1
         upper = isperfect_improved(n+i) # old time complexity O(n) / new time complexity O(log(n))
 
-    minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1. 
+    minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of helper 1.
     # old time complexity O(n) / new time complexity O(log(n))
     ### END CODE ####
 

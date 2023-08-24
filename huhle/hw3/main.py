@@ -10,13 +10,13 @@ def isperfect(n: int ):
     for i in range(n):
         if i*i == n:
             return True, i
-        if i*i > n:
+        if i*i > n: # Good but this for loop could be replace by a numpy array, how?
             return False, n
     return False, n
     ### END CODE #####
 
 
-def getLowUpper(n: int):
+def getLowUpper(n: int): # Why no improvements here??
     i = 1
     ### BEGIN CODE ####
     low = isperfect(n-1)

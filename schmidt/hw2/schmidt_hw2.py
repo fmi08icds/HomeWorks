@@ -21,6 +21,7 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
+    ## COMMENTS: Good but remember the cases n=0 and n=2 have already been handled in the previous if condition. So range(2,n-1) should be more optimal.
     for i in range(n-1): # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i**2 == n: # replace None by the appropriate code.
             return True, i
@@ -45,7 +46,7 @@ def getLowUpper(n: int):
     i = 1
     ### BEGIN CODE ####
     low = isperfect(n-i)
-    upper = isperfect(n+i)
+    upper = isperfect(n+i) ## COMMENTS: GOOD :)
 
     while not low[0]: ## Hint: look at the second while loop.
         i = i+1
@@ -95,17 +96,17 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst =  (minsqrt + maxsqrt) / 2
+    rst =  (minsqrt + maxsqrt) / 2 ## COMMENTS good :)
 
     while abs(sqrt(n)-rst) >= error_threshold:
             if rst**2 < n : # Hint: have a look at the first function.
                     minsqrt = rst
             else :
-                    maxsqrt = rst
+                    maxsqrt = rst ## COMMENTS: very good!
             rst = (minsqrt + maxsqrt) / 2
             iteration +=1
     ### END CODE ####
-
+    ## COMMENTS: well done!
     return rst
 
 

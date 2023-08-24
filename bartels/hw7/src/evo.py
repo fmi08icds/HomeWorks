@@ -40,8 +40,8 @@ def mutate(pop):
     for i in range(N):
         individual = pop[i][0]
         eta = pop[i][1]
-        m_individual = individual + eta * random.random()
-        m_eta = eta * exp(tau_prime*random.random() + tau*random.random())
+        m_individual = individual + eta * random.random() # be careful here, it's a normal distribution not uniform.
+        m_eta = eta * exp(tau_prime*random.random() + tau*random.random()) # the same problem here normal instead of uniform dist.
         new_pop.append((m_individual, m_eta))
 
     return new_pop
@@ -55,7 +55,7 @@ def select(pop, fitnesses, N, q=10):
     fitnesses_ranking = [0] * len(pop)
     for i in range(0, len(pop)):
         fitnessess_indices = random.choice(
-            len(fitnesses), size=q)
+            len(fitnesses), size=q) # be careful here, we want to draw q individuals uniformly at random without replacement. consider using np.random.sample instead
         for fi in fitnessess_indices:
             if abs(fitnesses[i]) < abs(fitnesses[fi]):
                 fitnesses_ranking[i] += 1

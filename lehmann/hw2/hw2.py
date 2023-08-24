@@ -21,6 +21,7 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
+    #GOOOD
     for i in range(2,n) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i**2 == n : # replace None by the appropriate code.
             return True, i

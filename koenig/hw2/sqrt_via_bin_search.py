@@ -21,8 +21,8 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
-    precompute_to = 10
-    precomputed_squares = [i**2 for i in range(precompute_to)]
+    precompute_to = 10 ## Why adding new variables? The instructions were to only replace the none by the appropiate instructions.
+    precomputed_squares = [i**2 for i in range(precompute_to)] # Not needed
     if n in precomputed_squares:
         return True, precomputed_squares.index(n)
     elif n >= precompute_to**2:
@@ -57,6 +57,10 @@ def getLowUpper(n: int):
     minsqrt, maxsqrt = low[1], low[1]+1  # Hint: remember what is the output of helper 1.
     ### END CODE ####
 
+    ### COMMENTS####
+    # Well done, but again you did not follow the homework instructions appropiately. You were not allowed to delete code in the template.
+    # THis optimised version of the getLowUpper helper was for the homework 3.
+    ## END COMMENTS##
     return minsqrt, maxsqrt
 
 
@@ -76,6 +80,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     """
 
     ### BEGIN CODE ###
+    #GOOD
     if n == 0 or n == 1:  # Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
         return n
     ### END CODE ###
@@ -93,9 +98,9 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGIN CODE ###
     minsqrt, maxsqrt = getLowUpper(n)  # Hint: use the second helper function.
 
-    rst = (minsqrt + maxsqrt) / 2
+    rst = (minsqrt + maxsqrt) / 2 # GOOD
 
-    while maxsqrt - minsqrt >= error_threshold:
+    while maxsqrt - minsqrt >= error_threshold: #GOOD
 
         if rst**2 < n:  # Hint: have a look at the first function.
             minsqrt = rst
@@ -115,9 +120,9 @@ def main() :
                 You will write your first Python script that computes the square root of a given integer n.
                 The template_hw1 provides you with the basic structure of a Python script. Please do not add anything
                 out of ### BEGIND CODE ### and ### END CODE ###.
-                
+
                 Feel free to use print for debugging but remember to clean them up before your submission.
-                
+
                 NB: Your performance will not only be evaluated on your capacity to output good results.
                 Please make sure you understand each line you code.
             """

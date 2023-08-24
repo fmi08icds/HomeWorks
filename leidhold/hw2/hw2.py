@@ -21,6 +21,7 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
+    ### COMENTS: but you already handled the cases n= 0 and n=1, so the range should start from 2
     for i in range(n):  # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i*i == n:  # replace None by the appropriate code.
             return True, i
@@ -44,8 +45,8 @@ def getLowUpper(n: int):
      """
      i = 1
      ### BEGIN CODE ####
-     low = isperfect(n-i)
-     upper = isperfect(n+i)
+     low = isperfect(n-i) # GOOD
+     upper = isperfect(n+i) # GOOD
 
      while not low[0]:  # Hint: look at the second while loop.
          i += 1
@@ -95,15 +96,15 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
      ### BEGING CODE ###
      minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-     rst = 1
+     rst = 1 # COMMENTS: at this step, rst should already take (max-min)/2 since the cases 0 and 1 are already treated.
 
 
      while maxsqrt-rst >= error_threshold:
              if rst*rst < n:  # Hint: have a look at the first function.
-                     minsqrt = rst
+                     minsqrt = rst # COMMENTS: GOOD
              else:
-                     maxsqrt = (minsqrt+maxsqrt)/2
-             rst = (minsqrt+maxsqrt)/2
+                     maxsqrt = (minsqrt+maxsqrt)/2 # COMMENTS: optimally this should be rst if you have set rst to (max-min)/2
+             rst = (minsqrt+maxsqrt)/2 # COMMENTS: GOOD
              iteration += 1
      ### END CODE ####
      return rst
@@ -115,9 +116,9 @@ def main() :
                  You will write your first Python script that computes the square root of a given integer n.
                  The template_hw1 provides you with the basic structure of a Python script. Please do not add anything
                  out of ### BEGIND CODE ### and ### END CODE ###.
- 
+
                  Feel free to use print for debugging but remember to clean them up before your submission.
- 
+
                  NB: Your performance will not only be evaluated on your capacity to output good results.
                  Please make sure you understand each line you code.
              """

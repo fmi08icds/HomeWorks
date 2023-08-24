@@ -6,7 +6,7 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 def initialise(N,n,x_l, x_u) :
     """
         Initialize the first population of solutions for the dea
-        
+
         ## Params:
             N: Size of population\n
             n: Number of chromosoms/Attributes/Solution-Space\n
@@ -25,11 +25,11 @@ def initialise(N,n,x_l, x_u) :
 def evaluate(pop, f) :
     """
         Evaluated a population on a specific given function
-        
+
         ## Params:
             pop: population in form of [(x,eta),...]\n
             f: lambda function for the population to be evaluated at\n
-        
+
         ## Results:
             Array of fitness values in the form of a pop-sized Array of float values
 
@@ -60,7 +60,7 @@ def mutate(pop) :
 
     for i in range(N) :
         x_i = pop[i][0] + pop[i][1] * random.standard_normal(size=n)
-        eta_i = pop[i][1] * exp(tau_prime*random.standard_normal()+tau*random.standard_normal(size=n))
+        eta_i = pop[i][1] * exp(tau_prime*random.standard_normal()+tau*random.standard_normal(size=n)) # GOOD
         new_pop.append((x_i, eta_i))
 
     return new_pop
@@ -95,13 +95,13 @@ def select(pop, fitnesses, N, q=10) :
 def dea(params):
     """
         A special diffrential evolutionary algorithm without crossover
-        
+
         steps:\n
             1. initialize population
             repeat T times:\n
                 \t2. mutate
                 \t3. evaluate
-                \t4. select 
+                \t4. select
 
         ## Params:
             params = {
@@ -162,8 +162,8 @@ def parseArguments():
 def main() :
     args = parseArguments()
     #f = lambda x: sum(x**2) # Here you will define your obejective function
-    #f = lambda x: x**4+x**3-x**2-x
-    f = lambda x: sum(100*(x[i-1]-x[i]**2)**2+(x[i]-1)**2 for i in range(1,args.length))
+    f = lambda x: x**4+x**3-x**2-x
+    #f = lambda x: sum(100*(x[i-1]-x[i]**2)**2+(x[i]-1)**2 for i in range(1,args.length))
 
     params = {
         'n' : args.length,

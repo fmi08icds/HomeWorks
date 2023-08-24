@@ -17,7 +17,7 @@ def initialise(N,n,x_l, x_u) :
         x_u (float): upper bound of solution space
 
         Returns:
-        (np.array): population as 3D-Array (float), where 1. dimension is the individual, the 2. dimension is x or eta 
+        (np.array): population as 3D-Array (float), where 1. dimension is the individual, the 2. dimension is x or eta
         and the 3. dimension is the solution space
 
     """
@@ -31,8 +31,8 @@ def evaluate(pop, f) :
     """
         Returns fitnesses for all individuals in the population.
         When using gradient descent, fitness equals to f(x) and should be minimized.
-        
-        Parameters: 
+
+        Parameters:
         pop (np.array): 3D-Array (float)
         f (function): Defined in main
 
@@ -59,10 +59,10 @@ def mutate(pop) :
 
     n = len(pop[0][0]) # get the dimension of the solution space here.
     N = len(pop) # the population size
-    
+
     # initialise population in correct space with zeros:
     new_pop = np.zeros(N*2*n).reshape(pop.shape)
-    
+
     tau = np.sqrt( 2 * np.sqrt(n) ) ** (-1) #
     tau_prime = np.sqrt(2*n) ** (-1) #
 
@@ -70,10 +70,10 @@ def mutate(pop) :
         # own implementation of the mutation operator:
         parent = pop[i]
 
-        new_x = parent[0] + parent[1] * np.random.normal(0,1)
-        new_eta = parent[1] * np.exp( tau_prime * np.random.normal(0,1) + tau * np.random.normal(0,1) )
+        new_x = parent[0] + parent[1] * np.random.normal(0,1) # well done.
+        new_eta = parent[1] * np.exp( tau_prime * np.random.normal(0,1) + tau * np.random.normal(0,1) )# be careful here the second normal dist should be called for each n. i.e. np.random.normal(0,1, n) 
         child = (new_x, new_eta)
-        
+
         new_pop[i] = child
 
     return new_pop
@@ -97,10 +97,10 @@ def select(pop, fitnesses, N, q=10) :
 
     # initialise result array, index = individual
     total_wins = np.zeros(len(fitnesses))
-    
+
     for i in range(2*N): #(later called with two populations)
         # choose q random opponents (indexes in pop)
-        opponents = np.random.randint(2*N, size = q)
+        opponents = np.random.randint(2*N, size = q) # very goood
         wins = 0
 
 
@@ -111,10 +111,10 @@ def select(pop, fitnesses, N, q=10) :
                 if np.random.choice(a=[False, True]):
                     wins += 1
         total_wins[i] = wins
-    
+
     # argsort returns the (original) indices of the sorted array
     ascending = np.argsort(total_wins)
-    
+
     # turn order around, so best individuals (most wins) come first
     descending = ascending[::-1]
 
@@ -131,7 +131,7 @@ def dea(params):
 
         Paramaters:
         params (str): parsed input arguments
-        
+
         Returns:
         prev_pop (np.array): 3D-Array (float) for the last population
         mean_fit (float): mean fitness
@@ -155,7 +155,7 @@ def dea(params):
 
         # 4. update population with selected
         prev_pop = selected_pop
-        
+
         # 5. Calculate mean fitness
         m = np.mean(evaluate(prev_pop, params['f']))
         mean_fit += [m]
@@ -185,11 +185,11 @@ def parseArguments():
 def main() :
     args = parseArguments()
 
-    # First function 
+    # First function
     # Terminal: python evolutionary_algorithm.py -n 1 -xL -2 -xU 2
-    #f = lambda x: x**4 + x**3 - x**2 - x
-    #f.__doc__ = "x**4 + x**3 - x**2 - x"
-    
+    f = lambda x: x**4 + x**3 - x**2 - x
+    f.__doc__ = "x**4 + x**3 - x**2 - x"
+
     # Second function
     # Terminal: python evolutionary_algorithm.py -n 30 -xL -100 -xU 100
     #f = lambda x: sum(x**2)  # Define your objective
@@ -197,8 +197,8 @@ def main() :
 
     # Third function
     # Terminal: python evolutionary_algorithm.py -n 2 -xL -30 -xU 30
-    f = lambda x: sum(100 * (x[j+1] - x[j]**2)**2 + (x[j] - 1)**2 for j in range(len(x)-1))
-    f.__doc__ = "Rosenbrock Function"
+    #f = lambda x: sum(100 * (x[j+1] - x[j]**2)**2 + (x[j] - 1)**2 for j in range(len(x)-1))
+    #f.__doc__ = "Rosenbrock Function"
 
     params = {
         'n' : args.length,

@@ -46,8 +46,8 @@ def calculate_pi_vector(n):
     """
     r = 1.0
 
-    list_x = np.random.uniform(0, r, n)
-    list_y = np.random.uniform(0, r, n)
+    list_x = np.random.uniform(0, r, n) # Good
+    list_y = np.random.uniform(0, r, n) # Good 
 
     ninf = np.count_nonzero(list_y < f(list_x, r))
     fin = ninf / float(n)

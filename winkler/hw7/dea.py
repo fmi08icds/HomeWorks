@@ -14,7 +14,7 @@ def initialise(n: int, d: int, x_l: float, x_u: float) -> NDArray:
         d: Number of dimension of the solution space
         x_l: Lower bound of the solution space
         x_u: Upper bound of the solution space
-    
+
     Returns: Array of shape `(n, 2 * d)` with random values sampled from a uniform distribution
     """
     all_x = random.uniform(low=x_l, high=x_u, size=(n, d))  # objective variables
@@ -27,7 +27,7 @@ def evaluate(population: NDArray, f: Callable) -> NDArray:
     """Evaluate the fitness of each agent in the population
 
     Parameters:
-        population: Population of agents as an array of shape `(n, 2 * d)`, where `n` is the population size 
+        population: Population of agents as an array of shape `(n, 2 * d)`, where `n` is the population size
             and `d` the dimension of the objective variable
         f: target function of the optimization problem
 
@@ -42,10 +42,10 @@ def mutate(population: NDArray) -> NDArray:
     """Mutate every agent of the population to generate a new population with their offsprings
 
     Parameters:
-        population: Population of agents as an array of shape `(n, d + 1)`, where `n` is the population size 
+        population: Population of agents as an array of shape `(n, d + 1)`, where `n` is the population size
             and `d` the dimension of the objective variable
 
-    Returns: Copy of the `population` array with the same shape 
+    Returns: Copy of the `population` array with the same shape
     """
     # create copy so that previous population is not changed
     new_population = population.copy()
@@ -56,9 +56,9 @@ def mutate(population: NDArray) -> NDArray:
     tau_prime = 1 / sqrt(2 * n)
 
     # update objective variables
-    new_population[:, :d] = population[:, :d] + population[:, d:] * random.normal(size=(n, d))
+    new_population[:, :d] = population[:, :d] + population[:, d:] * random.normal(size=(n, d)) ## COMMENTS: very good
     # update strategy parameters
-    new_population[:, d:] = population[:, d:] * exp(tau_prime * random.normal(size=(n,1)) + tau * random.normal(size=(n, d)))
+    new_population[:, d:] = population[:, d:] * exp(tau_prime * random.normal(size=(n,1)) + tau * random.normal(size=(n, d))) ## COMMENTS: very good
 
     return new_population
 
@@ -68,12 +68,12 @@ def select(population: NDArray, fitness: NDArray, keep: int, q: int = 10) -> NDA
     `keep` agents with the most wins are kept in the final population.
 
     Parameters:
-        population: Population of agents as an array of shape `(n, 2 * d)`, where `n` is the population size 
+        population: Population of agents as an array of shape `(n, 2 * d)`, where `n` is the population size
             and `d` the dimension of the objective variable
         fitness: Array of shape `(n,)` with the fitness score for each agent (lower is better)
         keep: Number of agents that will be selected
         q: Number of randomly picked opponents from the population each agent must compete against
-    
+
     Returns: Population of selected agents as an array of shape `(keep, 2 * d)`
     """
     n = population.shape[0]
@@ -82,7 +82,7 @@ def select(population: NDArray, fitness: NDArray, keep: int, q: int = 10) -> NDA
     for i in range(population.shape[0]):
         # choose opponents from the entire population (except the agent itself)
         opponents = random.choice([idx for idx in range(population.shape[0]) if idx != i], size=q, replace=False)
-        # determine number of wins over the opponents 
+        # determine number of wins over the opponents
         wins = 0
         for j in opponents:
             if fitness[i] < fitness[j]:
@@ -135,7 +135,7 @@ def parseArguments():
 def main():
     args = parseArguments()
     random.seed(args.seed)
-    
+
     # derive fitness function from command line argument
     f = eval("lambda x: " + args.f)
 

@@ -33,7 +33,8 @@ def main():
     cl3 = rng.multivariate_normal([3, 2], [[1, -0.7], [-0.7, 1]], size=200)
     pts = np.concatenate((cl1, cl2, cl3))
     centroids = k_means(pts, 3)
-    print(centroids)
+    print(centroids) ## GOOD  but a visualization would have been better.or print the distance from the groundtruth. 
+
 
 
 if __name__ == '__main__':

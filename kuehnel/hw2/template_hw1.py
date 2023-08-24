@@ -2,7 +2,7 @@ import numpy as np
 from numpy import random, sqrt, round
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
-
+## COMMENTS: instructed to not add any code out of the BEGIN and END CODE.
 def is_perfect(n: int):
     """
         This function is the first helper. It takes an integer n and checks
@@ -22,7 +22,7 @@ def is_perfect(n: int):
     if n == 0 or n == 1:
         return True, n
 
-    for i in range(n):
+    for i in range(n): ## COMMENTS: range should start at 2 since n=0 and n= 1 hace already been considered in the if statement.
         if (i**2) == n:
             return True, i
     return False, None
@@ -54,7 +54,7 @@ def get_lower_upper(n: int):
 
     while not lower[0]:
         i += 1
-        lower = is_perfect(n - i)
+        lower = is_perfect(n - i) ## COMMENTS: good!
 
     i = 1
     while not upper[0]:
@@ -90,14 +90,14 @@ def my_sqrt(n: int, error_threshold=0.000000001) -> float:
         return checkup[1]
 
     min_sqrt, max_sqrt = get_lower_upper(n)
-    rst = (min_sqrt + max_sqrt) / 2.
-    rst_squared = rst**2
+    rst = (min_sqrt + max_sqrt) / 2. ## COMMENTS: good
+    rst_squared = rst**2 ## COMMENTS: no need to creat new variable
     # The variable is used to count the number of times
     # we repeat the instructions in the while loop
     iteration = 0
-    while abs(n - rst_squared) >= error_threshold:
+    while abs(n - rst_squared) >= error_threshold: ##COMENTS: maxsqrt-minsqrt >= error_threshold should be enough
         if rst_squared < n:  # Hint: have a look at the first function.
-            min_sqrt = rst
+            min_sqrt = rst ## COMMENTS: good
         else:
             max_sqrt = rst
         # calculate new rst and rst_squared values
@@ -111,13 +111,13 @@ def my_sqrt(n: int, error_threshold=0.000000001) -> float:
 def main():
     doc_ = """
                 Welcome to the first Python assignment!!!\n
-                You will write your first Python script that computes 
+                You will write your first Python script that computes
                 the square root of a given integer n.
-                The template_hw1 provides you with the basic structure of 
+                The template_hw1 provides you with the basic structure of
                 a Python script. Please do not add anything
                 out of ### BEGIND CODE ### and ### END CODE ###.
 
-                Feel free to use print for debugging but remember 
+                Feel free to use print for debugging but remember
                 to clean them up before your submission.
 
                 NB: Your performance will not only be evaluated on your capacity

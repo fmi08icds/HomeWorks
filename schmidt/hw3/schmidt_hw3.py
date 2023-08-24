@@ -54,6 +54,7 @@ def getLowUpper(n: int):
         low = isperfect(n-i)
 
     i = 1
+    ## COMMENTS: possible improvements would have been to remove this second loop right? since once low is found upper = low + 1
     while not upper[0]:
         i += 1
         upper = isperfect(n+i)
@@ -101,7 +102,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
     rst =  (minsqrt + maxsqrt) / 2
-    np_sqrt = np.sqrt(n)
+    np_sqrt = np.sqrt(n) ## COMMENTS: not need since the condition can simply be maxsqrt - minsqrt >=error_threshold
     while abs(np_sqrt-rst) >= error_threshold:
             if rst**2 < n : # Hint: have a look at the first function.
                     minsqrt = rst
@@ -116,6 +117,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
 
 
 def main() :
+    ### COMMENTS: more improvement possible: try this python schmidt_hw3.py --n 22470012 and then it still takes too much time.
     doc_ =  """
                 Welcome to the first Python assignment!!!\n
                 You will write your first Python script that computes the square root of a given integer n.

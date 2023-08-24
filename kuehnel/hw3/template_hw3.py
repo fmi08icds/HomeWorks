@@ -28,7 +28,7 @@ def isperfect(n: int ):
     ### END CODE #####
 
 
-def getLowUpper(n: int):
+def getLowUpper(n: int):## COMMENTS: this methos should be optimized.
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.

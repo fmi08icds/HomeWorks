@@ -4,7 +4,7 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
 
 def isperfect(n: int ):
- 
+
     if n == 0 or n == 1:
         return (True, n)
 
@@ -12,13 +12,14 @@ def isperfect(n: int ):
     for i in range (1, n+1) : # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
         if i * i == n : # replace None by the appropriate code.
             return (True, i)
-        if i * i > n:
+        if i * i > n: # COMMENTS: GOOD :)
             break
     return (False, n)
     ### END CODE #####
 
 
 def getLowUpper(n: int):
+    ## COMMENTS: this function could be potentially optimized as well. one of the while loop is useless
 
     i = 1
     ### BEGIN CODE ####
@@ -42,12 +43,12 @@ def getLowUpper(n: int):
 
 
 def mysqrt(n: int, error_threshold=0.000000001) -> float:
- 
+
     ### BEGIN CODE ###
     if n == 0 or n == 1 : ## Hint: remember to always start by basic case solution. for the square root problem, we have 0 and 1
         return n
     ### END CODE ###
- 
+
 
 
     ### BEGIN CODE ###

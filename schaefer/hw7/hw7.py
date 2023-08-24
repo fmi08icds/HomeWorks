@@ -17,7 +17,7 @@ def initialise(N, n, x_l, x_u):
         all_x: Initial population of shape (N, n)
     """
     all_x = np.random.uniform(x_l, x_u, (N, n))
-    all_eta = np.zeros((N, n))
+    all_eta = np.zeros((N, n)) ## COMMENTS: why zeros? check the homework description.
     return all_x
 
 
@@ -54,7 +54,7 @@ def mutate(pop):
     for i in range(N):
         a, b, c = np.random.choice(N, 3, replace=False)
         eta = np.random.uniform(-tau, tau, n)
-        new_pop[i] = pop[a] + tau_prime * (pop[b] - pop[c]) + eta
+        new_pop[i] = pop[a] + tau_prime * (pop[b] - pop[c]) + eta ## COMMENTS: not why have been described during the classes.
     return new_pop
 
 
@@ -75,7 +75,7 @@ def select(pop, fitnesses, N, q=10):
     selected_pop = []
     sorted_indices = np.argsort(fitnesses)
     for i in range(N):
-        indices = np.random.choice(sorted_indices[:q], 2, replace=False)
+        indices = np.random.choice(sorted_indices[:q], 2, replace=False) ## COMMENTS: WRONG :(
         if fitnesses[indices[0]] > fitnesses[indices[1]]:
             selected_pop.append(pop[indices[0]])
         else:
@@ -127,14 +127,14 @@ def parseArguments():
 
 def main():
     args = parseArguments()
-    f = lambda x: sum(x ** 2)  # Define your objective function here
-    f.__doc__ = "sum(x**2)"
+    # f = lambda x: sum(x ** 2)  # Define your objective function here
+    # f.__doc__ = "sum(x**2)"
 
-    #f = lambda x: sum(100 * (x[j + 1] - x[j] ** 2) ** 2 + (x[j] - 1) ** 2 for j in range(len(x) - 1))
-    #f.__doc__ = "Rosenbrock"
+    # f = lambda x: sum(100 * (x[j + 1] - x[j] ** 2) ** 2 + (x[j] - 1) ** 2 for j in range(len(x) - 1))
+    # f.__doc__ = "Rosenbrock"
 
-    #f = lambda x: x**4 + x**3 - x**2 - x
-    #f.__doc__ = "x**4 + x**3 - x**2 -x"
+    f = lambda x: x**4 + x**3 - x**2 - x
+    f.__doc__ = "x**4 + x**3 - x**2 -x"
 
     params = {
         'n': args['length'],

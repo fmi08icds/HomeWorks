@@ -29,7 +29,7 @@ def isperfect(n: int):
             return (True, i)
     return (False, n)
     i = 0
-    while (i**2 < n):  # and (i < int(n/2)):
+    while (i**2 < n):  # and (i < int(n/2)): Why do you keep the two loops? are there not doing the same thing?
         i += 1
 
     if i**2 == n:
@@ -39,7 +39,7 @@ def isperfect(n: int):
     ### END CODE #####
 
 
-def getLowUpper(n: int):
+def getLowUpper(n: int): # This function would have been optimized too...
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.

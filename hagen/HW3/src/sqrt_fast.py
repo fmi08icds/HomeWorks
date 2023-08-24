@@ -22,10 +22,11 @@ def isperfect(n: int ):
         return (True, n)
 
     ### BEGIN CODE #####
-    
+
     # Trying numpy array instead of for-loop => big improvement!
     potentials = np.arange(2,n)  # make array with smaller numbers than n (potential square roots)
-    if n in potentials**2:  # 
+    if n in potentials**2:  #
+        ## simply do, return True, potentials[np.where(potentials**2 == n)[0][0]]
         return True, (np.where(potentials**2 == n)[0][0] +2)  # index plus 2, because first "potentials" array starts with 2
 
 
@@ -119,6 +120,8 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
 
 
 def main() :
+    ### COMMENTS: more improvement possible: try this python schmidt_hw3.py --n 22470012 and then it still takes too much time.
+    
     doc_ =  """
                 Welcome to the first Python assignment!!!\n
                 You will write your first Python script that computes the square root of a given integer n.

@@ -1,4 +1,5 @@
 """
+Great! to always cite the ref :) 
 source: https://towardsdatascience.com/create-your-own-k-means-clustering-algorithm-in-python-d7d4c9077670
 """
 
@@ -26,7 +27,7 @@ class KMeans:
     ----------
     n_clusters : int, default=8
         The number of clusters to form as well as the number of centroids to generate.
-    
+
     max_iter : int, default=300
         Maximum number of iterations of the k-means algorithm for a single run.
     """
@@ -47,9 +48,9 @@ class KMeans:
         self.centroids = [random.choice(X_train)]
 
         # Choose remaining centroids based on distance from previous centroids
-        for _ in range(self.n_clusters-1): 
+        for _ in range(self.n_clusters-1):
             # Calculate distances from points to the centroids
-            dists = np.sum([euclidean(centroid, X_train) for centroid in self.centroids], axis=0) 
+            dists = np.sum([euclidean(centroid, X_train) for centroid in self.centroids], axis=0)
             # Normalize the distances
             dists /= np.sum(dists)
             # Choose remaining points based on their distances
@@ -74,7 +75,7 @@ class KMeans:
                 if np.isnan(centroid).any():  # Catch any np.nans, resulting from a centroid having no points
                     self.centroids[i] = prev_centroids[i]
             iteration += 1
-        
+
 
     def evaluate(self, X):
         """
@@ -94,5 +95,3 @@ class KMeans:
             centroids.append(self.centroids[centroid_idx])
             centroid_idxs.append(centroid_idx)
         return centroids, centroid_idxs
-    
-

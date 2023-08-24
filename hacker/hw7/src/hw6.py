@@ -1,5 +1,5 @@
 import numpy as np
-from math import sqrt, exp
+from math import sqrt, exp # Good
 from matplotlib import pyplot as plt
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
@@ -8,7 +8,7 @@ def initialise(N, n, x_l, x_u):
     """
         Init population of size N with n dimensions.
         Each value x of n is between X_l and x_u
-        calculate the standard deviation of all x of the pop 
+        calculate the standard deviation of all x of the pop
     """
     all_x = np.random.uniform(low=x_l, high=x_u, size=(N, n))
     eta = np.std(all_x, axis=0)
@@ -43,8 +43,8 @@ def mutate(pop):
     for i in range(N):
         individual = pop[i][0]
         eta = pop[i][1]
-        m_individual = individual + eta * np.random.random()
-        m_eta = eta * exp(tau_prime*np.random.random() + tau*np.random.random())
+        m_individual = individual + eta * np.random.random() # Normal distribution, not uniform.
+        m_eta = eta * exp(tau_prime*np.random.random() + tau*np.random.random()) # the same as the previous comment
         new_pop.append((m_individual, m_eta))
 
     return new_pop
@@ -58,7 +58,7 @@ def select(pop, fitnesses, N, q=10):
     selected_pop = []
     wins = [0] * len(pop)
     for i in range(0, len(pop)):
-        q_indices = np.random.choice(len(fitnesses), size=q, replace=False)
+        q_indices = np.random.choice(len(fitnesses), size=q, replace=False)# Good
         for qi in q_indices:
             if fitnesses[i] < fitnesses[qi]:
                 wins[i] += 1

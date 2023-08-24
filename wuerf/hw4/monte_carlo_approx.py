@@ -1,7 +1,7 @@
 # %%
 import numpy as np
 import matplotlib.pyplot as plt
-from numba import jit
+from numba import jit ## COMMENTS: it was not needed for this assignment...
 
 
 @jit
