@@ -1,2 +1,5 @@
 tauscher/livesessions.py
 tauscher/.gitignore
+HW1/
+**/__pycache__/**
+
