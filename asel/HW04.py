@@ -16,7 +16,7 @@ def monte_carlo_sim(N):
     list_x = np.random.uniform(0, R, N)
     list_y = np.random.uniform(0, R, N)
 
-    list_accepted_x = list_x[list_y < f(list_x, R)]
+    list_accepted_x = list_x[list_y < f(list_x, R)] ##COMMENTS: good :)
 
     Ninf = len(list_accepted_x)
     fi = Ninf / N
@@ -98,5 +98,5 @@ if __name__ == "__main__":
     print("Improved vectorized version time in seconds:", end_time)
     print("Result of the calculation:", result_v_f)
 
-    
+
     main()

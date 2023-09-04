@@ -1,9 +1,9 @@
 """ HW07.py Differential Evolutionary Algorithm tests following functions:
 
- 1. sum(x**2) 
+ 1. sum(x**2)
  2."Rosenbrock"
  3. x**4 + x**3 - x**2 -x
- 
+
 """
 
 
@@ -27,8 +27,8 @@ def initialise(N, n, x_l, x_u):
         init_po: Initial population of shape (N, n)
     """
     init_po = np.random.uniform(x_l, x_u, (N, n))
-    all_eta = np.zeros((N, n))
-    return init_po
+    all_eta = np.zeros((N, n)) ## COMMENTS: wrong! Please, check the assignment instructions.
+    return init_po ## COMMENTS: what about the etas?
 
 
 def evaluate(pop, func):
@@ -62,7 +62,7 @@ def mutate(pop):
     tau_prime = (np.sqrt(2*n))**-1
 
     for i in range(N):
-        a, b, c = np.random.choice(N, 3, replace=False)
+        a, b, c = np.random.choice(N, 3, replace=False) ## COMMENTS: wrong, please check the algorithm in the slides
         eta = np.random.uniform(-tau, tau, n)
         new_pop[i] = pop[a] + tau_prime * (pop[b] - pop[c]) + eta
     return new_pop
@@ -85,7 +85,7 @@ def select(pop, fitnesses, N, q=10):
     selected_pop = []
     sorted_indices = np.argsort(fitnesses)
     for i in range(N):
-        indices = np.random.choice(sorted_indices[:q], 2, replace=False)
+        indices = np.random.choice(sorted_indices[:q], 2, replace=False) ## COMMENTS: wrong implementation
         if fitnesses[indices[0]] > fitnesses[indices[1]]:
             selected_pop.append(pop[indices[0]])
         else:

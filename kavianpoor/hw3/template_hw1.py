@@ -1,6 +1,8 @@
 from numpy import random, sqrt, round, floor, ceil, int16
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
+## COMMENTS: surprisingly your first implementation of the sqrt function in hw2/ does not work.
+## COMMENTS: so, where did you take this code in hw3 from?
 
 
 def isperfect(n: int):
@@ -20,7 +22,7 @@ def isperfect(n: int):
 
     ### BEGIN CODE #####
     for i in range(int16(floor((n+1)/2))+1): # Hint: you can use the range, or any sequence type. if you don't remember how it works, have a look at the documentation.
-        if i*i == n : 
+        if i*i == n :
             return True, i
     return (False, n)
     ### END CODE #####
@@ -38,8 +40,10 @@ def isperfect_improved(num: int):
         isperfect_improved(16) = (True, 4)
     """
 
+    ### COMMENTS: This function is empty
 
-def getLowUpper(n: int):
+
+def getLowUpper(n: int): ##COMMENTS: this function as well could be optimised.
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
         We will use two "while" loops here, but we could have used "for" loops or whatever.
@@ -67,7 +71,7 @@ def getLowUpper(n: int):
         i += 1
         upper = isperfect(n + i)
 
-    minsqrt, maxsqrt = low[1], upper[1] 
+    minsqrt, maxsqrt = low[1], upper[1]
     ### END CODE ####
 
     return minsqrt, maxsqrt
@@ -93,7 +97,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
 
 
     ### BEGIN CODE ###
-    
+
     ## solve for special cases.
     if n == 0 or n == 1:
         return n
@@ -111,7 +115,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     rst =  (minsqrt + maxsqrt) / 2.0
 
     while abs(rst**2 - n) > error_threshold:
-    
+
             if rst**2 < n : # Hint: have a look at the first function.
                     minsqrt = rst
             else :

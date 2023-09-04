@@ -10,7 +10,7 @@ def initialize_clusters(data, num_clusters):
 def assign_data_to_clusters(data, centers):
     # Assign each data point to the cluster with the smallest distance (Euclidean distance) to its center.
     distances = np.linalg.norm(data[:, np.newaxis] - centers, axis=-1)
-    labels = np.argmin(distances, axis=1)
+    labels = np.argmin(distances, axis=1) ##COMMENTS: good
     return labels
 
 def update_clusters(data, labels, num_clusters):
@@ -60,7 +60,7 @@ num_clusters = 3
 centers, labels = kmeans(data, num_clusters)
 
 # Visualize the data points and cluster centers using a scatter plot.
-plt.scatter(data[:, 0], data[:, 1], c=labels)
+plt.scatter(data[:, 0], data[:, 1], c=labels) ## COOMENTS: good :)
 plt.scatter(centers[:, 0], centers[:, 1], c='red', marker='x', s=100)
 
 plt.xlabel('X')

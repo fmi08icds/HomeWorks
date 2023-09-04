@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS
 
-class Population:
+class Population: ## COMMENTS: why not using the template as it was?
     def __init__(self, size, dim, bounds):
         self.size = size
         self.dim = dim
@@ -18,7 +18,7 @@ class Population:
         self.fitness = function(self.individuals)
 
     def mutate(self):
-        self.individuals += self.eta * np.random.normal(0, 1, (self.size, self.dim))
+        self.individuals += self.eta * np.random.normal(0, 1, (self.size, self.dim)) ##COMMENTS: wrong!
 
     def select(self):
         best_individuals = self.individuals[np.argsort(self.fitness)[:self.size // 2]]
@@ -75,4 +75,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

@@ -1,26 +1,27 @@
-from numpy import sqrt
+from numpy import random, sqrt, round
+from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, SUPPRESS ##COMMENTS: added for assessments
 
 def isperfect(n: int) -> tuple[bool, int]:
     """
     This function takes an integer n and checks if n has a perfect square root or not.
     If n has a perfect square root, then it returns True and its perfect square root. If not,
     it returns False and n.
-    
+
     Args:
     - n: an integer to check
-    
+
     Returns:
-    - A tuple (bool, int). If n has a perfect square root, the tuple is (True, int(sqrt(n))). 
+    - A tuple (bool, int). If n has a perfect square root, the tuple is (True, int(sqrt(n))).
       If not, the tuple is (False, n).
     """
-    
+
     if n == 0 or n == 1:
         return (True, n)
-    
-    for i in range(1, n+1):
+
+    for i in range(1, n+1): ## COMMENTS: Good but the case n=1 has been handled in the if condition up.
         if i*i == n:
             return (True, i)
-    
+
     return (False, n)
 
 def getLowUpper(n: int) -> tuple[int, int]:
@@ -29,16 +30,16 @@ def getLowUpper(n: int) -> tuple[int, int]:
     We will use two "while" loops here, but we could have used "for" loops or whatever.
     The first that will catch the first perfect square root is less than the square root of n.
     The second one will catch the first square root greater than the square root of n.
-    
+
     Args:
     - n: an integer
-    
+
     Returns:
     - A tuple (minsqrt:int, maxsqrt:int)
     """
-    
+
     i = 1
-    
+
     # Get the nearest perfect square roots less than and greater than sqrt(n)
     low = isperfect(n - 1)
     upper = isperfect(n + 1)
@@ -46,14 +47,14 @@ def getLowUpper(n: int) -> tuple[int, int]:
     # Find the lower perfect square root of n
     while not low[0]:
         i += 1
-        low = isperfect(n - i*i)
-    
+        low = isperfect(n - i*i) ## COMMENTS: wrong, isperfect(n-i) not n-i**2.
+
     # Find the upper perfect square root of n
     i = 1
     while not upper[0]:
         i += 1
         upper = isperfect(n + i*i)
-    
+
     # Return the lower and upper perfect square roots
     minsqrt, maxsqrt = low[1], upper[1]
     return minsqrt, maxsqrt
@@ -85,7 +86,7 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGIN CODE ###
     minsqrt, maxsqrt = getLowUpper(n)
 
-    rst = (minsqrt + maxsqrt) / 2
+    rst = (minsqrt + maxsqrt) / 2 ##COMMENTS: good :)
 
     while abs(n - rst ** 2) >= error_threshold :
 
@@ -113,6 +114,7 @@ def main() :
                 NB: Your performance will not only be evaluated on your capacity to output good results.
                 Please make sure you understand each line you code.
             """
+    ## COMMENTS: be careful here, you deleted the imports for this line to work.
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter, argument_default=SUPPRESS, description=doc_)
     parser.add_argument('--n', type=int, help="An integer input for which we compute the sqrt root.")
     args = parser.parse_args()

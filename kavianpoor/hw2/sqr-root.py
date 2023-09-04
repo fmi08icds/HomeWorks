@@ -16,9 +16,10 @@ def isperfect(n: int ):
         isperfect(16) = (True, 4)
     """
     if n == 0 or n == 1:
-        return (True, n)
+        return (True, n) ## COMMENTS: Good!
 
     ### BEGIN CODE #####
+    ## COMMENTS: but we already handled the cases when n=0, annd 1.
     for i in range(n) : # Hint: you can use the range, or any sequence type. if you
         # don't
         # remember how it works, have a look at the documentation.
@@ -26,7 +27,7 @@ def isperfect(n: int ):
             return True, i
     return False, n
     ### END CODE #####
-    
+
 def getLowUpper(n: int):
     """
         This function is the second helper. It takes an integer n and returns the lower and upper perfect square root to n.
@@ -46,12 +47,12 @@ def getLowUpper(n: int):
 
     while low[0] != True: ## Hint: look at the second while loop.
         i += 1
-        low = n-i
+        low = n-i ## COMMENTS: Wrong! replace it by isperfect(n-i)
 
     i = 1
     while upper[0] != True :
         i += 1
-        upper = n + 1
+        upper = n + 1 ## COMMENTS: Wrong! replace it by isperfect(n+i)
 
     minsqrt, maxsqrt = low[1], upper[1] # Hint: remember what is the output of
     # helper 1.
@@ -89,9 +90,9 @@ def mysqrt(n: int, error_threshold=0.000000001) -> float:
     ### BEGING CODE ###
     minsqrt, maxsqrt = getLowUpper(n) #Hint: use the second helper function.
 
-    rst =  (minsqrt + maxsqrt)/2
+    rst =  (minsqrt + maxsqrt)/2 ##COMENTS: good :)
 
-    while rst >= error_threshold :
+    while rst >= error_threshold :  ## COMMENTS: this condition will always hold.
 
             if rst < n : # Hint: have a look at the first function.
                     minsqrt = rst
@@ -122,7 +123,7 @@ def main() :
 
     myvalue = mysqrt(input_n)
     npvalue = sqrt(input_n)
-
+    ###COMMENTS: your code does not run. Please have a look at my comments and debugging.
 
     assert round(myvalue, 2) == round(myvalue, 2), "Input test failled. Please, check your script again. your sqrt = {} and numpy sqrt = {}".format(myvalue, npvalue)
 

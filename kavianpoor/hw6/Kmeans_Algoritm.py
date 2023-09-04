@@ -1,6 +1,6 @@
 
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt ## COMMENTS: remove imports you don't use anywhere in your code.
 def kmeans(X, k, max_iters=100):
     # Initialisiere Zentroide zufällig
     centroids = X[np.random.choice(range(len(X)), size=k, replace=False)]
@@ -27,10 +27,8 @@ def main():
     cl2 = rng.multivariate_normal([1, 0], [[1, 0], [0, 1]], size=150)
     cl3 = rng.multivariate_normal([3, 2], [[1, -0.7], [-0.7, 1]], size=200)
     pts = np.concatenate((cl1, cl2, cl3))
-    centroids = kmeans(pts, 3)
+    centroids = kmeans(pts, 3) ## COMMENTS: good but a plot would have illustrated your results better.
     print("Centroids:", centroids)
 
 if __name__ == '__main__':
     main()
-
-

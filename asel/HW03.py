@@ -32,7 +32,7 @@ def is_perfect_square(n):
     return False, n
 
 
-def get_low_upper(n):
+def get_low_upper(n): ##COMMENTS: this function would have been improved as well
     """
     Returns the lower and upper perfect square root of n using two while loops.
     """
@@ -42,7 +42,7 @@ def get_low_upper(n):
 
     while not low[0]:
         i += 1
-        low = is_perfect_square(n - i)
+        low = is_perfect_square(n - i) ##COMMENTS: but it was not correct in the hw2, where did you get it right from?
 
     i = 1
     while not upper[0]:

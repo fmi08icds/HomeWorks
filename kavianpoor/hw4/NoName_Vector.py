@@ -45,7 +45,7 @@ def NoName(N) :
     list_accepted_x = []
 
     for i in range(N) :
-            if (list_y[i]< f(list_x[i],R)) :
+            if (list_y[i]< f(list_x[i],R)) : ## COMMENTS: problem here!
                     list_accepted_x.append(list_x[i])
 
 
@@ -57,7 +57,7 @@ def NoName(N) :
     return 4*fin
 
 # Measure time for non-vectorized version
-t1 = timeit.timeit(lambda: [NoName(N) for _ in range(M)], number=1)
+t1 = timeit.timeit(lambda: [NoName(N) for _ in range(M)], number=1) ##COMMENTS: what is this piece of code doing here?
 
 # Measure time for vectorized version
 t2 = timeit.timeit(lambda: [NoName_vec(N) for _ in range(M)], number=1)
@@ -79,7 +79,7 @@ def main () :
         list_rst = [NoName(N) for _ in range(M)]
         list_mu.append(np.mean(list_rst))
         list_sigma.append(np.std(list_rst))
-    
+
     print(f"Mean of the means: {np.mean(list_mu)}")
     print(f"Std of the means: {np.std(list_mu)}")
     print(f"Mean of the stds: {np.mean(list_sigma)}")
