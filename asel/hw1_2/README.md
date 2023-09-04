@@ -1,0 +1,12 @@
+    Windows 10 / Anaconda Jupiter Notebook / VS Code
+    - git clone https://github.com/fmi08icds/HomeWorks.git
+    - cd HOMEWORKS
+    - mkdir veryaselle
+    - cd veryaselle
+    - mkdir hw1
+    - cd hw1
+    - open in VS Code
+    - create README.md
+    - git add .
+    - git commit -m "hw1 veryaselle"
+    - git push
